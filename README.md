@@ -20,7 +20,7 @@ It uses app router and tailwindcss for styling.
 1. Clone the repository:
    ```
    git clone <repo-url>
-   cd agentic-landing-page
+   cd agentic-dashboard-template
    ```
 
 2. Initialize SST in the project
