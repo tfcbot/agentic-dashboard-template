@@ -40,3 +40,10 @@ Deploy to your desired stage
 ```
 npx sst deploy --stage your-stage-name
 ```
+
+## Note
+This is a reference implementation meant for starting a new dashboard project. As of now there are no plans to add addtional features or integrations.
+
+Please do not use this directly in production without testing and ensuring it meets your needs. 
+
+Do not submit any PRs or issues for this repository. 
