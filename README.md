@@ -1,4 +1,4 @@
-# agentic-dashboard
+# agentic-dashboard-template
 
 This project is built using [SSTv3](https://sst.dev/) and [Next.js](https://nextjs.org/).
 
