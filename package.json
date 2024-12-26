@@ -6,13 +6,15 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
-    "next": "14.2.7",
+    "next": "14.2.21",
     "react": "^18",
     "react-dom": "^18",
-    "sst": "3.0.94"
+    "sst": "3.4.30"
   },
   "devDependencies": {
     "@types/node": "^20",

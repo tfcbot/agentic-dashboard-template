@@ -1,12 +1,32 @@
-import Link from 'next/link';
-import React from 'react';
-export default function Home() {
+import { DashboardHeader } from './components/DashboardHeader';
+import { StatCard } from './components/StatCard';
+import { RecentUpdates } from './components/RecentUpdates';
+import { ListIcon, AnalyticsIcon } from './components/icons';
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold mb-8">Welcome to Your App</h1>
-      <Link href="/dashboard" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Go to Dashboard
-      </Link>
-    </main>
+    <div className="transition-all duration-300">
+      <div className="p-4 lg:p-8">
+        <DashboardHeader title="Dashboard" />
+
+        {/* Main Content Area */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <StatCard
+            title="Total Items"
+            value={0}
+            icon={<ListIcon />}
+          />
+          <StatCard
+            title="Analytics"
+            value="--"
+            icon={<AnalyticsIcon />}
+          />
+        </div>
+
+        <div className="mt-8">
+          <RecentUpdates />
+        </div>
+      </div>
+    </div>
   );
 }
