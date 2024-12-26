@@ -8,7 +8,6 @@ import { usePurchaseCredits } from '@/app/hooks/useApi';
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useAuth, UserButton, useUser } from '@clerk/nextjs';
 import { loadStripe } from '@stripe/stripe-js';
-import { useUserCreditsRemaining } from '@/app/hooks/useApi';
 import { useSidebarContext } from '@/app/context/SidebarContext'
 
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -19,7 +18,6 @@ const Sidebar = () => {
   const { getSessionId, isLoading: isPurchasing, error: purchaseError } = usePurchaseCredits();
   const { user } = useUser();
   const { getToken } = useAuth();
-  const { data: creditsRemaining, isLoading: isLoadingCredits } = useUserCreditsRemaining();
 
   const handleUpgrade = async () => {
     try {
@@ -42,11 +40,9 @@ const Sidebar = () => {
 
       if (error) {
         console.error('Stripe redirect failed:', error);
-        // Handle the error, maybe set an error state
       }
     } catch (error) {
       console.error('Failed to purchase credits:', error);
-      // You might want to set an error state here to display to the user
     }
   };
 
@@ -133,16 +129,6 @@ const Sidebar = () => {
               Manage Subscription
             </button>
             {purchaseError && <p className="mt-2 text-sm text-red-500">Failed to purchase credits. Please try again.</p>}
-            <div className="mt-2"></div>
-            <Suspense fallback={<LoadingSpinner size="small" />}>
-              {isLoadingCredits ? (
-                <LoadingSpinner size="small" />
-              ) : (
-                <p className="mt-2 text-sm text-gray-400">
-                  Remaining credits: {creditsRemaining}
-                </p>
-              )}
-            </Suspense>
           </div>
         )}
       </div>

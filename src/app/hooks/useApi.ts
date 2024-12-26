@@ -4,8 +4,10 @@ import React from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth } from '@clerk/nextjs';
 import { getCheckoutSessionId } from '@/lib/api';
+import { mockApiResponses } from '@/lib/mockData';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const USE_MOCK_DATA = true; // Toggle this to switch between mock and real data
 
 export function useUserCreditsRemaining() {
   const { getToken } = useAuth();
@@ -13,6 +15,12 @@ export function useUserCreditsRemaining() {
   return useQuery({
     queryKey: ['userCreditsRemaining'],
     queryFn: async () => {
+      if (USE_MOCK_DATA) {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
+        return mockApiResponses.userCreditsRemaining;
+      }
+
       const token = await getToken();
       const response = await fetch(`${API_URL}/credits/remaining`, {
         headers: {
