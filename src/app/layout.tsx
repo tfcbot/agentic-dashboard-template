@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from "next/font/google";
-import React from "react";
-import Sidebar from "./components/Sidebar";
+import Providers from "./providers";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,14 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-900">
-        <div className="flex h-screen">
-          <Sidebar />
-          <main className="w-full h-full">
+      <ClerkProvider>
+        <body className={`${inter.className} bg-gray-900`}>
+          <Providers>
             {children}
-          </main>
-        </div>
-      </body>
+          </Providers>
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
