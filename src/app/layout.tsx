@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs';
 import { Inter } from "next/font/google";
-import React from "react";
-import Sidebar from "./components/Sidebar";
+import Providers from "./providers";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,12 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <ClerkProvider>
         <body className={`${inter.className} bg-gray-900`}>
-          <div className="flex h-screen">
-            <Sidebar />
-            <main className="flex-1 w-full h-full p-4 overflow-auto">
-              {children}
-            </main>
-          </div>
+          <Providers>
+            {children}
+          </Providers>
         </body>
       </ClerkProvider>
     </html>

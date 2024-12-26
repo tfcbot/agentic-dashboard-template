@@ -52,7 +52,7 @@ export default $config({
       environment: {
         NEXT_PUBLIC_CLERK_SIGN_IN_URL: clerkSignInUrl.value,
         NEXT_PUBLIC_CLERK_SIGN_UP_URL: clerkSignUpUrl.value,
-        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: clerkPublishableKey.value,
+        NEXT_CLERK_PUBLISHABLE_KEY: clerkPublishableKey.value,
         NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: stripePublishableKey.value,
         CLERK_SECRET_KEY: clerkSecretKey.value,
         NEXT_API_URL: `https://${apiDomainName}/v1`,
