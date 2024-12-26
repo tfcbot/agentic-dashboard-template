@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { UserButton } from "@clerk/nextjs";
+import { dark } from '@clerk/themes';
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -57,6 +59,10 @@ const Sidebar = () => {
           {!isCollapsed && <span className="ml-3">Settings</span>}
         </Link>
       </nav>
+
+      <div className="absolute bottom-0 w-full p-4">
+        <UserButton afterSignOutUrl="/sign-in" appearance={{ baseTheme: dark }} />
+      </div>
     </aside>
   );
 };

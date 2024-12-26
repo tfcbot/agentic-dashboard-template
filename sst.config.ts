@@ -16,12 +16,12 @@ export default $config({
     };
   },
   async run() {
-    // const clerkSignInUrl = new sst.Secret("clerkSignInUrl");
-    // const clerkSignUpUrl = new sst.Secret("clerkSignUpUrl");
-    // const clerkPublishableKey = new sst.Secret("clerkPublishableKey");
-    // const clerkSecretKey = new sst.Secret("clerkSecretKey");
-    // const stripePublishableKey = new sst.Secret("stripePublishableKey");
-    // const subscriptionManagementUrl = new sst.Secret("subscriptionManagementUrl");
+    const clerkSignInUrl = new sst.Secret("clerkSignInUrl");
+    const clerkSignUpUrl = new sst.Secret("clerkSignUpUrl");
+    const clerkPublishableKey = new sst.Secret("clerkPublishableKey");
+    const clerkSecretKey = new sst.Secret("clerkSecretKey");
+    const stripePublishableKey = new sst.Secret("stripePublishableKey");
+    const subscriptionManagementUrl = new sst.Secret("subscriptionManagementUrl");
 
     const baseDomain = process.env.BASE_DOMAIN;
     if (!baseDomain) {
@@ -50,13 +50,13 @@ export default $config({
         }),
       },
       environment: {
-        // NEXT_PUBLIC_CLERK_SIGN_IN_URL: clerkSignInUrl.value,
-        // NEXT_PUBLIC_CLERK_SIGN_UP_URL: clerkSignUpUrl.value,
-        // NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: clerkPublishableKey.value,
-        // NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: stripePublishableKey.value,
-        // CLERK_SECRET_KEY: clerkSecretKey.value,
-        // NEXT_API_URL: `https://${apiDomainName}/v1`,
-        // NEXT_SUBSCRIPTION_MANAGEMENT_URL: subscriptionManagementUrl.value,
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL: clerkSignInUrl.value,
+        NEXT_PUBLIC_CLERK_SIGN_UP_URL: clerkSignUpUrl.value,
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: clerkPublishableKey.value,
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: stripePublishableKey.value,
+        CLERK_SECRET_KEY: clerkSecretKey.value,
+        NEXT_API_URL: `https://${apiDomainName}/v1`,
+        NEXT_SUBSCRIPTION_MANAGEMENT_URL: subscriptionManagementUrl.value,
       },
     });
   },
