@@ -1,7 +1,7 @@
 import { GetRemainingCreditsBody } from "@/types";
 
 const API_CONFIG = {
-    baseUrl: process.env.API_BASE_URL,
+    baseUrl: process.env.NEXT_API_URL,
     version: '/v1',
     defaultHeaders: {
         'Content-Type': 'application/json'
@@ -10,8 +10,9 @@ const API_CONFIG = {
 
 const getAbsoluteUrl = (path: string): string => {
     if (!API_CONFIG.baseUrl) {
-        throw new Error('API_BASE_URL is not defined');
+        throw new Error('NEXT_API_URL is not defined');
     }
+
     return new URL(API_CONFIG.version + path, API_CONFIG.baseUrl).toString();
 };
 
