@@ -130,3 +130,4 @@ dist
 .pnp.*
 .sst/
 .env.sst
+.open-next/

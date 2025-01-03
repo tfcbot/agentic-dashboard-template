@@ -67,7 +67,7 @@ export default $config({
           switch (event.branch) {
             case "development":
               return {
-                stage: "development",
+                stage: "dev",
                 runner: { engine: "codebuild", compute: "large" }
               };
             case "staging":
