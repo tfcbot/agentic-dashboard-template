@@ -49,8 +49,9 @@ export type PackageTypeKey = 'basic' | 'standard' | 'priority';
  */
 export interface OrderFormData {
   description: string;
-  schedule: string;
-  access: string[];
+  startDate: Date;
+  frequency: 'one-time' | 'weekly' | 'monthly';
+  budget?: number;
   packageType: PackageTypeKey;
   agentId: string;
 }

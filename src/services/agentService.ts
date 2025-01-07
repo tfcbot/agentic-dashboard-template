@@ -48,17 +48,17 @@ export class AgentService {
         };
       }
 
-      if (!formData.schedule) {
+      if (!formData.startDate) {
         return {
           success: false,
-          error: 'Schedule is required'
+          error: 'Start date is required'
         };
       }
 
-      if (!formData.access.length) {
+      if (!formData.frequency) {
         return {
           success: false,
-          error: 'Access level is required'
+          error: 'Frequency is required'
         };
       }
       

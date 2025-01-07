@@ -1,33 +1,42 @@
 import { z } from 'zod';
 import { PackageTypeKey } from '@/types';
 
+// Helper function to validate future dates
+const isFutureDate = (date: Date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date >= today;
+};
+
 export const OrderFormSchema = z.object({
   description: z
     .string()
     .min(10, 'Description must be at least 10 characters')
     .max(1000, 'Description must not exceed 1000 characters'),
-  schedule: z
-    .string()
-    .min(5, 'Schedule must be at least 5 characters')
-    .max(200, 'Schedule must not exceed 200 characters'),
-  access: z
-    .array(z.string())
-    .min(1, 'Please select at least one access level')
-    .max(3, 'Maximum of 3 access levels allowed'),
+  startDate: z
+    .date()
+    .refine(isFutureDate, 'Start date must be in the future'),
+  frequency: z
+    .enum(['one-time', 'weekly', 'monthly'] as const, {
+      required_error: 'Please select a frequency',
+    }),
+  budget: z
+    .number()
+    .positive('Budget must be greater than 0')
+    .optional(),
   packageType: z.enum(['basic', 'standard', 'priority'] as const, {
     required_error: 'Please select a package',
-  }),
-  agentId: z.string().uuid('Invalid agent ID'),
+  })
 });
 
 export type OrderFormSchema = z.infer<typeof OrderFormSchema>;
 
-interface ValidationSuccess {
+export interface ValidationSuccess {
   success: true;
   data: OrderFormSchema;
 }
 
-interface ValidationError {
+export interface ValidationError {
   success: false;
   errors: Array<{
     path: string;
