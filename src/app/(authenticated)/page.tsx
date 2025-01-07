@@ -28,14 +28,7 @@ export default function HomePage() {
               {agents.map((agent) => (
                 <AgentCard
                   key={agent.id}
-                  id={agent.id}
-                  name={agent.name}
-                  title={agent.title}
-                  description={agent.description}
-                  imageUrl={agent.imageUrl}
-                  startingPrice={agent.startingPrice}
-                  available={agent.available}
-                  keyDeliverables={agent.keyDeliverables}
+                  agentId={agent.id}
                 />
               ))}
             </div>

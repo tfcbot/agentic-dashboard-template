@@ -47,19 +47,21 @@ export function AgentServiceView({ agent }: AgentServiceViewProps) {
           </div>
 
           {/* FAQ Section */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-white mb-6">FAQ</h2>
-            <div className="space-y-6">
-              {agent.faq.map((item, index) => (
-                <div key={index}>
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    {item.question}
-                  </h3>
-                  <p className="text-gray-300">{item.answer}</p>
-                </div>
-              ))}
+          {agent.faq && agent.faq.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold text-white mb-6">FAQ</h2>
+              <div className="space-y-6">
+                {agent.faq.map((item, index) => (
+                  <div key={index}>
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      {item.question}
+                    </h3>
+                    <p className="text-gray-300">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Right Column - Package Tiers */}

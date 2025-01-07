@@ -1,8 +1,10 @@
 interface StarRatingProps {
-  rating: number;
+  rating?: number;
 }
 
-export function StarRating({ rating }: StarRatingProps) {
+export function StarRating({ rating = 0 }: StarRatingProps) {
+  if (!rating) return null;
+
   return (
     <div className="flex items-center">
       {[1, 2, 3, 4, 5].map((star) => (

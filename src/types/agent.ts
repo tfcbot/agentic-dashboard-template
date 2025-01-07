@@ -40,6 +40,42 @@ export interface Agent {
 }
 
 /**
+ * Represents the essential metadata for an agent
+ */
+export interface AgentMetadata {
+  id: string;
+  name: string;
+  title: string;
+  shortDescription: string;
+  imageUrl: string;
+  startingPrice: number;
+  rating: number;
+  availability: {
+    status: 'available' | 'busy' | 'offline';
+    nextAvailableSlot?: string;
+  };
+  metrics: {
+    completedTasks: number;
+    averageResponseTime: string;
+    satisfactionRate: number;
+  };
+  packages: {
+    basic: PackageType;
+    standard: PackageType;
+    priority: PackageType;
+  };
+}
+
+/**
+ * Response structure for agent metadata API calls
+ */
+export interface AgentMetadataResponse {
+  success: boolean;
+  data?: AgentMetadata;
+  error?: string;
+}
+
+/**
  * Valid package types for form submission
  */
 export type PackageTypeKey = 'basic' | 'standard' | 'priority';

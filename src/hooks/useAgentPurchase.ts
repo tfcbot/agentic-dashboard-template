@@ -65,7 +65,7 @@ export function useAgentPurchase(agentId: string) {
 
   // Memoized package options
   const packageOptions = useMemo(() => {
-    if (!agent) return [];
+    if (!agent || !agent.packages) return [];
     return Object.entries(agent.packages).map(([key, pkg]) => ({
       key: key as PackageTypeKey,
       ...pkg,
