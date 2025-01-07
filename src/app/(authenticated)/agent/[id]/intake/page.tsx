@@ -1,5 +1,5 @@
 import { AgentService } from '@/services/agentService';
-import { IntakeForm } from '@/components/IntakeForm';
+import { OrderForm } from '@/components/OrderForm';
 import Link from 'next/link';
 import type { PackageTypeKey } from '@/types/agent';
 
@@ -51,7 +51,7 @@ export default async function IntakePage({ params, searchParams }: Props) {
         {/* Intake Form */}
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold text-white mb-8">Place Your Order</h1>
-          <IntakeForm 
+          <OrderForm 
             agentId={params.id} 
             initialPackage={packageType}
           />

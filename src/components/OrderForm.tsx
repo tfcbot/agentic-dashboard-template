@@ -7,7 +7,7 @@ import { AgentService } from '@/services/agentService';
 import { RetroLoadingOverlay } from './RetroLoadingOverlay';
 import type { PackageTypeKey } from '@/types/agent';
 
-interface IntakeFormProps {
+interface OrderFormProps {
   agentId: string;
   initialPackage: PackageTypeKey;
 }
@@ -16,7 +16,7 @@ interface FormErrors {
   [key: string]: string;
 }
 
-export function IntakeForm({ agentId, initialPackage }: IntakeFormProps) {
+export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

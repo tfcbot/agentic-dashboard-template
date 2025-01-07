@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { IntakeForm } from '../IntakeForm';
+import { OrderForm } from '../OrderForm';
 import { useAgent } from '@/context/AgentContext';
 import { useRouter } from 'next/navigation';
 
@@ -9,7 +9,7 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 
-describe('IntakeForm', () => {
+describe('OrderForm', () => {
   const mockSubmitIntake = jest.fn();
   const mockRouter = { push: jest.fn() };
   
@@ -29,7 +29,7 @@ describe('IntakeForm', () => {
   it('submits form data and shows success state', async () => {
     // Arrange
     render(
-      <IntakeForm 
+      <OrderForm 
         agentId="test-id" 
         initialPackage="basic" 
       />
@@ -78,7 +78,7 @@ describe('IntakeForm', () => {
   it('shows validation errors for empty fields', async () => {
     // Arrange
     render(
-      <IntakeForm 
+      <OrderForm 
         agentId="test-id" 
         initialPackage="basic" 
       />

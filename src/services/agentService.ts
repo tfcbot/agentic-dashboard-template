@@ -1,4 +1,4 @@
-import { Agent, AgentResponse, IntakeFormData, IntakeSubmissionResponse } from '@/types/agent';
+import { Agent, AgentResponse, OrderFormData, IntakeSubmissionResponse } from '@/types/agent';
 
 /**
  * Service class for handling agent-related API operations
@@ -34,7 +34,7 @@ export class AgentService {
   /**
    * Submits an intake form
    */
-  static async submitIntake(formData: IntakeFormData): Promise<IntakeSubmissionResponse> {
+  static async submitIntake(formData: OrderFormData): Promise<IntakeSubmissionResponse> {
     try {
       // TODO: Replace with actual API call
       // Simulated API call for now

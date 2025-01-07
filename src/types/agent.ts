@@ -50,7 +50,7 @@ export type PackageTypeKey = 'basic' | 'standard' | 'priority';
 /**
  * Form data structure for the intake process
  */
-export interface IntakeFormData {
+export interface OrderFormData {
   description: string;
   schedule: string;
   access: string[];
@@ -61,7 +61,7 @@ export interface IntakeFormData {
 /**
  * Possible states for the intake form
  */
-export type IntakeFormStatus = 'idle' | 'submitting' | 'success' | 'error';
+export type OrderFormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 /**
  * Response structure for agent API calls

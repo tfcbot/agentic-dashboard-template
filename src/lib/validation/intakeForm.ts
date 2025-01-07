@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { PackageTypeKey } from '@/types/agent';
 
-export const intakeFormSchema = z.object({
+export const OrderFormSchema = z.object({
   description: z
     .string()
     .min(10, 'Description must be at least 10 characters')
@@ -20,11 +20,11 @@ export const intakeFormSchema = z.object({
   agentId: z.string().uuid('Invalid agent ID'),
 });
 
-export type IntakeFormSchema = z.infer<typeof intakeFormSchema>;
+export type OrderFormSchema = z.infer<typeof OrderFormSchema>;
 
 interface ValidationSuccess {
   success: true;
-  data: IntakeFormSchema;
+  data: OrderFormSchema;
 }
 
 interface ValidationError {
@@ -37,9 +37,9 @@ interface ValidationError {
 
 export type ValidationResult = ValidationSuccess | ValidationError;
 
-export const validateIntakeForm = (data: unknown): ValidationResult => {
+export const validateOrderForm = (data: unknown): ValidationResult => {
   try {
-    const validatedData = intakeFormSchema.parse(data);
+    const validatedData = OrderFormSchema.parse(data);
     return { success: true, data: validatedData };
   } catch (error) {
     if (error instanceof z.ZodError) {

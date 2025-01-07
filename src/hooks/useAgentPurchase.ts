@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { AgentService } from '@/services/agentService';
-import type { Agent, IntakeFormData, PackageTypeKey } from '@/types/agent';
+import type { Agent, OrderFormData, PackageTypeKey } from '@/types/agent';
 
 export function useAgentPurchase(agentId: string) {
   const router = useRouter();
@@ -28,7 +28,7 @@ export function useAgentPurchase(agentId: string) {
     isError,
     error
   } = useMutation({
-    mutationFn: async (formData: IntakeFormData) => {
+    mutationFn: async (formData: OrderFormData) => {
       // Simulate network delay for development
       await new Promise(resolve => setTimeout(resolve, 2000));
       

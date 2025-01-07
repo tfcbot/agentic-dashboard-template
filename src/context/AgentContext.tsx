@@ -1,15 +1,15 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Agent, IntakeFormData, IntakeFormStatus, IntakeSubmissionResponse } from '@/types/agent';
+import { Agent, OrderFormData, OrderFormStatus, IntakeSubmissionResponse } from '@/types/agent';
 import { AgentService } from '@/services/agentService';
 
 interface AgentContextType {
   agent: Agent | null;
   loading: boolean;
   error: Error | null;
-  status: IntakeFormStatus;
-  submitIntake: (formData: IntakeFormData) => Promise<IntakeSubmissionResponse>;
+  status: OrderFormStatus;
+  submitIntake: (formData: OrderFormData) => Promise<IntakeSubmissionResponse>;
   resetError: () => void;
   loadAgent: (id: string) => Promise<void>;
 }
@@ -25,7 +25,7 @@ export function AgentProvider({ children, initialAgentId }: AgentProviderProps) 
   const [agent, setAgent] = useState<Agent | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [status, setStatus] = useState<IntakeFormStatus>('idle');
+  const [status, setStatus] = useState<OrderFormStatus>('idle');
 
   useEffect(() => {
     loadAgent(initialAgentId);
@@ -47,7 +47,7 @@ export function AgentProvider({ children, initialAgentId }: AgentProviderProps) 
     }
   };
 
-  const submitIntake = async (formData: IntakeFormData) => {
+  const submitIntake = async (formData: OrderFormData) => {
     setStatus('submitting');
     setError(null);
     try {
