@@ -28,6 +28,7 @@ export default function HomePage() {
               {agents.map((agent) => (
                 <AgentCard
                   key={agent.id}
+                  id={agent.id}
                   name={agent.name}
                   title={agent.title}
                   description={agent.description}

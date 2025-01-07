@@ -37,7 +37,7 @@ export async function getCheckoutSessionId(token: string): Promise<string> {
         headers: getHeaders(token),
         body: JSON.stringify({
             quantity: 1,
-            amount: 100
+            amount: 10
         }),
     });
     const data = await response.json();

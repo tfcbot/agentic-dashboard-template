@@ -1,7 +1,11 @@
+'use client';
+
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from './ui/button';
 
 interface AgentCardProps {
+  id: string;
   name: string;
   title: string;
   description: string;
@@ -12,6 +16,7 @@ interface AgentCardProps {
 }
 
 export function AgentCard({
+  id,
   name,
   title,
   description,
@@ -62,9 +67,11 @@ export function AgentCard({
         </ul>
       </div>
 
-      <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-        Hire
-      </Button>
+      <Link href={`/agent/${id}`} prefetch className="w-full">
+        <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+          View Packages
+        </Button>
+      </Link>
     </div>
   );
 } 

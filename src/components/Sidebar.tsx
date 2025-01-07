@@ -25,9 +25,11 @@ const Sidebar = () => {
       if (!token) {
         throw new Error('No token available');
       }
+    
       const sessionId = await getSessionId(token);
 
       if (!stripeKey) {
+        
         throw new Error('No Stripe key available');
       }
       const stripe = await loadStripe(stripeKey);
@@ -108,7 +110,7 @@ const Sidebar = () => {
 
         {!isCollapsed && user && (
           <div className="p-4 border-t border-gray-700">
-            {!user.publicMetadata.keyId && (
+            {(
               <>
                 <button
                   className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700
