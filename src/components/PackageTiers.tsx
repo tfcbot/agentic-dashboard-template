@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { useAgentPurchase } from '@/hooks/useAgentPurchase';
-import type { PackageTypeKey } from '@/types/agent';
+import type { PackageTypeKey } from '@/types';
 
 interface PackageTiersProps {
   agentId: string;

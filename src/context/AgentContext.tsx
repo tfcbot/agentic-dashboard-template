@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Agent, OrderFormData, OrderFormStatus, IntakeSubmissionResponse } from '@/types/agent';
+import { Agent, OrderFormData, OrderFormStatus, IntakeSubmissionResponse } from '@/types';
 import { AgentService } from '@/services/agentService';
 
 interface AgentContextType {

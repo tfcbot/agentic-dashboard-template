@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PackageTypeKey } from '@/types/agent';
+import { PackageTypeKey } from '@/types';
 
 export const OrderFormSchema = z.object({
   description: z

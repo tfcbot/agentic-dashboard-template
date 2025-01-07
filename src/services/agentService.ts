@@ -1,4 +1,4 @@
-import { Agent, AgentResponse, OrderFormData, IntakeSubmissionResponse } from '@/types/agent';
+import { Agent, AgentResponse, OrderFormData, IntakeSubmissionResponse } from '@/types';
 
 /**
  * Service class for handling agent-related API operations

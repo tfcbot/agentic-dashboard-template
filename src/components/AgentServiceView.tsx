@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { PackageTiers } from './PackageTiers';
 import { StarRating } from './StarRating';
-import type { Agent } from '@/types/agent';
+import type { Agent } from '@/types';
 
 interface AgentServiceViewProps {
   agent: Agent;

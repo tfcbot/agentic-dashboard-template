@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { AgentService } from '@/services/agentService';
-import type { Agent, OrderFormData, PackageTypeKey } from '@/types/agent';
+import type { Agent, OrderFormData, PackageTypeKey } from '@/types';
 
 export function useAgentPurchase(agentId: string) {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import { AgentService } from '@/services/agentService';
 import { OrderForm } from '@/components/OrderForm';
 import Link from 'next/link';
-import type { PackageTypeKey } from '@/types/agent';
+import type { PackageTypeKey } from '@/types';
 
 interface Props {
   params: {

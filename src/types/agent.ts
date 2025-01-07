@@ -28,14 +28,11 @@ export interface Agent {
   startingPrice: number;
   available: boolean;
   keyDeliverables: string[];
-  rating: number;
-  longDescription: string;
-  additionalInfo: string;
-  faq: Array<{
-    question: string;
-    answer: string;
-  }>;
-  packages: {
+  rating?: number;
+  longDescription?: string;
+  additionalInfo?: string;
+  faq?: FAQ[];
+  packages?: {
     basic: PackageType;
     standard: PackageType;
     priority: PackageType;

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { AgentService } from '@/services/agentService';
 import { RetroLoadingOverlay } from './RetroLoadingOverlay';
-import type { PackageTypeKey } from '@/types/agent';
+import type { PackageTypeKey } from '@/types';
 
 interface OrderFormProps {
   agentId: string;
