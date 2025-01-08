@@ -6,8 +6,8 @@ import { Button } from './ui/button';
 import { AgentService } from '@/services/agentService';
 import { RetroLoadingOverlay } from './RetroLoadingOverlay';
 import { validateOrderForm } from '@/lib/validation/orderForm';
-import type { PackageTypeKey, OrderFormData } from '@/types/agent';
-import type { FormErrors, FormTouched, OrderFormState, FrequencyType } from '@/types/forms';
+import type { PackageTypeKey, OrderFormData } from '@/schemas/agent';
+import type { FormErrors, FormTouched, OrderFormState, FrequencyType } from '@/schemas/forms';
 
 interface OrderFormProps {
   agentId: string;
@@ -23,9 +23,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [formData, setFormData] = useState<OrderFormState>({
     description: '',
-    startDate: null,
-    frequency: '',
-    budget: undefined,
     packageType: initialPackage,
     agentId,
   });
@@ -36,9 +33,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
 
     const formDataToValidate = {
       description: formData.description,
-      startDate: formData.startDate,
-      frequency: formData.frequency,
-      budget: formData.budget,
       packageType: formData.packageType,
     };
 
@@ -58,9 +52,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
     // Validate all fields except agentId
     const formDataToValidate = {
       description: formData.description,
-      startDate: formData.startDate,
-      frequency: formData.frequency,
-      budget: formData.budget,
       packageType: formData.packageType,
     };
 
@@ -127,12 +118,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
     const { name, value } = e.target;
     let parsedValue: any = value;
 
-    // Parse special input types
-    if (name === 'budget' && value) {
-      parsedValue = parseFloat(value);
-    } else if (name === 'startDate' && value) {
-      parsedValue = new Date(value);
-    }
 
     setFormData((prev: OrderFormState) => ({ ...prev, [name]: parsedValue }));
     

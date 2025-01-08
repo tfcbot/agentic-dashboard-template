@@ -16,10 +16,11 @@ const quips = [
 ];
 
 interface RetroLoadingOverlayProps {
+  isLoading?: boolean;
   isSuccess?: boolean;
 }
 
-export function RetroLoadingOverlay({ isSuccess = false }: RetroLoadingOverlayProps) {
+export function RetroLoadingOverlay({ isLoading = false, isSuccess = false }: RetroLoadingOverlayProps) {
   const [currentQuip, setCurrentQuip] = useState(quips[0]);
 
   useEffect(() => {

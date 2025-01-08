@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { dark } from '@clerk/themes';
 import React, { Suspense } from 'react';
 import { usePathname } from 'next/navigation';
-import { usePurchaseCredits } from '@/app/hooks/useApi';
+import { usePurchaseCredits } from '@/hooks/useBilling';
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useAuth, UserButton, useUser } from '@clerk/nextjs';
 import { loadStripe } from '@stripe/stripe-js';
-import { useSidebarContext } from '@/context/SidebarContext'
+import { useSidebarContext } from '@/context/SidebarContext';
 
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 

@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { AgentService } from '@/services/agentService';
-import type { Agent } from '@/types';
+import type { Agent } from '@/schemas/agent';
 
 export function useAgents() {
   const { data, isLoading: loading, error } = useQuery({
     queryKey: ['agents'],
     queryFn: async () => {
       const response = await AgentService.getAllAgents();
-      if (!response.success || !response.agents) {
+      if (!response.success || !response.data) {
         throw new Error(response.error || 'Failed to fetch agents');
       }
-      return response.agents;
+      return response.data;
     }
   });
 
@@ -20,3 +20,23 @@ export function useAgents() {
     error
   };
 } 
+
+
+export function useAgent(agentId: string) {
+  const { data, isLoading: loading, error } = useQuery({
+    queryKey: ['agent', agentId],
+    queryFn: async () => {
+      const response = await AgentService.getAgent(agentId);
+      if (!response.success || !response.data) {
+        throw new Error(response.error || 'Failed to fetch agent');
+      }
+      return response.data;
+    }
+  });
+
+  return {
+    agent: data,
+    loading,
+    error
+  };
+}

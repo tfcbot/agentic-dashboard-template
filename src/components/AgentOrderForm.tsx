@@ -1,0 +1,93 @@
+import { useEffect } from 'react';
+import { z } from 'zod';
+import { OrderFormBase } from '@/components/OrderFormBase';
+import { useAgent } from '@/hooks/useAgents';
+import type { Agent, PackageTypeKey } from '@/schemas/agent';
+import { FieldConfig } from '@/schemas/forms';
+
+interface AgentOrderFormProps {
+  agentId: string;
+  packageType: 'basic' | 'standard' | 'priority';
+}
+
+export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
+  const { agent, loading } = useAgent(agentId);
+  
+  if (loading || !agent) {
+    return <div>Loading...</div>;
+  }
+
+  // Dynamically generate Zod schema from metadata
+  const generateSchema = (metadata: Agent, packageType: PackageTypeKey) => {
+    const fields = metadata.packages[packageType].requiredFields.reduce((acc: Record<string, z.ZodString>, fieldName: string) => {
+      const field = metadata.fields[fieldName];
+      let fieldSchema = z.string();
+
+      // Apply validation rules from metadata
+      if (field.validation) {
+        if (field.validation.min) fieldSchema = fieldSchema.min(field.validation.min);
+        if (field.validation.max) fieldSchema = fieldSchema.max(field.validation.max);
+        if (field.validation.pattern) fieldSchema = fieldSchema.regex(new RegExp(field.validation.pattern));
+      }
+
+      return { ...acc, [fieldName]: fieldSchema };
+    }, {});
+
+    return z.object(fields);
+  };
+
+  // Generate field configs from metadata
+    const generateFieldConfigs = (metadata: Agent, packageType: PackageTypeKey) => {
+    const requiredFields = metadata.packages[packageType].requiredFields;
+    const optionalFields = metadata.packages[packageType].optionalFields;
+    
+    return [...requiredFields, ...optionalFields].reduce((acc, fieldName) => {
+      const field = metadata.fields[fieldName];
+      return {
+        ...acc,
+        [fieldName]: {
+          label: field.label,
+          type: field.type,
+          placeholder: field.placeholder,
+          options: field.options
+        }
+      };
+    }, {});
+  };
+
+  const schema = generateSchema(agent, packageType);
+  const fieldConfigs = generateFieldConfigs(agent, packageType);
+
+  const handleSubmit = async (data: z.infer<typeof schema>) => {
+    // Handle submission
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-gray-800 p-4 rounded-lg">
+        <h2 className="text-xl font-bold mb-2">{agent.name}</h2>
+        <p className="text-gray-300">{agent.description}</p>
+        <div className="mt-4 p-3 bg-purple-900/50 rounded">
+          <h3 className="font-semibold mb-2">
+            Selected Package: {agent.packages[packageType].name}
+          </h3>
+          <ul className="list-disc list-inside space-y-1">
+            {agent.packages[packageType].features.map((feature: string, index: number) => (
+              <li key={index} className="text-sm text-gray-300">{feature}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <OrderFormBase
+        schema={schema}
+        fieldConfigs={fieldConfigs as FieldConfig[]}
+        onSubmit={handleSubmit}
+        submitLabel={`Order Now (${agent.packages[packageType].credits} credits)`}
+        loadingMessage="Creating your order..."
+        successMessage="Order placed successfully!"
+        redirectPath="/dashboard/orders"
+      />
+    </div>
+  );
+}

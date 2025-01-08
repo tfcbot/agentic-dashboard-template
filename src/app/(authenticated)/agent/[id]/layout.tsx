@@ -1,20 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
 import { AgentProvider } from '@/context/AgentContext';
-import { AgentService } from '@/services/agentService';
 
-interface AgentLayoutProps {
+export default function AgentLayout({ 
+  children,
+  params 
+}: { 
   children: React.ReactNode;
-  params: {
-    id: string;
-  };
-}
-
-export default function AgentLayout({ children, params }: AgentLayoutProps) {
+  params: { agentId: string }
+}) {
+  // Only wrap routes that need agent data with the provider
   return (
-    <AgentProvider initialAgentId={params.id}>
+    <AgentProvider initialAgentId={params.agentId}>
       {children}
     </AgentProvider>
   );
-} 
+}

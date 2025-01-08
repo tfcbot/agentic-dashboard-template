@@ -1,12 +1,6 @@
 import { z } from 'zod';
-import { PackageTypeKey } from '@/types';
 
-// Helper function to validate future dates
-const isFutureDate = (date: Date) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return date >= today;
-};
+
 
 export const OrderFormSchema = z.object({
   description: z

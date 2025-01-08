@@ -3,17 +3,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { useAgentMetadata } from '@/hooks/useAgentMetadata';
 import { StarRating } from '@/components/StarRating';
+import { useAgent } from '@/hooks/useAgents';
 
 interface AgentCardProps {
   agentId: string;
 }
 
 export function AgentCard({ agentId }: AgentCardProps) {
-  const { data: agent, isLoading } = useAgentMetadata(agentId);
+      const { agent, loading } = useAgent(agentId);
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="bg-gray-900 rounded-lg p-6 shadow-lg border border-gray-800 flex flex-col h-full animate-pulse">
         <div className="flex items-start gap-4 mb-4">
@@ -62,25 +62,29 @@ export function AgentCard({ agentId }: AgentCardProps) {
 
       <div className="flex items-center gap-2 mb-4">
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          agent.availability.status === 'available'
+          agent.available === true
             ? 'bg-green-900 text-green-300'
-            : agent.availability.status === 'busy'
+            : agent.available === false
             ? 'bg-yellow-900 text-yellow-300'
             : 'bg-red-900 text-red-300'
         }`}>
-          {agent.availability.status}
+            {agent.available === true
+            ? 'Available'
+            : agent.available === false
+            ? 'Unavailable'
+            : 'Unknown'}
         </span>
         <span className="text-sm text-gray-400">
-          Starting at ${agent.startingPrice}
+          Starting at ${agent.credits}
         </span>
       </div>
 
-      <p className="text-gray-300 mb-4 line-clamp-3">{agent.shortDescription}</p>
+      <p className="text-gray-300 mb-4 line-clamp-3">{agent.description}</p>
 
       <div className="mb-6 flex-grow">
         <h4 className="text-gray-300 text-sm font-medium mb-2">Key Features:</h4>
         <ul className="space-y-1">
-          {agent.packages.basic.features.slice(0, 3).map((feature, index) => (
+          {agent.keyDeliverables.slice(0, 3).map((feature: string, index: number) => (
             <li key={index} className="text-gray-400 text-sm flex items-start gap-2">
               <span className="text-purple-400 mt-1">•</span>
               {feature}

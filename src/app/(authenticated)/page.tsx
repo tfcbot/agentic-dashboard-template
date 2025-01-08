@@ -4,10 +4,10 @@ import { DashboardHeader } from '@/components/DashboardHeader';
 import { AgentCard } from '@/components/AgentCard';
 import { useAgents } from '@/hooks/useAgents';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { Agent } from '@/types/agent';
+import { Agent } from '@/schemas/agent';
 
 export default function HomePage() {
-  const { agents = [], loading, error } = useAgents();
+  const { agents, loading, error } = useAgents();
 
   return (
     <div className="transition-all duration-300">

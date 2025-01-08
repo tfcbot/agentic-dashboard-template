@@ -1,16 +1,15 @@
+'use client';
+
+import { useAgent } from '@/hooks/useAgents';
 import { AgentServiceView } from '@/components/AgentServiceView';
-import { AgentService } from '@/services/agentService';
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
+export default function AgentServicePage({ params }: { params: { id: string } }) {
+  const { agent, loading, error } = useAgent(params.id);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-export default async function AgentServicePage({ params }: Props) {
-  const response = await AgentService.getAgent(params.id);
-  
-  if (!response.success || !response.data) {
+  if (error || !agent) {
     return (
       <div className="text-red-500 text-center">
         Failed to load agent details. Please try again later.
@@ -18,5 +17,5 @@ export default async function AgentServicePage({ params }: Props) {
     );
   }
 
-  return <AgentServiceView agent={response.data} />;
-} 
+  return <AgentServiceView agentId={agent.id} />;
+}

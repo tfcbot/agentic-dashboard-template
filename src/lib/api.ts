@@ -1,4 +1,4 @@
-import { GetRemainingCreditsBody } from "@/types";
+import { GetRemainingCreditsBody } from "@/schemas";
 
 const API_CONFIG = {
     baseUrl: process.env.NEXT_API_URL,
