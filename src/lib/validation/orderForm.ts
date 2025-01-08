@@ -13,17 +13,6 @@ export const OrderFormSchema = z.object({
     .string()
     .min(10, 'Description must be at least 10 characters')
     .max(1000, 'Description must not exceed 1000 characters'),
-  startDate: z
-    .date()
-    .refine(isFutureDate, 'Start date must be in the future'),
-  frequency: z
-    .enum(['one-time', 'weekly', 'monthly'] as const, {
-      required_error: 'Please select a frequency',
-    }),
-  budget: z
-    .number()
-    .positive('Budget must be greater than 0')
-    .optional(),
   packageType: z.enum(['basic', 'standard', 'priority'] as const, {
     required_error: 'Please select a package',
   })

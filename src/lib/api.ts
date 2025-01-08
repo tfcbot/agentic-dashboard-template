@@ -24,10 +24,6 @@ const getHeaders = (token: string): HeadersInit => {
 };
 
 
-
-
-
-
 // Typed endpoints that take token as first parameter
 export async function getCheckoutSessionId(token: string): Promise<string> {
 

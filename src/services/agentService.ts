@@ -1,4 +1,12 @@
-import { Agent, AgentResponse, OrderFormData, IntakeSubmissionResponse, AgentMetadata, AgentMetadataResponse } from '@/types';
+import { 
+    Agent, 
+    AgentResponse, 
+    OrderFormData, 
+    IntakeSubmissionResponse, 
+    AgentMetadata, 
+    AgentMetadataResponse, 
+    GetAllAgentsResponse 
+} from '@/types';
 
 /**
  * Service class for handling agent-related API operations
@@ -28,7 +36,7 @@ export class AgentService {
           title: mockAgent.title,
           shortDescription: mockAgent.description,
           imageUrl: mockAgent.imageUrl,
-          startingPrice: mockAgent.startingPrice,
+          credits: mockAgent.credits,
           rating: mockAgent.rating || 4.8,
           availability: {
             status: mockAgent.available ? 'available' : 'busy',
@@ -42,13 +50,13 @@ export class AgentService {
           packages: mockAgent.packages || {
             basic: {
               name: "Basic",
-              price: mockAgent.startingPrice,
+              credits: mockAgent.credits,
               deliveryTime: "15 Mins Delivery",
               features: mockAgent.keyDeliverables.slice(0, 3)
             },
             standard: {
               name: "Standard",
-              price: mockAgent.startingPrice * 2,
+              credits: mockAgent.credits * 2,
               deliveryTime: "10 Mins Delivery",
               features: [
                 ...mockAgent.keyDeliverables,
@@ -57,7 +65,7 @@ export class AgentService {
             },
             priority: {
               name: "Priority",
-              price: mockAgent.startingPrice * 5,
+              credits: mockAgent.credits * 5,
               deliveryTime: "5 Mins Delivery",
               features: [
                 ...mockAgent.keyDeliverables,
@@ -116,21 +124,6 @@ export class AgentService {
           error: 'Description is too short'
         };
       }
-
-      if (!formData.startDate) {
-        return {
-          success: false,
-          error: 'Start date is required'
-        };
-      }
-
-      if (!formData.frequency) {
-        return {
-          success: false,
-          error: 'Frequency is required'
-        };
-      }
-      
       // Generate a mock order ID
       const orderId = `order-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       
@@ -167,14 +160,14 @@ export class AgentService {
 
     const actualId = idMap[id] || id;
 
-    const mockAgents = {
+    const mockAgents: Record<string, Agent> = {
       'agent-1': {
         id: "strategic-planning-consultant",
         name: "Sarah Mitchell",
-        title: "Strategic Planning Consultant",
+        title: "AI Strategist",
         description: "Expert strategist specializing in business growth and market expansion. Proven track record in developing comprehensive strategic plans, market analysis, and competitive positioning.",
         imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-        startingPrice: 750,
+        credits: 750,
         available: true,
         rating: 4.9,
         keyDeliverables: [
@@ -198,7 +191,7 @@ export class AgentService {
         packages: {
           basic: {
             name: "Basic",
-            price: 750,
+            credits: 750,
             deliveryTime: "2 Weeks Delivery",
             features: [
               "Market Analysis Report",
@@ -208,7 +201,7 @@ export class AgentService {
           },
           standard: {
             name: "Standard",
-            price: 1500,
+            credits: 1500,
             deliveryTime: "10 Days Delivery",
             features: [
               "Everything in Basic",
@@ -219,7 +212,7 @@ export class AgentService {
           },
           priority: {
             name: "Priority",
-            price: 3000,
+            credits: 3000,
             deliveryTime: "5 Days Delivery",
             features: [
               "Everything in Standard",
@@ -233,26 +226,29 @@ export class AgentService {
       'agent-2': {
         id: "creative-copywriter",
         name: "Michael Turner",
-        title: "Creative Copywriter & Content Strategist",
+        title: "Web Copywriter",
         description: "Versatile copywriter with expertise in brand storytelling and content strategy. Specializing in compelling marketing copy, website content, and brand messaging that drives engagement.",
         imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
-        startingPrice: 500,
+        credits: 500,
         available: true,
         rating: 4.8,
         keyDeliverables: [
-          "SEO-Optimized Website Copy",
-          "Content Calendar (3-month plan)",
-          "Email Marketing Sequence",
-          "Brand Voice Guidelines"
+          "Analyze Landing Pages",
+          "Competitor Analysis",
+          "Content Strategy Development"
         ],
         faq: [
           {
-            question: "How do you ensure content is SEO-friendly?",
-            answer: "I combine keyword research, search intent analysis, and natural language optimization to create content that ranks well while maintaining readability and engagement."
+            question: "How do you analyze landing pages?",
+            answer: "I conduct a comprehensive analysis of your landing pages, examining conversion paths, user experience, content effectiveness, and key metrics to identify optimization opportunities."
           },
           {
-            question: "What's your process for developing brand voice?",
-            answer: "I start with a brand audit, followed by stakeholder interviews and market analysis. This helps create comprehensive voice guidelines that ensure consistency across all channels."
+            question: "What does your competitor analysis involve?",
+            answer: "My competitor analysis examines your key competitors' content strategies, messaging, and positioning to identify gaps and opportunities. This helps inform content strategy development that gives you a competitive edge."
+          },
+          {
+            question: "How do you develop content strategy?",
+            answer: "I create data-driven content strategies by analyzing your target audience, business goals, and market landscape. This includes developing content calendars, distribution plans, and KPIs to measure success."
           }
         ],
         longDescription: "I help brands find their unique voice and create content that resonates with their target audience. My background in digital marketing and SEO ensures that every piece of content serves both users and search engines.",
@@ -260,28 +256,25 @@ export class AgentService {
         packages: {
           basic: {
             name: "Basic",
-            price: 500,
-            deliveryTime: "5 Days Delivery",
+            credits: 500,
+            deliveryTime: "15 mins",
             features: [
-              "5 Pages Website Copy",
-              "Basic SEO Optimization",
-              "1 Revision Round"
+              "5 Point Landing Page Analysis",
             ]
           },
           standard: {
             name: "Standard",
-            price: 1000,
-            deliveryTime: "3 Days Delivery",
+            credits: 1000,
+            deliveryTime: "1 hour",
             features: [
-              "Everything in Basic",
-              "Content Calendar",
-              "Email Sequence",
-              "2 Revision Rounds"
+              "5 Point Landing Page Analysis",
+              "Competitor Analysis",
+              "Content Strategy Development"
             ]
           },
           priority: {
             name: "Priority",
-            price: 2000,
+            credits: 2000,
             deliveryTime: "24 Hours Delivery",
             features: [
               "Everything in Standard",
@@ -298,7 +291,7 @@ export class AgentService {
         title: "Data Analytics Specialist",
         description: "Data analytics expert with a focus on business intelligence and predictive modeling. Transforming complex data into actionable insights.",
         imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
-        startingPrice: 650,
+        credits: 650,
         available: false,
         rating: 4.7,
         keyDeliverables: [
@@ -322,7 +315,7 @@ export class AgentService {
         packages: {
           basic: {
             name: "Basic",
-            price: 650,
+            credits: 650,
             deliveryTime: "1 Week Delivery",
             features: [
               "Basic Dashboard Setup",
@@ -332,7 +325,7 @@ export class AgentService {
           },
           standard: {
             name: "Standard",
-            price: 1300,
+            credits: 1300,
             deliveryTime: "5 Days Delivery",
             features: [
               "Everything in Basic",
@@ -343,7 +336,7 @@ export class AgentService {
           },
           priority: {
             name: "Priority",
-            price: 2600,
+            credits: 2600,
             deliveryTime: "48 Hours Delivery",
             features: [
               "Everything in Standard",
@@ -362,7 +355,7 @@ export class AgentService {
   /**
    * Fetches all available agents
    */
-  static async getAllAgents(): Promise<AgentResponse> {
+  static async getAllAgents(): Promise<GetAllAgentsResponse> {
     try {
       // TODO: Replace with actual API call
       // GET /agents
@@ -375,7 +368,7 @@ export class AgentService {
           title: "Strategic Planning Consultant",
           description: "Expert strategist specializing in business growth and market expansion. Proven track record in developing comprehensive strategic plans, market analysis, and competitive positioning.",
           imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop",
-          startingPrice: 750,
+          credits: 750,
           available: true,
           rating: 4.9,
           keyDeliverables: [
@@ -391,7 +384,7 @@ export class AgentService {
           title: "Creative Copywriter & Content Strategist",
           description: "Versatile copywriter with expertise in brand storytelling and content strategy. Specializing in compelling marketing copy, website content, and brand messaging that drives engagement.",
           imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop",
-          startingPrice: 500,
+          credits: 500,
           available: true,
           rating: 4.8,
           keyDeliverables: [
@@ -407,7 +400,7 @@ export class AgentService {
           title: "Data Analytics Specialist",
           description: "Data analytics expert with a focus on business intelligence and predictive modeling. Transforming complex data into actionable insights.",
           imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop",
-          startingPrice: 650,
+          credits: 650,
           available: false,
           rating: 4.7,
           keyDeliverables: [
@@ -421,7 +414,7 @@ export class AgentService {
       
       return {
         success: true,
-        data: mockAgents
+        agents: mockAgents
       };
     } catch (error) {
       console.error('Error fetching agents:', error);

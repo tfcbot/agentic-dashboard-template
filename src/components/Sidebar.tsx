@@ -8,7 +8,7 @@ import { usePurchaseCredits } from '@/app/hooks/useApi';
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useAuth, UserButton, useUser } from '@clerk/nextjs';
 import { loadStripe } from '@stripe/stripe-js';
-import { useSidebarContext } from '@/app/context/SidebarContext'
+import { useSidebarContext } from '@/context/SidebarContext'
 
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 

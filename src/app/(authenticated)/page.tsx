@@ -4,9 +4,10 @@ import { DashboardHeader } from '@/components/DashboardHeader';
 import { AgentCard } from '@/components/AgentCard';
 import { useAgents } from '@/hooks/useAgents';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { Agent } from '@/types/agent';
 
 export default function HomePage() {
-  const { agents, loading, error } = useAgents();
+  const { agents = [], loading, error } = useAgents();
 
   return (
     <div className="transition-all duration-300">
@@ -25,7 +26,7 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {agents.map((agent) => (
+              {agents.map((agent: Agent) => (
                 <AgentCard
                   key={agent.id}
                   agentId={agent.id}

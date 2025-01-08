@@ -80,9 +80,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
     // At this point, validation has passed, so we know all required fields are present
     const submissionData: OrderFormData = {
       description: formDataToValidate.description,
-      startDate: formDataToValidate.startDate!,
-      frequency: formDataToValidate.frequency as FrequencyType,
-      budget: formDataToValidate.budget,
       packageType: formDataToValidate.packageType,
       agentId,
     };
@@ -187,68 +184,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
         />
         {(touched.description || attemptedSubmit) && errors.description && (
           <p className="mt-1 text-sm text-red-500">{errors.description}</p>
-        )}
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Start Date
-        </label>
-        <input
-          type="date"
-          name="startDate"
-          className={getInputClassName('startDate')}
-          value={formData.startDate ? formData.startDate.toISOString().split('T')[0] : ''}
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          min={new Date().toISOString().split('T')[0]}
-          disabled={isSubmitting || isSuccess}
-        />
-        {(touched.startDate || attemptedSubmit) && errors.startDate && (
-          <p className="mt-1 text-sm text-red-500">{errors.startDate}</p>
-        )}
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Frequency
-        </label>
-        <select
-          name="frequency"
-          className={getInputClassName('frequency')}
-          value={formData.frequency}
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          disabled={isSubmitting || isSuccess}
-        >
-          <option value="">Select frequency</option>
-          <option value="one-time">One Time</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </select>
-        {(touched.frequency || attemptedSubmit) && errors.frequency && (
-          <p className="mt-1 text-sm text-red-500">{errors.frequency}</p>
-        )}
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Budget (Optional)
-        </label>
-        <input
-          type="number"
-          name="budget"
-          className={getInputClassName('budget')}
-          value={formData.budget || ''}
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          placeholder="Enter your budget"
-          min="0"
-          step="0.01"
-          disabled={isSubmitting || isSuccess}
-        />
-        {(touched.budget || attemptedSubmit) && errors.budget && (
-          <p className="mt-1 text-sm text-red-500">{errors.budget}</p>
         )}
       </div>
 

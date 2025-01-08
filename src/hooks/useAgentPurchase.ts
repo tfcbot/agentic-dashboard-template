@@ -23,7 +23,7 @@ export function useAgentPurchase(agentId: string) {
   // Submit purchase mutation
   const { 
     mutate: submitPurchase, 
-    isLoading: isSubmitting,
+    isPending: isSubmitting,
     isSuccess,
     isError,
     error

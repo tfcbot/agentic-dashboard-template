@@ -7,10 +7,10 @@ export function useAgents() {
     queryKey: ['agents'],
     queryFn: async () => {
       const response = await AgentService.getAllAgents();
-      if (!response.success || !response.data) {
+      if (!response.success || !response.agents) {
         throw new Error(response.error || 'Failed to fetch agents');
       }
-      return response.data;
+      return response.agents;
     }
   });
 

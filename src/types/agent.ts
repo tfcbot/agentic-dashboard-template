@@ -11,7 +11,7 @@ export interface FAQ {
  */
 export interface PackageType {
   name: string;
-  price: number;
+  credits: number;
   deliveryTime: string;
   features: string[];
 }
@@ -25,7 +25,7 @@ export interface Agent {
   title: string;
   description: string;
   imageUrl: string;
-  startingPrice: number;
+  credits: number;
   available: boolean;
   keyDeliverables: string[];
   rating?: number;
@@ -48,7 +48,7 @@ export interface AgentMetadata {
   title: string;
   shortDescription: string;
   imageUrl: string;
-  startingPrice: number;
+  credits: number;
   rating: number;
   availability: {
     status: 'available' | 'busy' | 'offline';
@@ -85,9 +85,6 @@ export type PackageTypeKey = 'basic' | 'standard' | 'priority';
  */
 export interface OrderFormData {
   description: string;
-  startDate: Date;
-  frequency: 'one-time' | 'weekly' | 'monthly';
-  budget?: number;
   packageType: PackageTypeKey;
   agentId: string;
 }
@@ -114,3 +111,13 @@ export interface IntakeSubmissionResponse {
   orderId?: string;
   error?: string;
 } 
+
+
+/**
+ * Response structure for getting all agents
+ */
+export interface GetAllAgentsResponse {
+  success: boolean;
+  agents?: Agent[];
+  error?: string;
+}
