@@ -1,6 +1,7 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { AgentService } from '@/services/agentService';
-import type { Agent } from '@/schemas/agent';
+
 
 export function useAgents() {
   const { data, isLoading: loading, error } = useQuery({

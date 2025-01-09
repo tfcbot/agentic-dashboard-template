@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+"use client"
 import { z } from 'zod';
 import { OrderFormBase } from '@/components/OrderFormBase';
 import { useAgent } from '@/hooks/useAgents';
@@ -17,14 +17,22 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
     return <div>Loading...</div>;
   }
 
+  // Add package type validation
+  if (!agent.packages || !agent.packages[packageType]) {
+    return <div>Invalid package type selected</div>;
+  }
+
+  const selectedPackage = agent.packages[packageType];
+  
   // Dynamically generate Zod schema from metadata
   const generateSchema = (metadata: Agent, packageType: PackageTypeKey) => {
-    const fields = metadata.packages[packageType].requiredFields.reduce((acc: Record<string, z.ZodString>, fieldName: string) => {
+    console.log(metadata.packages[packageType].requiredFields);
+    const fields = selectedPackage.requiredFields.reduce((acc: Record<string, z.ZodString>, fieldName: string) => {
       const field = metadata.fields[fieldName];
       let fieldSchema = z.string();
 
       // Apply validation rules from metadata
-      if (field.validation) {
+      if (field && field.validation) {
         if (field.validation.min) fieldSchema = fieldSchema.min(field.validation.min);
         if (field.validation.max) fieldSchema = fieldSchema.max(field.validation.max);
         if (field.validation.pattern) fieldSchema = fieldSchema.regex(new RegExp(field.validation.pattern));
@@ -38,8 +46,8 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
 
   // Generate field configs from metadata
     const generateFieldConfigs = (metadata: Agent, packageType: PackageTypeKey) => {
-    const requiredFields = metadata.packages[packageType].requiredFields;
-    const optionalFields = metadata.packages[packageType].optionalFields;
+    const requiredFields = selectedPackage.requiredFields;
+    const optionalFields = selectedPackage.optionalFields;
     
     return [...requiredFields, ...optionalFields].reduce((acc, fieldName) => {
       const field = metadata.fields[fieldName];

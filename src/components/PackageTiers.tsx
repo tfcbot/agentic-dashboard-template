@@ -17,21 +17,11 @@ export function PackageTiers({ agentId, packages }: PackageTiersProps) {
   const [selectedPackage, setSelectedPackage] = useState<PackageTypeKey>('basic');
   const { agent, loading } = useAgent(agentId);
 
-  const formattedPackages = packages.reduce((acc, pkg) => {
-    if (pkg.name) {
-      const key = pkg.name.toLowerCase().replace(' strategy', '') as PackageTypeKey;
-      return {
-        ...acc,
-        [key]: {
-          name: pkg.name,
-          credits: pkg.credits,
-          features: pkg.features,
-          deliveryTime: pkg.deliveryTime || 'Standard delivery'
-        }
-      };
-    }
-    return acc;
-  }, {} as Record<PackageTypeKey, PackageType>);
+  const formattedPackages = {
+    basic: packages[0],
+    standard: packages[1],
+    priority: packages[2]
+  };
 
   if (loading) {
     return <div>Loading packages...</div>;
@@ -41,7 +31,7 @@ export function PackageTiers({ agentId, packages }: PackageTiersProps) {
     key: key as PackageTypeKey,
     name: pkg.name,
     credits: pkg.credits,
-    deliveryTime: pkg.deliveryTime,
+    deliveryTime: pkg.deliveryTime || 'Standard delivery',
     features: pkg.features
   }));
 

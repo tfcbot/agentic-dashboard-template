@@ -1,18 +1,8 @@
-'use client';
-
-import { AgentProvider } from '@/context/AgentContext';
-
-export default function AgentLayout({ 
-  children,
-  params 
-}: { 
-  children: React.ReactNode;
-  params: { agentId: string }
-}) {
-  // Only wrap routes that need agent data with the provider
+// No need for AgentProvider in the intake flow
+export default function AgentLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AgentProvider initialAgentId={params.agentId}>
+    <div className="agent-flow">
       {children}
-    </AgentProvider>
+    </div>
   );
 }
