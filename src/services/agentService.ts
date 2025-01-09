@@ -1,7 +1,9 @@
 import { getMockAgent, getAllMockAgents } from '@/lib/mockData';
 import type { Agent, AgentResponse, OrderFormData, 
-    IntakeSubmissionResponse, GetAgentResponse } from '@/schemas';
-import { api } from './api';
+    IntakeSubmissionResponse, GetAgentResponse, 
+    RequestWebsiteReviewBody,
+    GetAllAgentsResponse} from '@/schemas';
+import { apiService } from './api';
 
 
 export interface IAgentService {
@@ -11,7 +13,7 @@ export interface IAgentService {
 }
 
 export const AgentService = {
-    getAgent: (id: string): Promise<GetAgentResponse> => api.getAgent(id),
-    getAllAgents: () => api.getAllAgents(),
-    submitIntake: (data: OrderFormData) => api.submitIntake(data)
+    getAgent: (token: string, agentId: string): Promise<GetAgentResponse> => apiService.getAgent(token, agentId),
+    getAllAgents: (token: string): Promise<GetAllAgentsResponse> => apiService.getAllAgents(token),
+    requestWebsiteReview: (token: string, data: RequestWebsiteReviewBody) => apiService.requestWebsiteReview(token, data) 
 };

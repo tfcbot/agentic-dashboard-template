@@ -1,13 +1,14 @@
 import type { CreditBalance } from '@/schemas/billing';
+import { apiService } from '@/services/api';
 
 interface IBillingService {
-  getUserCreditsRemaining(): Promise<CreditBalance>;
-  purchaseCredits(quantity: number): Promise<CreditBalance>;
+  getUserCreditsRemaining(token: string): Promise<CreditBalance>;
+  purchaseCredits(token: string, quantity: number): Promise<CreditBalance>;
 
 }
 
 export class BillingService implements IBillingService {
-  async getUserCreditsRemaining(): Promise<CreditBalance> {
+  async getUserCreditsRemaining(token: string): Promise<CreditBalance> {
     // Simulate API latency
     await new Promise(resolve => setTimeout(resolve, 500));
     
@@ -20,7 +21,7 @@ export class BillingService implements IBillingService {
     }
   }
 
-  async purchaseCredits(quantity: number): Promise<CreditBalance> {
+  async purchaseCredits(token: string, quantity: number): Promise<CreditBalance> {
     // Simulate API latency
     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -31,6 +32,12 @@ export class BillingService implements IBillingService {
     } catch (error) {
       return { credits: 0 };
     }
+  }
+
+  async getCheckoutSessionId(token: string): Promise<string> {
+    console.log('Getting Checkout Session Id');
+    const response = await apiService.getCheckoutSessionId(token);
+    return response;
   }
 };
 

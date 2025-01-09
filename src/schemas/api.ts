@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { AgentSchema, GetWebsiteReviewsInputSchema, GetWebsiteReviewsOutputSchema, WebsiteReviewSchema } from "@/schemas/agent";
+import { 
+    AgentSchema, 
+    WebsiteReviewSchema,
+} from "@/schemas/agent";
 
 
 export const GetRemainingCreditsBodySchema = z.object({
@@ -28,31 +31,41 @@ export const GetAgentResponseSchema = z.object({
 });
 
 
-export const WebsiteReviewRequestReceivedResponseBody = z.object({
-    reviewId: z.string(),
+export const RequestWebsiteReviewResponseBodySchema = z.object({
+    success: z.boolean(),
+    data: z.object({
+        reviewId: z.string(),
+    }),
+    error: z.string().optional(),
+});
+
+export const UserRemainingCreditsResponseBodySchema = z.object({
+    remainingCredits: z.number(),
+});
+
+export const RequestWebsiteReviewBodySchema = z.object({
     url: z.string(),
 });
 
 
-
-export const UserWebsiteReviewsResponseBody = z.object({
-    reviews: z.array(WebsiteReviewSchema),
+export const GetWebsiteReviewsResponseBodySchema = z.object({
+    reviews: z.object({
+        reviewId: z.string(),
+        review: WebsiteReviewSchema,
+    }),
 });
 
-export const UserRemainingCreditsResponseBody = z.object({
-    remainingCredits: z.number(),
-});
 
-export type WebsiteReviewRequestReceivedResponseBody = z.infer<typeof WebsiteReviewRequestReceivedResponseBody>;
-export type UserWebsiteReviewsResponseBody = z.infer<typeof UserWebsiteReviewsResponseBody>;
-export type UserRemainingCreditsResponseBody = z.infer<typeof UserRemainingCreditsResponseBody>;
+
+export type RequestWebsiteReviewBody = z.infer<typeof RequestWebsiteReviewBodySchema>;
+export type RequestWebsiteReviewResponseBody = z.infer<typeof RequestWebsiteReviewResponseBodySchema>;
+export type UserRemainingCreditsResponseBody = z.infer<typeof UserRemainingCreditsResponseBodySchema>;
 export type ApiResponse = z.infer<typeof ApiResponseSchema>;
 export type GetRemainingCreditsBody = z.infer<typeof GetRemainingCreditsBodySchema>;
 export type StripeCheckoutSession = z.infer<typeof StripeCheckoutSessionSchema>;
 export type StripeBillingPortalSession = z.infer<typeof StripeBillingPortalSessionSchema>;
 export type GetAgentResponse = z.infer<typeof GetAgentResponseSchema>;
-export type GetWebsiteReviewsInput = z.infer<typeof GetWebsiteReviewsInputSchema>;
-export type GetWebsiteReviewsOutput = z.infer<typeof GetWebsiteReviewsOutputSchema>;
+export type GetWebsiteReviewsResponseBody = z.infer<typeof GetWebsiteReviewsResponseBodySchema>;
 
 
 

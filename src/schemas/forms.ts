@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { OrderFormSchema } from '@/lib/validation/orderForm';
-import { PackageTypeKey } from './agent';
+import { PackageTypeKey, Payload } from './agent';
 
 export type OrderForm = z.infer<typeof OrderFormSchema>;
 
@@ -30,7 +30,7 @@ export interface FormTouched {
 export type FrequencyType = 'one-time' | 'weekly' | 'monthly';
 
 export interface OrderFormState {
-    description: string;
+    payload: Payload;
     packageType: PackageTypeKey;
     agentId: string;
 } 

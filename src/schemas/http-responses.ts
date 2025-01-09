@@ -2,7 +2,7 @@ import {z} from 'zod';
 import { HttpResponseParams, HttpStatusCode, createHttpResponse, HttpResponses } from "@schemas/http";
 import {  WebsiteReviewSchema } from '@schemas/agent';
 import { GetRemainingCreditsOutput } from '@schemas/billing';
-import { GetWebsiteReviewsOutput } from '@schemas/api';
+import { GetWebsiteReviewsResponseBody } from '@schemas/api';
 
 
 export const WebsiteReviewRequestReceivedResponseBody = z.object({
@@ -27,7 +27,7 @@ export const ApiHttpResponses = {
     ...HttpResponses,
     WebsiteReviewRequestReceived: (params: HttpResponseParams<WebsiteReviewRequestReceivedResponseBody>) => 
       createHttpResponse(HttpStatusCode.CREATED, params),
-    UserWebsiteReviews: (params: HttpResponseParams<GetWebsiteReviewsOutput>) => 
+    UserWebsiteReviews: (params: HttpResponseParams<GetWebsiteReviewsResponseBody>) => 
       createHttpResponse(HttpStatusCode.OK, params),
     UserRemainingCredits: (params: HttpResponseParams<GetRemainingCreditsOutput>) => 
       createHttpResponse(HttpStatusCode.OK, params),

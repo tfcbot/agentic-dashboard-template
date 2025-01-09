@@ -84,7 +84,9 @@ export const PackageTypeKeySchema = z.enum(['basic', 'standard', 'priority']);
  * Form data structure for the intake process
  */
 export const OrderFormDataSchema = z.object({
-  description: z.string(),
+  payload: z.object({
+    formData: z.object({})
+  }),
   packageType: PackageTypeKeySchema,
   agentId: z.string()
 });
@@ -172,6 +174,10 @@ export const GetWebsiteReviewsOutputSchema = z.object({
   reviews: z.array(WebsiteReviewSchema)
 });
 
+export const PayloadSchema = z.object({
+  formData: z.object({})
+});
+
 
 
 // Export types
@@ -185,3 +191,4 @@ export type AgentResponse = z.infer<typeof AgentResponseSchema>;
 export type IntakeSubmissionResponse = z.infer<typeof IntakeSubmissionResponseSchema>;
 export type GetAllAgentsResponse = z.infer<typeof GetAllAgentsResponseSchema>;
 export type AgentPackageConfig = z.infer<typeof AgentPackageConfigSchema>;
+export type Payload = z.infer<typeof PayloadSchema>;

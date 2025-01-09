@@ -4,41 +4,39 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { StarRating } from '@/components/StarRating';
-import { useAgent } from '@/hooks/useAgents';
+import { Agent } from '@/schemas/agent';
 
 interface AgentCardProps {
-  agentId: string;
+  agent: Agent;
 }
 
-export function AgentCard({ agentId }: AgentCardProps) {
-      const { agent, loading } = useAgent(agentId);
+export function AgentCard({ agent }: AgentCardProps) {
+  console.log('AgentCard rendering with:', {
+    agent,
+    hasAgent: !!agent,
+    type: typeof agent,
+    keys: agent ? Object.keys(agent) : []
+  });
 
-  if (loading) {
+  if (!agent || typeof agent !== 'object') {
+    console.error('Invalid agent data received:', agent);
     return (
-      <div className="bg-gray-900 rounded-lg p-6 shadow-lg border border-gray-800 flex flex-col h-full animate-pulse">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="relative h-12 w-12 flex-shrink-0 bg-gray-800 rounded-full" />
-          <div className="space-y-2 flex-1">
-            <div className="h-4 bg-gray-800 rounded w-1/2" />
-            <div className="h-3 bg-gray-800 rounded w-1/3" />
-          </div>
-        </div>
-        <div className="h-3 bg-gray-800 rounded w-1/4 mb-4" />
-        <div className="h-16 bg-gray-800 rounded mb-4" />
-        <div className="space-y-2 mb-6 flex-grow">
-          <div className="h-3 bg-gray-800 rounded w-1/3" />
-          <div className="h-3 bg-gray-800 rounded w-3/4" />
-          <div className="h-3 bg-gray-800 rounded w-2/3" />
-        </div>
-        <div className="h-10 bg-gray-800 rounded" />
+      <div className="bg-gray-900 rounded-lg p-6 shadow-lg border border-gray-800">
+        <p className="text-red-500">Failed to load agent data</p>
+        <p className="text-gray-400 text-sm">Received: {JSON.stringify(agent)}</p>
       </div>
     );
   }
 
-  if (!agent) {
+  const requiredProps = ['id', 'name', 'title', 'description', 'imageUrl', 'keyDeliverables'];
+  const missingProps = requiredProps.filter(prop => !(prop in agent));
+  
+  if (missingProps.length > 0) {
+    console.error('Missing required properties:', missingProps);
     return (
       <div className="bg-gray-900 rounded-lg p-6 shadow-lg border border-gray-800">
-        <p className="text-red-500">Failed to load agent data</p>
+        <p className="text-red-500">Invalid agent data structure</p>
+        <p className="text-gray-400 text-sm">Missing: {missingProps.join(', ')}</p>
       </div>
     );
   }
@@ -60,24 +58,6 @@ export function AgentCard({ agentId }: AgentCardProps) {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-4">
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          agent.available === true
-            ? 'bg-green-900 text-green-300'
-            : agent.available === false
-            ? 'bg-yellow-900 text-yellow-300'
-            : 'bg-red-900 text-red-300'
-        }`}>
-            {agent.available === true
-            ? 'Available'
-            : agent.available === false
-            ? 'Unavailable'
-            : 'Unknown'}
-        </span>
-        <span className="text-sm text-gray-400">
-          Starting at ${agent.credits}
-        </span>
-      </div>
 
       <p className="text-gray-300 mb-4 line-clamp-3">{agent.description}</p>
 

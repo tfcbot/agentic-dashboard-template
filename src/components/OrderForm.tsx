@@ -6,15 +6,18 @@ import { Button } from './ui/button';
 import { AgentService } from '@/services/agentService';
 import { RetroLoadingOverlay } from './RetroLoadingOverlay';
 import { validateOrderForm } from '@/lib/validation/orderForm';
-import type { PackageTypeKey, OrderFormData } from '@/schemas/agent';
+import type { PackageTypeKey, OrderFormData, Payload } from '@/schemas/agent';
 import type { FormErrors, FormTouched, OrderFormState, FrequencyType } from '@/schemas/forms';
+import { apiService } from '@/services/api';
 
 interface OrderFormProps {
   agentId: string;
   initialPackage: PackageTypeKey;
+  initialPayload: Payload;
+  onSubmit: (data: OrderFormData) => Promise<{ success: boolean; error?: string }>;
 }
 
-export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
+export function OrderForm({ agentId, initialPackage, onSubmit }: OrderFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -22,7 +25,7 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
   const [touched, setTouched] = useState<FormTouched>({});
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
   const [formData, setFormData] = useState<OrderFormState>({
-    description: '',
+    payload: { formData: {} },
     packageType: initialPackage,
     agentId,
   });
@@ -32,7 +35,7 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
     if (name === 'agentId') return '';
 
     const formDataToValidate = {
-      description: formData.description,
+      payload: formData.payload,
       packageType: formData.packageType,
     };
 
@@ -51,7 +54,7 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
 
     // Validate all fields except agentId
     const formDataToValidate = {
-      description: formData.description,
+      payload: formData.payload.formData,
       packageType: formData.packageType,
     };
 
@@ -70,8 +73,8 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
 
     // At this point, validation has passed, so we know all required fields are present
     const submissionData: OrderFormData = {
-      description: formDataToValidate.description,
-      packageType: formDataToValidate.packageType,
+      payload: formData.payload,
+      packageType: formData.packageType,
       agentId,
     };
 
@@ -83,7 +86,9 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
       // Add initial delay to show loading state
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      const result = await AgentService.submitIntake(submissionData);
+      // Use the provided onSubmit handler or fall back to default apiService
+      const result = await onSubmit(submissionData);
+      
       console.log('Submission result:', result);
       
       if (!result.success) {
@@ -153,25 +158,6 @@ export function OrderForm({ agentId, initialPackage }: OrderFormProps) {
           {errors.form}
         </div>
       )}
-
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Project Description
-        </label>
-        <textarea
-          name="description"
-          className={getInputClassName('description')}
-          value={formData.description}
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          placeholder="Describe your project requirements..."
-          disabled={isSubmitting || isSuccess}
-        />
-        {(touched.description || attemptedSubmit) && errors.description && (
-          <p className="mt-1 text-sm text-red-500">{errors.description}</p>
-        )}
-      </div>
-
       <Button
         type="submit"
         className="w-full bg-purple-600 hover:bg-purple-700 text-white"

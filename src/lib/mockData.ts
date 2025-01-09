@@ -1,4 +1,4 @@
-import { Agent } from '@/schemas';
+import { Agent, GetWebsiteReviewsResponseBody, RequestWebsiteReviewResponseBody } from '@/schemas';
 
 export const mockAgents: Record<string, Agent> = {
   'agent-1': {
@@ -7,7 +7,7 @@ export const mockAgents: Record<string, Agent> = {
     title: 'Website Analysis Expert',
     description: 'Specialized in analyzing websites and providing insights',
     imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a',
-    credits: 2500,  
+    credits: 2500,
     available: true,
     rating: 4.8,
     keyDeliverables: [
@@ -70,7 +70,7 @@ export const mockAgents: Record<string, Agent> = {
     title: 'Research and Analysis Expert',
     description: 'Expert research and analysis across academic and business domains',
     imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a',
-    credits: 2500,  
+    credits: 2500,
     available: true,
     rating: 4.8,
     keyDeliverables: [
@@ -150,7 +150,7 @@ export const mockAgents: Record<string, Agent> = {
     title: 'Voice-to-Specification AI Engineer',
     description: 'Transforms your voice recordings into detailed technical specifications for AI coding projects',
     category: 'Development',
-    imageUrl: '/agents/voice-coding.png',
+    imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a',
     credits: 2500,
     available: true,
     keyDeliverables: [
@@ -253,6 +253,7 @@ export const mockAgents: Record<string, Agent> = {
   }
 };
 
+
 // Helper function to get agent by ID
 export const getMockAgent = (id: string): Agent => {
   const idMap: Record<string, string> = {
@@ -262,7 +263,7 @@ export const getMockAgent = (id: string): Agent => {
   };
 
   const actualId = idMap[id] || id;
-  
+
   // Return the requested agent or default to agent-1 (Website Analysis Agent) if not found
   const agent = mockAgents[actualId];
   if (!agent) {
@@ -275,4 +276,109 @@ export const getMockAgent = (id: string): Agent => {
 // Helper function to get all agents
 export const getAllMockAgents = (): Agent[] => {
   return Object.values(mockAgents);
-}; 
+};
+
+
+export const getMockWebsiteReview = (): GetWebsiteReviewsResponseBody => {
+  return {
+    reviews: {
+      reviewId: 'mock-review-id',
+      review: {
+        userId: 'mock-user-id',
+        websiteUrl: 'https://www.example.com',
+        createdAt: new Date().toISOString(),
+        copywriting_analysis: {
+          headline_effectiveness: {
+            clarity: 'The headline clearly communicates the main value proposition',
+            benefit_focused: 'Strong focus on customer benefits',
+            urgency_factor: 'Creates moderate sense of urgency',
+            emotional_appeal: 8
+          },
+          value_proposition: {
+            unique_selling_points: ['Innovative features', 'Cost effective', 'Easy to use'],
+            benefit_clarity: 'Benefits are clearly articulated',
+            pain_point_addressing: 'Effectively addresses key customer pain points'
+          },
+          persuasion_elements: {
+            social_proof: 'Good use of testimonials and case studies',
+            credibility_indicators: 'Professional certifications and awards displayed',
+            risk_reducers: 'Money-back guarantee and free trial offered'
+          },
+          call_to_action: {
+            clarity: 'CTAs are clear and action-oriented',
+            placement: 'Strategically placed throughout the page',
+            compelling_factor: 'Strong value proposition in CTA copy'
+          },
+          content_engagement: {
+            readability: 'Content is easy to read and scan',
+            scannability: 'Good use of headers and bullet points',
+            emotional_triggers: ['Trust', 'Security', 'Success']
+          },
+          conversion_optimization: {
+            friction_points: ['Long form fields', 'Complex navigation'],
+            trust_elements: 'Strong security badges and privacy policy'
+          },
+          recommendations: [
+            'Simplify the signup process',
+            'Add more customer testimonials',
+            'Improve mobile responsiveness',
+            'Enhance visual hierarchy'
+          ]
+        }
+      }
+    }
+  }
+};
+
+
+
+export async function getMockWebsiteReviews(): Promise<GetWebsiteReviewsResponseBody> {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const reviews = {
+    reviewId: 'mock-review-id',
+    review: {
+      userId: 'mock-user-id',
+      websiteUrl: 'https://www.example.com',
+      createdAt: new Date().toISOString(),
+      copywriting_analysis: {
+        headline_effectiveness: {
+          clarity: 'The headline clearly communicates the main value proposition',
+          benefit_focused: 'Strong focus on customer benefits',
+          urgency_factor: 'Creates moderate sense of urgency',
+          emotional_appeal: 8
+        },
+        value_proposition: {
+          unique_selling_points: ['Innovative features', 'Cost effective', 'Easy to use'],
+          benefit_clarity: 'Benefits are clearly articulated',
+          pain_point_addressing: 'Effectively addresses key customer pain points'
+        },
+        persuasion_elements: {
+          social_proof: 'Good use of testimonials and case studies',
+          credibility_indicators: 'Professional certifications and awards displayed',
+          risk_reducers: 'Money-back guarantee and free trial offered'
+        },
+        call_to_action: {
+          clarity: 'CTAs are clear and action-oriented',
+          placement: 'Strategically placed throughout the page',
+          compelling_factor: 'Strong value proposition in CTA copy'
+        },
+        content_engagement: {
+          readability: 'Content is easy to read and scan',
+          scannability: 'Good use of headers and bullet points',
+          emotional_triggers: ['Trust', 'Security', 'Success']
+        },
+        conversion_optimization: {
+          friction_points: ['Long form fields', 'Complex navigation'],
+          trust_elements: 'Strong security badges and privacy policy'
+        },
+        recommendations: [
+          'Simplify the signup process',
+          'Add more customer testimonials',
+          'Improve mobile responsiveness',
+          'Enhance visual hierarchy'
+        ]
+      }
+    }
+  };
+  return { reviews };
+}

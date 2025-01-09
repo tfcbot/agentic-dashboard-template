@@ -1,113 +1,135 @@
-import { mockAgents, getMockAgent } from '@/lib/mockData';
-import type { 
-  Agent, 
-  OrderFormData, 
-  IntakeSubmissionResponse, 
+import { mockAgents, getMockAgent, getAllMockAgents, getMockWebsiteReviews } from '@/lib/mockData';
+import type {
+  RequestWebsiteReviewBody,
+  RequestWebsiteReviewResponseBody,
   GetAgentResponse,
-  GetRemainingCreditsBody
-} from '@/schemas';
+  GetRemainingCreditsBody,
+  GetWebsiteReviewsResponseBody,
 
+} from '@/schemas/api';
 
+import { Agent, GetAllAgentsResponse } from '@/schemas/agent';
 const API_CONFIG = {
-    baseUrl: process.env.NEXT_API_URL,
-    version: '/v1',
-    defaultHeaders: {
-        'Content-Type': 'application/json'
-    }
+  baseUrl: process.env.NEXT_API_URL,
+  version: '/v1',
+  defaultHeaders: {
+    'Content-Type': 'application/json'
+  }
 };
 
-const getAbsoluteUrl = (path: string): string => {
+import { getMockWebsiteReview } from '@/lib/mockData';
+
+// Typed endpoints that take token as first paramete
+
+export interface IApiService {
+  getAbsoluteUrl(path: string): string;
+  getHeaders(token: string): HeadersInit;
+  getAgent(token: string, agentId: string): Promise<GetAgentResponse>;
+  getAllAgents(token: string): Promise<GetAllAgentsResponse>;
+  requestWebsiteReview(token: string, body: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody>; 
+  getUserWebsiteReviews(token: string): Promise<GetWebsiteReviewsResponseBody>;
+  getCheckoutSessionId(token: string): Promise<string>;
+  getUserCreditsRemaining(token: string): Promise<number>;
+}
+
+
+export class ApiService implements IApiService {
+  
+  getAbsoluteUrl(path: string): string {
     if (!API_CONFIG.baseUrl) {
-        throw new Error('NEXT_API_URL is not defined');
+      throw new Error('NEXT_API_URL is not defined');
     }
-
     return new URL(API_CONFIG.version + path, API_CONFIG.baseUrl).toString();
-};
-
-const getHeaders = (token: string): HeadersInit => {
+  };
+  
+  getHeaders(token: string): HeadersInit {
     return {
-        ...API_CONFIG.defaultHeaders,
-        'Authorization': `Bearer ${token}`
+      ...API_CONFIG.defaultHeaders,
+      'Authorization': `Bearer ${token}`
     };
-};
+  };
+  
+  
+  
+  
+  async getAgent(token: string, agentId: string): Promise<GetAgentResponse> {
+    const absoluteUrl = this.getAbsoluteUrl('/agent/' + agentId);
+    // const response = await fetch(absoluteUrl, {
+    //   method: 'GET',
+    //   headers: this.getHeaders(token),
+    // });
+   // const data = await response.json();
+    const agent = getMockAgent(agentId);
+    return { success: true, data: agent };
+  }
+
+  async getAllAgents(token: string): Promise<GetAllAgentsResponse> {
+    // const absoluteUrl = this.getAbsoluteUrl('/agents');
+    // const response = await fetch(absoluteUrl, {
+    //   method: 'GET',
+    //   headers: this.getHeaders(token),
+    // });
+  //  const data = await response.json();
+    const agents = getAllMockAgents();
+    console.log('Get ALl Agents Mock Data', agents);
+    return { success: true, agents: agents };
+  }
 
 
-// Typed endpoints that take token as first parameter
-export async function getCheckoutSessionId(token: string): Promise<string> {
+  async getCheckoutSessionId(token: string): Promise<string> {
 
-    const absoluteUrl = getAbsoluteUrl('/checkout');
+    const absoluteUrl = this.getAbsoluteUrl('/checkout');
     const response = await fetch(absoluteUrl, {
-        method: 'POST',
-        headers: getHeaders(token),
-        body: JSON.stringify({
-            quantity: 1,
-            amount: 10
-        }),
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify({
+        quantity: 1,
+        amount: 10
+      }),
     });
     const data = await response.json();
     return data.id
-}
+  }
 
 
-export async function getUserCreditsRemaining(token: string): Promise<number> {
+  async getUserCreditsRemaining(token: string): Promise<number> {
     try {
-        const absoluteUrl = getAbsoluteUrl('/user/credits');
-        const response = await fetch(absoluteUrl, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json',
-            },
-        });
-        const parsedResponse = await response.json() as GetRemainingCreditsBody;
-        return parsedResponse.credits; // Return the responses value or 0 if undefined
+      const absoluteUrl = this.getAbsoluteUrl('/user/credits');
+      const response = await fetch(absoluteUrl, {
+        method: 'GET',
+        headers: this.getHeaders(token),
+      });
+      // const data = await response.json();
+      return 10000; // Return the responses value or 0 if undefined
     } catch (error) {
-        console.error('Error fetching responses:', error);
-        return 0; // Return 0 if there's an error
-    }
-}
-
-
-// API layer - simulates actual API calls
-export const api = {
-  async getAgent(id: string): Promise<GetAgentResponse> {
-    // Simulate API latency
-    await new Promise(resolve => setTimeout(resolve, 500));
-    try {
-      const agent = getMockAgent(id);
-      return { success: true, data: agent };
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-      return {  
-        success: false,
-        data: {} as Agent,
-        error: errorMessage
-      };
-    }
-  },
-
-  async getAllAgents(): Promise<{ success: boolean; data?: Agent[]; error?: string }> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    try {
-      const agents = Object.values(mockAgents);
-      return { success: true, data: agents };
-    } catch (error) {
-      return { success: false, error: 'Failed to fetch agents' };
-    }
-  },
-
-  async submitIntake(data: OrderFormData): Promise<IntakeSubmissionResponse> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return { success: true, orderId: 'mock-order-id' };
-  },
-
-    getAgentMetadata: async (agentId: string): Promise<Agent> => {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    try {
-      const mockAgent = getMockAgent(agentId);
-      return mockAgent;
-    } catch (error) {
-      throw new Error('Failed to fetch agent metadata');
+      console.error('Error fetching responses:', error);
+      return 0; // Return 0 if there's an error
     }
   }
-};
+
+  async getUserWebsiteReviews(token: string): Promise<GetWebsiteReviewsResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/landing-page-review/deliverables');
+    const response = await fetch(absoluteUrl, {
+      method: 'GET',
+      headers: this.getHeaders(token),
+    });
+   // const data = await response.json();
+    const reviews = await getMockWebsiteReviews();
+    return reviews;
+  }
+
+  async requestWebsiteReview(token: string, body: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody> {
+    // const absoluteUrl = this.getAbsoluteUrl('/landing-page-review');
+    // const response = await fetch(absoluteUrl, {
+    //   method: 'POST',
+    //   headers: this.getHeaders(token),
+    //   body: JSON.stringify(body),
+    // });
+  //  const data = await response.json();
+   console.log('Requesting Website Review');
+  
+    return { success: true, data: { reviewId: 'mock-review-id' } };
+  }
+}
+
+export const apiService = new ApiService();
