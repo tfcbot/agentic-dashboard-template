@@ -3,7 +3,7 @@
 import React from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth } from '@clerk/nextjs';
-import { getCheckoutSessionId } from '@/lib/api';
+import { getCheckoutSessionId } from '@/services/api';
 import { BillingService } from '@/services/billingService';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
