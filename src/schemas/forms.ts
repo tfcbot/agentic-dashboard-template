@@ -57,7 +57,7 @@ export const OrderFormBaseSchema = z.object({
 export const OrderFormConfigSchema = z.object({
   schema: z.instanceof(z.ZodType),
   fieldConfigs: z.array(FieldConfigSchema),
-  onSubmit: z.function().args(z.any()).returns(z.promise(z.void())),
+  onSubmit: z.function().args(z.any()).returns(z.promise(z.boolean())),
   initialData: z.record(z.string(), z.any()).optional(),
   submitLabel: z.string().optional(),
   loadingMessage: z.string().optional(), 

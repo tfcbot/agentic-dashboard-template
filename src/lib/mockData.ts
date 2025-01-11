@@ -25,7 +25,7 @@ export const mockAgents: Record<string, Agent> = {
     additionalInfo: 'Available for both short-term and long-term engagements',
     category: 'Business',
     fields: {
-      description: {
+      url: {
         label: 'Website URL',
         type: 'text',
         placeholder: 'Enter the URL of the website you want to analyze...',
@@ -43,7 +43,7 @@ export const mockAgents: Record<string, Agent> = {
         credits: 2500,
         features: ['Initial consultation', 'Basic market analysis'],
         deliveryTime: '1 hour',
-        requiredFields: ['description'],
+        requiredFields: ['url'],
         optionalFields: []
       },
       standard: {
@@ -51,7 +51,7 @@ export const mockAgents: Record<string, Agent> = {
         credits: 5000,
         features: ['Everything in Basic', 'Detailed implementation plan'],
         deliveryTime: '1 hour',
-        requiredFields: ['description'],
+        requiredFields: ['url'],
         optionalFields: []
       },
       priority: {

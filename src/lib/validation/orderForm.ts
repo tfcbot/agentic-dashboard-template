@@ -1,12 +1,9 @@
 import { z } from 'zod';
-
+import { FieldConfigSchema } from '@/schemas/forms';
 
 
 export const OrderFormSchema = z.object({
-  description: z
-    .string()
-    .min(10, 'Description must be at least 10 characters')
-    .max(1000, 'Description must not exceed 1000 characters'),
+  fieldConfigs: FieldConfigSchema,
   packageType: z.enum(['basic', 'standard', 'priority'] as const, {
     required_error: 'Please select a package',
   })
