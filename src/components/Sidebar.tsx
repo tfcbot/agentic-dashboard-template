@@ -92,6 +92,14 @@ const Sidebar = () => {
           {isCollapsed ? '🤖' : 'Agents'}
         </Link>
         <Link
+          href="/orders"
+          className={`block py-2 px-4 mx-2 rounded transition-colors ${
+            pathname === '/orders' ? 'bg-gray-700' : 'hover:bg-gray-700'
+          }`}
+        >
+          {isCollapsed ? '📋' : 'Orders'}
+        </Link>
+        <Link
           href="/settings"
           className={`block py-2 px-4 mx-2 rounded transition-colors ${
             pathname === '/settings' ? 'bg-gray-700' : 'hover:bg-gray-700'
