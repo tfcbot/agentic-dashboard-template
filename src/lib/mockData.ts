@@ -224,11 +224,10 @@ export const getMockOrders = async () => {
         id: 'order-1',
         agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
         agentName: 'Website Analysis Agent',
-        packageType: 'basic',
         status: 'completed',
         createdAt: '2024-03-15T10:30:00Z',
         completedAt: '2024-03-15T11:30:00Z',
-        credits: 100,
+        credits: 2500,
         deliverable: {
           agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
           title: 'Website Review Analysis',
@@ -304,11 +303,10 @@ export const getMockOrders = async () => {
         id: 'order-2',
         agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
         agentName: 'AI Coding Strategist',
-        packageType: 'standard',
         status: 'completed',
         createdAt: '2024-03-16T09:15:00Z',
         completedAt: '2024-03-16T10:45:00Z',
-        credits: 200,
+        credits: 199,
         deliverable: {
           agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
           title: 'Code Architecture Analysis',
@@ -379,11 +377,10 @@ export const getMockOrders = async () => {
         id: 'order-3',
         agentId: '3d813cbb-47fb-4d9d-9b7b-a5a04d8e6c9a',
         agentName: 'Research Assistant',
-        packageType: 'priority',
         status: 'completed',
         createdAt: '2024-03-16T14:45:00Z',
         completedAt: '2024-03-16T16:30:00Z',
-        credits: 300,
+        credits: 6000,
         deliverable: {
           agentId: '3d813cbb-47fb-4d9d-9b7b-a5a04d8e6c9a',
           title: 'Market Analysis Report',
@@ -454,20 +451,18 @@ export const getMockOrders = async () => {
         id: 'order-4',
         agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
         agentName: 'AI Coding Strategist',
-        packageType: 'standard',
         status: 'in_progress',
         createdAt: '2024-03-17T09:00:00Z',
-        credits: 150,
+        credits: 199,
         deliverable: null
       },
       {
         id: 'order-5',
         agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
         agentName: 'Website Analysis Agent',
-        packageType: 'priority',
         status: 'pending',
         createdAt: '2024-03-17T11:45:00Z',
-        credits: 300,
+        credits: 2500,
         deliverable: null
       }
     ]

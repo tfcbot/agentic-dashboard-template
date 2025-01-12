@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { DeliverableConfigSchema } from './deliverable';
+import { OrderResponseBody } from './http-responses';
 
 
 export const AgentFieldConfig = z.object({
@@ -19,42 +20,13 @@ export const AgentFieldConfig = z.object({
   }).optional()
 });
 
-export const AgentPackageConfigSchema = z.object({
-  name: z.string(),
-  credits: z.number(),
-  deliveryTime: z.string(),
-  features: z.array(z.string()),
-  requiredFields: z.array(z.string()), // Fields required for this package
-  optionalFields: z.array(z.string())  // Optional fields for this package
-});
-
-
-
-
-
-/**
- * Represents a single FAQ item
- */
 export const FAQSchema = z.object({
   question: z.string(),
   answer: z.string()
 });
 
-/**
- * Represents a package type with its features and pricing
- */
-export const PackageTypeSchema = z.object({
-  name: z.string(),
-  credits: z.number(),
-  deliveryTime: z.string(),
-  features: z.array(z.string())
-});
-
-/**
- * Represents the complete agent data structure
- */
 export const AgentConfigSchema = z.object({
-  id: z.string(),
+  id: z.string().uuid(),
   name: z.string(),
   title: z.string(),
   description: z.string(),
@@ -68,37 +40,19 @@ export const AgentConfigSchema = z.object({
   additionalInfo: z.string().optional(),
   fields: z.record(z.string(), AgentFieldConfig),
   faq: z.array(FAQSchema),
-  packages: z.object({
-    basic: AgentPackageConfigSchema,
-    standard: AgentPackageConfigSchema, 
-    priority: AgentPackageConfigSchema
-  }),
   deliverable: DeliverableConfigSchema,
   handler: z.function()
     .args(z.string(), z.custom<OrderFormData>())
-    .returns(z.promise(z.custom<IntakeSubmissionResponse>()))
+    .returns(z.promise(z.custom<OrderResponseBody>()))
 });
 
-
-/**
- * Valid package types for form submission
- */
-export const PackageTypeKeySchema = z.enum(['basic', 'standard', 'priority']);
-
-/**
- * Form data structure for the intake process
- */
 export const OrderFormDataSchema = z.object({
   payload: z.object({
     formData: z.object({})
   }),
-  packageType: PackageTypeKeySchema,
   agentId: z.string()
 });
 
-/**
- * Possible states for the intake form
- */
 export const OrderFormStatusSchema = z.enum(['idle', 'submitting', 'success', 'error']);
 
 /**
@@ -125,8 +79,6 @@ export const IntakeSubmissionResponseSchema = z.object({
 export const GetAllAgentsResponseSchema = z.object({
   agents: z.array(AgentConfigSchema).optional(),
 });
-
-
 
 export const WebsiteReviewSchema = z.object({
   userId: z.string(),
@@ -181,17 +133,17 @@ export const PayloadSchema = z.object({
   formData: z.object({})
 });
 
-
+export const ValueStrategistRequestSchema = z.object({
+  applicationIdea: z.string()
+}); 
 
 // Export types
 export type FAQ = z.infer<typeof FAQSchema>;
-export type PackageType = z.infer<typeof PackageTypeSchema>;
 export type AgentConfig = z.infer<typeof AgentConfigSchema>;
-export type PackageTypeKey = z.infer<typeof PackageTypeKeySchema>;
 export type OrderFormData = z.infer<typeof OrderFormDataSchema>;
 export type OrderFormStatus = z.infer<typeof OrderFormStatusSchema>;
 export type AgentResponse = z.infer<typeof AgentResponseSchema>;
 export type IntakeSubmissionResponse = z.infer<typeof IntakeSubmissionResponseSchema>;
 export type GetAllAgentsResponse = z.infer<typeof GetAllAgentsResponseSchema>;
-export type AgentPackageConfig = z.infer<typeof AgentPackageConfigSchema>;
 export type Payload = z.infer<typeof PayloadSchema>;
+export type ValueStrategistRequest = z.infer<typeof ValueStrategistRequestSchema>;

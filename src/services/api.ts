@@ -12,7 +12,7 @@ import type {
 
 } from '@/schemas/api';
 
-import { AgentConfig, GetAllAgentsResponse } from '@/schemas/agent';
+import { AgentConfig, GetAllAgentsResponse, ValueStrategistRequest } from '@/schemas/agent';
 const API_CONFIG = {
   baseUrl: process.env.NEXT_API_URL,
   version: '/v1',
@@ -23,6 +23,7 @@ const API_CONFIG = {
 
 import { getMockWebsiteReview } from '@/lib/mockData';
 import { AgentService } from './agentService';
+import { OrderResponseBody } from '@/schemas/http-responses';
 
 // Typed endpoints that take token as first paramete
 
@@ -128,6 +129,17 @@ export class ApiService implements IApiService {
       body: JSON.stringify(body),
     });
     return { voiceRepurposeId: 'mock-voice-repurpose-id' };
+  }
+
+  async requestValueStrategist(token: string, body: ValueStrategistRequest): Promise<OrderResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/value-strategist');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    const data = await response.json() as OrderResponseBody;
+    return data 
   }
 }
 

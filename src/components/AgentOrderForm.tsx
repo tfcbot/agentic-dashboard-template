@@ -1,35 +1,26 @@
 "use client"
 import { z } from 'zod';
 import { OrderFormBase } from '@/components/OrderFormBase';
-import type { AgentConfig, PackageTypeKey } from '@/schemas/agent';
+import type { AgentConfig } from '@/schemas/agent';
 import { FieldConfig } from '@/schemas/forms';
 import { useAuth } from '@clerk/nextjs';
 import { useAgent } from '@/hooks/useAgents';
 
 interface AgentOrderFormProps {
   agentId: string;
-  packageType: 'basic' | 'standard' | 'priority';
 }
 
-export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
+export function AgentOrderForm({ agentId }: AgentOrderFormProps) {
   const { agent, loading } = useAgent(agentId);
   const { getToken } = useAuth();
   
   if (loading || !agent) {
     return <div>Loading...</div>;
   }
-
-  // Add package type validation
-  if (!agent.packages || !agent.packages[packageType]) {
-    return <div>Invalid package type selected</div>;
-  }
-
-  const selectedPackage = agent.packages[packageType];
   
   // Dynamically generate Zod schema from metadata
-  const generateSchema = (metadata: AgentConfig, packageType: PackageTypeKey) => {
-    console.log(metadata.packages[packageType].requiredFields);
-    const fields = selectedPackage.requiredFields.reduce((acc: Record<string, z.ZodString>, fieldName: string) => {
+  const generateSchema = (metadata: AgentConfig) => {
+    const fields = Object.keys(metadata.fields).reduce((acc: Record<string, z.ZodString>, fieldName: string) => {
       const field = metadata.fields[fieldName];
       let fieldSchema = z.string();
 
@@ -47,11 +38,8 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
   };
 
   // Generate field configs from metadata
-    const generateFieldConfigs = (metadata: AgentConfig, packageType: PackageTypeKey) => {
-    const requiredFields = selectedPackage.requiredFields;
-    const optionalFields = selectedPackage.optionalFields;
-    
-    return [...requiredFields, ...optionalFields].reduce((acc, fieldName) => {
+  const generateFieldConfigs = (metadata: AgentConfig) => {
+    return Object.keys(metadata.fields).reduce((acc, fieldName) => {
       const field = metadata.fields[fieldName];
       return {
         ...acc,
@@ -65,8 +53,8 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
     }, {});
   };
 
-  const schema = generateSchema(agent, packageType);
-  const fieldConfigs = generateFieldConfigs(agent, packageType);
+  const schema = generateSchema(agent);
+  const fieldConfigs = generateFieldConfigs(agent);
 
   const handleSubmit = async (data: z.infer<typeof schema>) => {
     console.log("Handling submission for agent:", agentId);
@@ -83,7 +71,6 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
       payload: {
         formData: data
       },
-      packageType,
       agentId
     });
     return result.success
@@ -96,10 +83,10 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
         <p className="text-gray-300">{agent.description}</p>
         <div className="mt-4 p-3 bg-purple-900/50 rounded">
           <h3 className="font-semibold mb-2">
-            Selected Package: {agent.packages[packageType].name}
+            Service Details
           </h3>
           <ul className="list-disc list-inside space-y-1">
-            {agent.packages[packageType].features.map((feature: string, index: number) => (
+            {agent.keyDeliverables.map((feature: string, index: number) => (
               <li key={index} className="text-sm text-gray-300">{feature}</li>
             ))}
           </ul>
@@ -110,10 +97,10 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
         schema={schema}
         fieldConfigs={fieldConfigs as FieldConfig[]}
         onSubmit={handleSubmit}
-        submitLabel={`Order Now (${agent.packages[packageType].credits} credits)`}
+        submitLabel={`Order Now (${agent.credits} credits)`}
         loadingMessage="Creating your order..."
         successMessage="Order placed successfully!"
-        redirectPath="/dashboard/orders"
+        redirectPath="/orders"
       />
     </div>
   );

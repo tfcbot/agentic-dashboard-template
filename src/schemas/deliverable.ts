@@ -18,7 +18,6 @@ export const DeliverableSectionSchema = z.object({
 export const DeliverableConfigSchema = z.object({
   sections: z.array(DeliverableSectionSchema),
   availableFormats: z.array(z.enum(['pdf', 'markdown', 'presentation'])),
-  defaultTemplate: z.string().optional()
 });
 
 export const DeliverableContentSchema = z.object({

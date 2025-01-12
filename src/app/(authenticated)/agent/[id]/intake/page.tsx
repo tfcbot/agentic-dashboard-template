@@ -1,19 +1,13 @@
 import { AgentOrderForm } from '@/components/AgentOrderForm';
 import Link from 'next/link';
-import type { PackageTypeKey } from '@/schemas';
 
 interface Props {
   params: {
     id: string;
   };
-  searchParams: {
-    package?: PackageTypeKey;
-  };
 }
 
-export default async function IntakePage({ params, searchParams }: Props) {
-  const packageType = (searchParams.package || 'basic') as PackageTypeKey;
-  
+export default async function IntakePage({ params }: Props) {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
@@ -39,12 +33,9 @@ export default async function IntakePage({ params, searchParams }: Props) {
         <div className="lg:col-span-2">
           <h1 className="text-3xl font-bold text-white mb-8">Place Your Order</h1>
           <AgentOrderForm 
-            agentId={params.id} 
-            packageType={packageType}
+            agentId={params.id}
           />
         </div>
-
-        {/* Package Details Sidebar - Now handled by AgentOrderForm */}
       </div>
     </div>
   );

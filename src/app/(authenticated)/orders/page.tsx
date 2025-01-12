@@ -12,7 +12,6 @@ interface Order {
   id: string;
   agentId: string;
   agentName: string;
-  packageType: string;
   status: string;
   createdAt: string;
   completedAt?: string;
@@ -77,22 +76,20 @@ export default function OrdersPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-gray-700">
-                    <th className="py-3 px-4 text-gray-400 font-medium">ID</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium">Agent</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium">Package</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium">Status</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium">Created</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium">Completed</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium text-right">Credits</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium text-right">Deliverable</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">ID</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Agent</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Status</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Created</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Completed</th>
+                    <th className="py-3 px-4 text-right text-sm font-medium text-gray-400">Credits</th>
+                    <th className="py-3 px-4 text-right text-sm font-medium text-gray-400">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.map((order) => (
-                    <tr key={order.id} className="border-b border-gray-800 hover:bg-gray-800/50">
+                    <tr key={order.id} className="border-t border-gray-800">
                       <td className="py-3 px-4 text-gray-300">{order.id}</td>
                       <td className="py-3 px-4 text-white">{order.agentName}</td>
-                      <td className="py-3 px-4 text-gray-300 capitalize">{order.packageType}</td>
                       <td className="py-3 px-4">
                         <span className={`inline-block px-2 py-1 rounded text-xs font-medium capitalize ${getStatusColor(order.status)}`}>
                           {order.status.replace('_', ' ')}

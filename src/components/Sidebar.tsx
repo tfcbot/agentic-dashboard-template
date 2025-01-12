@@ -99,14 +99,6 @@ const Sidebar = () => {
         >
           {isCollapsed ? '📋' : 'Orders'}
         </Link>
-        <Link
-          href="/settings"
-          className={`block py-2 px-4 mx-2 rounded transition-colors ${
-            pathname === '/settings' ? 'bg-gray-700' : 'hover:bg-gray-700'
-          }`}
-        >
-          {isCollapsed ? '⚙️' : 'Settings'}
-        </Link>
       </nav>
 
       <div className="flex flex-col h-[calc(100%-12rem)]">

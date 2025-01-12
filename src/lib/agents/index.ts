@@ -1,12 +1,12 @@
 import type { AgentConfig } from '@/schemas';
-import { websiteReviewAgent } from './websiteReviewAgent';
-import { researchAgent } from './researchAgent';
-import { aiCodingStrategist } from './aiCodingStrategist';
+import { saasValueStrategistAgent } from './sassValueStategist.agent';
+import { mvpStrategistAgent } from './mvpStrategist.agent';
+import { pricingStrategistAgent } from './pricingStrategist.agent';
 // Combine all agents into a single array
 export const allAgents: AgentConfig[] = [
-  websiteReviewAgent,
-  researchAgent,
-  aiCodingStrategist
+  saasValueStrategistAgent,
+  mvpStrategistAgent,
+  pricingStrategistAgent
 ];
 
 // Provide a helper to find a specific agent by ID

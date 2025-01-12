@@ -83,7 +83,7 @@ function MetricsSection({ data, config }: SectionProps) {
           <div key={key} className="bg-gray-800 p-4 rounded-lg">
             <div className="text-sm text-gray-400">{key}</div>
             <div className="text-xl font-semibold text-white mt-1">
-              {typeof value === 'number' ? value.toLocaleString() : value}
+              {typeof value === 'number' ? value.toLocaleString() : String(value)}
             </div>
           </div>
         ))}

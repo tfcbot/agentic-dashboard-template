@@ -18,9 +18,15 @@ export const UserRemainingCreditsResponseBody = z.object({
     remainingCredits: z.number(),
 });
 
+export const OrderResponseBody = z.object({
+    success: z.boolean(),
+    orderId: z.string(),
+});
+
 export type WebsiteReviewRequestReceivedResponseBody = z.infer<typeof WebsiteReviewRequestReceivedResponseBody>;
 export type UserWebsiteReviewsResponseBody = z.infer<typeof UserWebsiteReviewsResponseBody>;
 export type UserRemainingCreditsResponseBody = z.infer<typeof UserRemainingCreditsResponseBody>;
+export type OrderResponseBody = z.infer<typeof OrderResponseBody>;
 
 
 export const ApiHttpResponses = {
@@ -30,6 +36,8 @@ export const ApiHttpResponses = {
     UserWebsiteReviews: (params: HttpResponseParams<GetWebsiteReviewsResponseBody>) => 
       createHttpResponse(HttpStatusCode.OK, params),
     UserRemainingCredits: (params: HttpResponseParams<GetRemainingCreditsOutput>) => 
+      createHttpResponse(HttpStatusCode.OK, params),
+    OrderResponse: (params: HttpResponseParams<OrderResponseBody>) => 
       createHttpResponse(HttpStatusCode.OK, params),
   };  
   

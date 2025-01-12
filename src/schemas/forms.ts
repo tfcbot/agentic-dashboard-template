@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { OrderFormSchema } from '@/lib/validation/orderForm';
-import { PackageTypeKey, Payload } from './agent';
+import { Payload } from './agent';
 
 export type OrderForm = z.infer<typeof OrderFormSchema>;
 
@@ -31,18 +31,15 @@ export type FrequencyType = 'one-time' | 'weekly' | 'monthly';
 
 export interface OrderFormState {
     payload: Payload;
-    packageType: PackageTypeKey;
     agentId: string;
-} 
+}
 
 export const OrderFormBaseSchema = z.object({
     additionalContext: z.string().min(10, 'Description must be at least 10 characters'),
-    packageType: z.enum(['basic', 'premium', 'enterprise']),
     agentId: z.string()
-  });
+});
 
-
-  export const FieldConfigSchema = z.object({
+export const FieldConfigSchema = z.object({
     label: z.string(),
     type: z.enum(['text', 'textarea', 'select', 'number', 'email']),
     options: z.array(z.object({
@@ -51,8 +48,7 @@ export const OrderFormBaseSchema = z.object({
     })).optional(),
     placeholder: z.string().optional(),
     required: z.boolean().optional()
-  });
-
+});
 
 export const OrderFormConfigSchema = z.object({
   schema: z.instanceof(z.ZodType),
@@ -64,7 +60,6 @@ export const OrderFormConfigSchema = z.object({
   successMessage: z.string().optional(),
   redirectPath: z.string().optional()
 });
-
 
 export type OrderFormBase = z.infer<typeof OrderFormBaseSchema>;
 export type FieldConfig = z.infer<typeof FieldConfigSchema>;

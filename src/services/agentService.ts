@@ -4,17 +4,18 @@ import type {
   GetAllAgentsResponse,
   RequestResearchBody,
   RequestWebsiteReviewResponseBody,
-  RequestResearchResponseBody
+  RequestResearchResponseBody,
+  ValueStrategistRequest
 } from '@/schemas';
 import { apiService } from './api';
 import { getAgent, getAllAgents } from '@/lib/agents';
-
+import { OrderResponseBody } from '@/schemas/http-responses';
 export interface IAgentService {
   getAgent(id: string): Promise<GetAgentResponse>;
   getAllAgents(): Promise<GetAllAgentsResponse>;
   handleWebsiteReviewSubmission(token: string, data: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody>;
   handleResearchSubmission(token: string, data: RequestResearchBody): Promise<RequestResearchResponseBody>;
-
+  handleValueStrategistRequest(token: string, data: ValueStrategistRequest): Promise<OrderResponseBody>;
 }
 
 export class AgentService implements IAgentService {
@@ -36,6 +37,9 @@ export class AgentService implements IAgentService {
   }
   async handleResearchSubmission(token: string, data: RequestResearchBody): Promise<RequestResearchResponseBody> {
     return apiService.requestResearch(token, data);
+  }
+  async handleValueStrategistRequest(token: string, data: ValueStrategistRequest): Promise<OrderResponseBody> {
+    return apiService.requestValueStrategist(token, data);
   }
 };
 

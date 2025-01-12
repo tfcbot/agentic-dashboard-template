@@ -74,7 +74,7 @@ export function AgentCard({ agent }: AgentCardProps) {
 
       <Link href={`/agent/${agent.id}`} prefetch className="w-full">
         <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white">
-          View Packages
+          View Package
         </Button>
       </Link>
     </div>
