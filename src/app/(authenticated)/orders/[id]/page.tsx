@@ -7,6 +7,8 @@ import { Deliverable } from '@/components/Deliverable';
 import { getMockDeliverable } from '@/lib/mockData';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import type { DeliverableSection } from '@/schemas/deliverable';
+import type { AgentConfig } from '@/schemas/agent';
+import { getAgent } from '@/lib/agents';
 
 interface DeliverablePageProps {
   params: {
@@ -24,12 +26,19 @@ export default function DeliverablePage({ params }: DeliverablePageProps) {
   const [deliverable, setDeliverable] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [agent, setAgent] = useState<AgentConfig | null>(null);
 
   useEffect(() => {
     const fetchDeliverable = async () => {
       try {
         const data = await getMockDeliverable(params.id);
         setDeliverable(data);
+        // Find the corresponding agent configuration
+        const matchingAgent = getAgent(data.agentId);
+        if (!matchingAgent) {
+          throw new Error('Agent configuration not found');
+        }
+        setAgent(matchingAgent);
       } catch (err) {
         setError('Failed to load deliverable');
         console.error('Error fetching deliverable:', err);
@@ -74,59 +83,11 @@ export default function DeliverablePage({ params }: DeliverablePageProps) {
         <div className="text-red-500 text-center p-8 bg-red-900/20 rounded-lg">
           {error}
         </div>
-      ) : deliverable ? (
+      ) : deliverable && agent ? (
         <Deliverable
           agentId={deliverable.agentId}
           data={deliverable}
-          agent={{
-            id: deliverable.agentId,
-            name: deliverable.title,
-            title: deliverable.title,
-            description: deliverable.summary,
-            category: 'agent',
-            imageUrl: '',
-            credits: 0,
-            available: true,
-            keyDeliverables: [],
-            fields: {},
-            faq: [],
-            packages: {
-              basic: {
-                name: 'Basic',
-                credits: 0,
-                deliveryTime: '',
-                features: [],
-                requiredFields: [],
-                optionalFields: []
-              },
-              standard: {
-                name: 'Standard',
-                credits: 0,
-                deliveryTime: '',
-                features: [],
-                requiredFields: [],
-                optionalFields: []
-              },
-              priority: {
-                name: 'Priority',
-                credits: 0,
-                deliveryTime: '',
-                features: [],
-                requiredFields: [],
-                optionalFields: []
-              }
-            },
-            deliverable: {
-              sections: Object.entries(deliverable.content.sections).map(([id, section]) => ({
-                id,
-                label: id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-                type: (section as SectionData).type as DeliverableSection['type'],
-                description: ''
-              })),
-              availableFormats: ['pdf', 'markdown']
-            },
-            handler: async () => ({ success: true })
-          }}
+          agent={agent}
           onRequestReview={handleRequestReview}
         />
       ) : (

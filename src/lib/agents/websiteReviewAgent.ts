@@ -59,6 +59,21 @@ export const websiteReviewAgent: AgentConfig = {
       optionalFields: []
     }
   },
+  deliverable: {
+    sections: [
+      {
+        id: 'overview',
+        label: 'Website Overview',
+        type: 'text'
+      },
+      {
+        id: 'recommendations',
+        label: 'Recommendations',
+        type: 'recommendations'
+      }
+    ],
+    availableFormats: ['pdf', 'markdown']
+  },
   // The handler method calls the corresponding AgentService function
   handler: async (token: string, data: OrderFormData) => {
     return agentService.handleWebsiteReviewSubmission(

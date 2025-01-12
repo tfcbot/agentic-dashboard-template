@@ -222,15 +222,15 @@ export const getMockOrders = async () => {
     orders: [
       {
         id: 'order-1',
-        agentId: 'website-review-agent',
-        agentName: 'Website Review Agent',
+        agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
+        agentName: 'Website Analysis Agent',
         packageType: 'basic',
         status: 'completed',
         createdAt: '2024-03-15T10:30:00Z',
         completedAt: '2024-03-15T11:30:00Z',
         credits: 100,
         deliverable: {
-          agentId: 'website-review-agent',
+          agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
           title: 'Website Review Analysis',
           summary: 'Comprehensive analysis of your website performance and recommendations',
           createdAt: new Date('2024-03-15T11:30:00Z'),
@@ -302,7 +302,7 @@ export const getMockOrders = async () => {
       },
       {
         id: 'order-2',
-        agentId: 'ai-coding-strategist',
+        agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
         agentName: 'AI Coding Strategist',
         packageType: 'standard',
         status: 'completed',
@@ -310,7 +310,7 @@ export const getMockOrders = async () => {
         completedAt: '2024-03-16T10:45:00Z',
         credits: 200,
         deliverable: {
-          agentId: 'ai-coding-strategist',
+          agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
           title: 'Code Architecture Analysis',
           summary: 'Strategic analysis of your codebase architecture with modernization recommendations',
           createdAt: new Date('2024-03-16T10:45:00Z'),
@@ -377,7 +377,7 @@ export const getMockOrders = async () => {
       },
       {
         id: 'order-3',
-        agentId: 'research-assistant',
+        agentId: '3d813cbb-47fb-4d9d-9b7b-a5a04d8e6c9a',
         agentName: 'Research Assistant',
         packageType: 'priority',
         status: 'completed',
@@ -385,7 +385,7 @@ export const getMockOrders = async () => {
         completedAt: '2024-03-16T16:30:00Z',
         credits: 300,
         deliverable: {
-          agentId: 'research-assistant',
+          agentId: '3d813cbb-47fb-4d9d-9b7b-a5a04d8e6c9a',
           title: 'Market Analysis Report',
           summary: 'In-depth analysis of the SaaS market landscape and competitive positioning',
           createdAt: new Date('2024-03-16T16:30:00Z'),
@@ -452,8 +452,8 @@ export const getMockOrders = async () => {
       },
       {
         id: 'order-4',
-        agentId: 'voice-repurpose-agent',
-        agentName: 'Voice Repurpose Agent',
+        agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
+        agentName: 'AI Coding Strategist',
         packageType: 'standard',
         status: 'in_progress',
         createdAt: '2024-03-17T09:00:00Z',
@@ -462,8 +462,8 @@ export const getMockOrders = async () => {
       },
       {
         id: 'order-5',
-        agentId: 'website-review-agent',
-        agentName: 'Website Review Agent',
+        agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
+        agentName: 'Website Analysis Agent',
         packageType: 'priority',
         status: 'pending',
         createdAt: '2024-03-17T11:45:00Z',

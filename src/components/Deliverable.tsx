@@ -93,7 +93,7 @@ export function Deliverable({ agentId, data, agent, onRequestReview }: Deliverab
             variant="outline"
             className="border-purple-500 text-purple-500 hover:bg-purple-500/10 w-full sm:w-auto"
           >
-            Request Expert Review
+            Request Additional Review
           </Button>
         )}
       </div>

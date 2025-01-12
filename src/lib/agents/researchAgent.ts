@@ -80,6 +80,26 @@ export const researchAgent: AgentConfig = {
         optionalFields: []
       }
     },
+    deliverable: {
+      sections: [
+        {
+          id: 'overview',
+          label: 'Research Overview',
+          type: 'text'
+        },
+        {
+          id: 'findings',
+          label: 'Key Findings',
+          type: 'text'
+        },
+        {
+          id: 'recommendations',
+          label: 'Recommendations',
+          type: 'recommendations'
+        }
+      ],
+      availableFormats: ['pdf', 'markdown']
+    },
     handler: async (token: string, data: OrderFormData) => {
       console.log('Research Assistant Submission:', data);
        const response = await agentService.handleResearchSubmission(token, data.payload.formData as RequestResearchBody);

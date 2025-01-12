@@ -127,7 +127,26 @@ export const aiCodingStrategist: AgentConfig = {
             placeholder: 'What existing solutions or competitors are there?'
         }
     },
-
+    deliverable: {
+        sections: [
+            {
+                id: 'overview',
+                label: 'Project Overview',
+                type: 'text'
+            },
+            {
+                id: 'architecture',
+                label: 'Technical Architecture',
+                type: 'text'
+            },
+            {
+                id: 'recommendations',
+                label: 'Implementation Steps',
+                type: 'recommendations'
+            }
+        ],
+        availableFormats: ['pdf', 'markdown']
+    },
     handler: async (token, formData) => {
         console.log('Form Data:', formData);
         return { success: true };
