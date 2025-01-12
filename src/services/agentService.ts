@@ -1,13 +1,10 @@
 import type {
-  AgentConfig, OrderFormData,
-  IntakeSubmissionResponse, GetAgentResponse,
+  GetAgentResponse,
   RequestWebsiteReviewBody,
   GetAllAgentsResponse,
   RequestResearchBody,
-  RequestVoiceRepurposeBody,
   RequestWebsiteReviewResponseBody,
-  RequestResearchResponseBody,
-  RequestVoiceRepurposeResponseBody
+  RequestResearchResponseBody
 } from '@/schemas';
 import { apiService } from './api';
 import { getAgent, getAllAgents } from '@/lib/agents';
@@ -17,7 +14,7 @@ export interface IAgentService {
   getAllAgents(): Promise<GetAllAgentsResponse>;
   handleWebsiteReviewSubmission(token: string, data: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody>;
   handleResearchSubmission(token: string, data: RequestResearchBody): Promise<RequestResearchResponseBody>;
-  handleVoiceRepurposeSubmission(token: string, data: RequestVoiceRepurposeBody): Promise<RequestVoiceRepurposeResponseBody>;
+
 }
 
 export class AgentService implements IAgentService {
@@ -39,9 +36,6 @@ export class AgentService implements IAgentService {
   }
   async handleResearchSubmission(token: string, data: RequestResearchBody): Promise<RequestResearchResponseBody> {
     return apiService.requestResearch(token, data);
-  }
-  async handleVoiceRepurposeSubmission(token: string, data: RequestVoiceRepurposeBody): Promise<RequestVoiceRepurposeResponseBody> {
-    return apiService.requestVoiceRepurpose(token, data);
   }
 };
 

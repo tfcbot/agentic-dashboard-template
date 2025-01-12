@@ -98,16 +98,16 @@ export class ApiService implements IApiService {
   }
 
   async requestWebsiteReview(token: string, body: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody> {
-    // const absoluteUrl = this.getAbsoluteUrl('/landing-page-review');
-    // const response = await fetch(absoluteUrl, {
-    //   method: 'POST',
-    //   headers: this.getHeaders(token),
-    //   body: JSON.stringify(body),
-    // });
-  //  const data = await response.json();
-   console.log('Requesting Website Review');
+    const absoluteUrl = this.getAbsoluteUrl('/landing-page-review');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+   const data = await response.json();
+   console.log('Requesting Website Review', data);
   
-    return { success: true, data: { reviewId: 'mock-review-id' } };
+    return { success: true, data: data };
   }
 
   async requestResearch(token: string, body: RequestResearchBody): Promise<RequestResearchResponseBody> {
