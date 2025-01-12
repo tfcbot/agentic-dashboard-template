@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DeliverableConfigSchema } from './deliverable';
 
 
 export const AgentFieldConfig = z.object({
@@ -72,6 +73,7 @@ export const AgentConfigSchema = z.object({
     standard: AgentPackageConfigSchema, 
     priority: AgentPackageConfigSchema
   }),
+  deliverable: DeliverableConfigSchema,
   handler: z.function()
     .args(z.string(), z.custom<OrderFormData>())
     .returns(z.promise(z.custom<IntakeSubmissionResponse>()))

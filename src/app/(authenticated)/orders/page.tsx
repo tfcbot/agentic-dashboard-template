@@ -84,7 +84,7 @@ export default function OrdersPage() {
                     <th className="py-3 px-4 text-gray-400 font-medium">Created</th>
                     <th className="py-3 px-4 text-gray-400 font-medium">Completed</th>
                     <th className="py-3 px-4 text-gray-400 font-medium text-right">Credits</th>
-                    <th className="py-3 px-4 text-gray-400 font-medium text-right">Actions</th>
+                    <th className="py-3 px-4 text-gray-400 font-medium text-right">Deliverable</th>
                   </tr>
                 </thead>
                 <tbody>

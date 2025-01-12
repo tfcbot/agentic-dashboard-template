@@ -108,6 +108,114 @@ export async function getMockWebsiteReviews(): Promise<GetWebsiteReviewsResponse
   return { reviews };
 }
 
+const websiteReviewDeliverable = {
+  sections: [
+    {
+      id: 'headline-effectiveness',
+      label: 'Headline Effectiveness',
+      type: 'metrics',
+      description: 'Analysis of your headline performance and impact'
+    },
+    {
+      id: 'value-proposition',
+      label: 'Value Proposition',
+      type: 'list',
+      description: 'Assessment of your unique selling points and value communication'
+    },
+    {
+      id: 'content-engagement',
+      label: 'Content Engagement',
+      type: 'metrics',
+      description: 'Analysis of content readability and engagement factors'
+    },
+    {
+      id: 'conversion-analysis',
+      label: 'Conversion Analysis',
+      type: 'table',
+      description: 'Detailed analysis of conversion optimization opportunities'
+    },
+    {
+      id: 'recommendations',
+      label: 'Recommendations',
+      type: 'recommendations',
+      description: 'Actionable steps to improve your website'
+    }
+  ],
+  availableFormats: ['pdf', 'markdown']
+};
+
+const codeReviewDeliverable = {
+  sections: [
+    {
+      id: 'architecture',
+      label: 'Architecture Assessment',
+      type: 'text',
+      description: 'Evaluation of your codebase architecture and structure'
+    },
+    {
+      id: 'code-quality',
+      label: 'Code Quality Metrics',
+      type: 'metrics',
+      description: 'Key metrics about code quality and test coverage'
+    },
+    {
+      id: 'performance',
+      label: 'Performance Analysis',
+      type: 'table',
+      description: 'Detailed performance metrics and bottlenecks'
+    },
+    {
+      id: 'security',
+      label: 'Security Review',
+      type: 'list',
+      description: 'Security findings and potential vulnerabilities'
+    },
+    {
+      id: 'recommendations',
+      label: 'Technical Recommendations',
+      type: 'recommendations',
+      description: 'Prioritized technical improvements'
+    }
+  ],
+  availableFormats: ['pdf', 'markdown']
+};
+
+const marketResearchDeliverable = {
+  sections: [
+    {
+      id: 'market-overview',
+      label: 'Market Overview',
+      type: 'text',
+      description: 'Comprehensive overview of the market landscape'
+    },
+    {
+      id: 'market-size',
+      label: 'Market Size & Growth',
+      type: 'metrics',
+      description: 'Key market statistics and growth projections'
+    },
+    {
+      id: 'competitor-analysis',
+      label: 'Competitor Analysis',
+      type: 'table',
+      description: 'Detailed comparison of key competitors'
+    },
+    {
+      id: 'opportunities',
+      label: 'Market Opportunities',
+      type: 'list',
+      description: 'Identified market opportunities and gaps'
+    },
+    {
+      id: 'recommendations',
+      label: 'Strategic Recommendations',
+      type: 'recommendations',
+      description: 'Strategic actions to capture market opportunities'
+    }
+  ],
+  availableFormats: ['pdf', 'markdown', 'presentation']
+};
+
 export const getMockOrders = async () => {
   await new Promise(resolve => setTimeout(resolve, 1000));
   return {
@@ -122,33 +230,73 @@ export const getMockOrders = async () => {
         completedAt: '2024-03-15T11:30:00Z',
         credits: 100,
         deliverable: {
-          type: 'website_review',
+          agentId: 'website-review-agent',
           title: 'Website Review Analysis',
           summary: 'Comprehensive analysis of your website performance and recommendations',
-          formats: ['pdf', 'markdown'],
+          createdAt: new Date('2024-03-15T11:30:00Z'),
           content: {
-            overview: 'Your website demonstrates strong fundamentals but has room for improvement in key areas of user experience and performance optimization.',
-            sections: [
-              {
-                title: 'User Experience Analysis',
-                content: 'The website navigation is intuitive but could benefit from better mobile optimization. Key user flows are well-designed but form completion rates could be improved with better validation feedback.'
+            sections: {
+              'headline-effectiveness': {
+                type: 'metrics',
+                data: {
+                  'Clarity Score': '8.5/10',
+                  'Benefit Focus': 'Strong',
+                  'Urgency Factor': 'Moderate',
+                  'Emotional Appeal': '8/10'
+                }
               },
-              {
-                title: 'Performance Metrics',
-                content: 'Current load time averages 3.2 seconds, which is above industry standard. Core Web Vitals show room for improvement, particularly in Largest Contentful Paint (LCP) and Cumulative Layout Shift (CLS).'
+              'value-proposition': {
+                type: 'list',
+                data: [
+                  'Clear and compelling unique selling points',
+                  'Strong benefit articulation',
+                  'Effective pain point addressing',
+                  'Professional presentation'
+                ]
               },
-              {
-                title: 'SEO & Accessibility',
-                content: 'Meta descriptions and title tags are well-optimized. However, some images lack alt text and heading hierarchy could be improved for better screen reader compatibility.'
+              'content-engagement': {
+                type: 'metrics',
+                data: {
+                  'Readability Score': '92%',
+                  'Avg. Time on Page': '2:45',
+                  'Bounce Rate': '35%',
+                  'Mobile Engagement': '78%'
+                }
+              },
+              'conversion-analysis': {
+                type: 'table',
+                data: [
+                  {
+                    'Element': 'Call to Action',
+                    'Current Rate': '2.3%',
+                    'Benchmark': '2.8%',
+                    'Opportunity': 'Medium'
+                  },
+                  {
+                    'Element': 'Lead Form',
+                    'Current Rate': '4.5%',
+                    'Benchmark': '3.9%',
+                    'Opportunity': 'Low'
+                  },
+                  {
+                    'Element': 'Product Pages',
+                    'Current Rate': '1.8%',
+                    'Benchmark': '2.5%',
+                    'Opportunity': 'High'
+                  }
+                ]
+              },
+              'recommendations': {
+                type: 'recommendations',
+                data: [
+                  'Optimize image sizes and implement lazy loading',
+                  'Implement browser caching strategy',
+                  'Enhance mobile responsiveness with fluid layouts',
+                  'Add ARIA labels to interactive elements',
+                  'Implement progressive form validation'
+                ]
               }
-            ],
-            recommendations: [
-              'Optimize image sizes and implement lazy loading',
-              'Implement browser caching strategy',
-              'Enhance mobile responsiveness with fluid layouts',
-              'Add ARIA labels to interactive elements',
-              'Implement progressive form validation'
-            ]
+            }
           }
         }
       },
@@ -162,37 +310,68 @@ export const getMockOrders = async () => {
         completedAt: '2024-03-16T10:45:00Z',
         credits: 200,
         deliverable: {
-          type: 'code_review',
+          agentId: 'ai-coding-strategist',
           title: 'Code Architecture Analysis',
           summary: 'Strategic analysis of your codebase architecture with modernization recommendations',
-          formats: ['pdf', 'markdown'],
+          createdAt: new Date('2024-03-16T10:45:00Z'),
           content: {
-            overview: 'Your codebase shows good organization but could benefit from modern architectural patterns and performance optimizations.',
-            sections: [
-              {
-                title: 'Architecture Assessment',
-                content: 'Current monolithic architecture serves basic needs but shows signs of scalability challenges. Microservices could be gradually introduced for key components.'
+            sections: {
+              'architecture': {
+                type: 'text',
+                data: 'The codebase follows a monolithic architecture with clear separation of concerns. While this serves current needs, there are opportunities for modularization and service-oriented improvements. Key architectural patterns are well-implemented, but some components show tight coupling that could be addressed.'
               },
-              {
-                title: 'Code Quality Analysis',
-                content: 'Overall code quality is good with 78% test coverage. Some modules show high cyclomatic complexity and could benefit from refactoring.'
+              'code-quality': {
+                type: 'metrics',
+                data: {
+                  'Test Coverage': '78%',
+                  'Code Duplication': '4.2%',
+                  'Technical Debt': 'Medium',
+                  'Documentation': '85%'
+                }
               },
-              {
-                title: 'Performance Bottlenecks',
-                content: 'Database queries in the user authentication flow show N+1 problems. API response times could be improved with better caching strategies.'
+              'performance': {
+                type: 'table',
+                data: [
+                  {
+                    'Component': 'Authentication',
+                    'Response Time': '250ms',
+                    'Issue': 'N+1 Query',
+                    'Impact': 'High'
+                  },
+                  {
+                    'Component': 'Data Processing',
+                    'Response Time': '1.2s',
+                    'Issue': 'Memory Leak',
+                    'Impact': 'Medium'
+                  },
+                  {
+                    'Component': 'API Gateway',
+                    'Response Time': '150ms',
+                    'Issue': 'None',
+                    'Impact': 'Low'
+                  }
+                ]
               },
-              {
-                title: 'Security Review',
-                content: 'Basic security practices are in place. Recommend implementing rate limiting and strengthening input validation.'
+              'security': {
+                type: 'list',
+                data: [
+                  'Input validation needs strengthening in user-facing APIs',
+                  'Session management follows best practices',
+                  'API rate limiting should be implemented',
+                  'Dependency scanning shows 3 medium vulnerabilities'
+                ]
+              },
+              'recommendations': {
+                type: 'recommendations',
+                data: [
+                  'Implement domain-driven design patterns',
+                  'Add Redis caching layer for frequently accessed data',
+                  'Refactor authentication flow to use JWT tokens',
+                  'Set up automated security scanning',
+                  'Implement GraphQL for flexible data fetching'
+                ]
               }
-            ],
-            recommendations: [
-              'Implement domain-driven design patterns',
-              'Add Redis caching layer for frequently accessed data',
-              'Refactor authentication flow to use JWT tokens',
-              'Set up automated security scanning',
-              'Implement GraphQL for flexible data fetching'
-            ]
+            }
           }
         }
       },
@@ -206,37 +385,68 @@ export const getMockOrders = async () => {
         completedAt: '2024-03-16T16:30:00Z',
         credits: 300,
         deliverable: {
-          type: 'market_research',
+          agentId: 'research-assistant',
           title: 'Market Analysis Report',
           summary: 'In-depth analysis of the SaaS market landscape and competitive positioning',
-          formats: ['pdf', 'markdown', 'presentation'],
+          createdAt: new Date('2024-03-16T16:30:00Z'),
           content: {
-            overview: 'The SaaS market shows strong growth potential with increasing demand for AI-powered solutions. Your product has unique advantages in developer tooling.',
-            sections: [
-              {
-                title: 'Market Size & Growth',
-                content: 'The global developer tools market is expected to reach $9.5B by 2025, with a CAGR of 23%. AI-powered tools represent the fastest-growing segment.'
+            sections: {
+              'market-overview': {
+                type: 'text',
+                data: 'The SaaS market continues to show robust growth, driven by digital transformation initiatives and increasing demand for cloud-based solutions. The developer tools segment, in particular, demonstrates strong potential with emerging opportunities in AI-powered solutions.'
               },
-              {
-                title: 'Competitor Analysis',
-                content: 'Direct competitors focus on general-purpose AI tools. Opportunity exists for specialized developer productivity solutions with better integration capabilities.'
+              'market-size': {
+                type: 'metrics',
+                data: {
+                  'Total Market Size': '$9.5B',
+                  'CAGR': '23%',
+                  'Market Share': '12%',
+                  'Growth Potential': 'High'
+                }
               },
-              {
-                title: 'User Demographics',
-                content: 'Primary users are full-stack developers in mid-size companies. Growing interest from enterprise customers seeking automation solutions.'
+              'competitor-analysis': {
+                type: 'table',
+                data: [
+                  {
+                    'Competitor': 'TechCo',
+                    'Market Share': '15%',
+                    'Strengths': 'Brand Recognition',
+                    'Weaknesses': 'High Pricing'
+                  },
+                  {
+                    'Competitor': 'DevTools Inc',
+                    'Market Share': '8%',
+                    'Strengths': 'Feature Rich',
+                    'Weaknesses': 'Poor UX'
+                  },
+                  {
+                    'Competitor': 'AICode',
+                    'Market Share': '5%',
+                    'Strengths': 'AI Innovation',
+                    'Weaknesses': 'Limited Integration'
+                  }
+                ]
               },
-              {
-                title: 'Market Trends',
-                content: 'Increasing demand for AI-powered code review, automated testing, and intelligent documentation tools. Security and compliance features are becoming key differentiators.'
+              'opportunities': {
+                type: 'list',
+                data: [
+                  'Growing demand for specialized AI development tools',
+                  'Underserved enterprise segment',
+                  'Integration opportunities with major CI/CD platforms',
+                  'Emerging markets in APAC region'
+                ]
+              },
+              'recommendations': {
+                type: 'recommendations',
+                data: [
+                  'Focus marketing on developer productivity gains',
+                  'Develop enterprise-specific features',
+                  'Create integration partnerships with major CI/CD platforms',
+                  'Introduce tiered pricing for different company sizes',
+                  'Invest in AI-powered security scanning features'
+                ]
               }
-            ],
-            recommendations: [
-              'Focus marketing on developer productivity gains',
-              'Develop enterprise-specific features',
-              'Create integration partnerships with major CI/CD platforms',
-              'Introduce tiered pricing for different company sizes',
-              'Invest in AI-powered security scanning features'
-            ]
+            }
           }
         }
       },

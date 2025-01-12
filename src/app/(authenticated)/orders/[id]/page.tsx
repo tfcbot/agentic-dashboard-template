@@ -6,11 +6,17 @@ import Link from 'next/link';
 import { Deliverable } from '@/components/Deliverable';
 import { getMockDeliverable } from '@/lib/mockData';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import type { DeliverableSection } from '@/schemas/deliverable';
 
 interface DeliverablePageProps {
   params: {
     id: string;
   };
+}
+
+interface SectionData {
+  type: string;
+  data: any;
 }
 
 export default function DeliverablePage({ params }: DeliverablePageProps) {
@@ -70,10 +76,57 @@ export default function DeliverablePage({ params }: DeliverablePageProps) {
         </div>
       ) : deliverable ? (
         <Deliverable
-          title={deliverable.title}
-          summary={deliverable.summary}
-          content={deliverable.content}
-          formats={deliverable.formats}
+          agentId={deliverable.agentId}
+          data={deliverable}
+          agent={{
+            id: deliverable.agentId,
+            name: deliverable.title,
+            title: deliverable.title,
+            description: deliverable.summary,
+            category: 'agent',
+            imageUrl: '',
+            credits: 0,
+            available: true,
+            keyDeliverables: [],
+            fields: {},
+            faq: [],
+            packages: {
+              basic: {
+                name: 'Basic',
+                credits: 0,
+                deliveryTime: '',
+                features: [],
+                requiredFields: [],
+                optionalFields: []
+              },
+              standard: {
+                name: 'Standard',
+                credits: 0,
+                deliveryTime: '',
+                features: [],
+                requiredFields: [],
+                optionalFields: []
+              },
+              priority: {
+                name: 'Priority',
+                credits: 0,
+                deliveryTime: '',
+                features: [],
+                requiredFields: [],
+                optionalFields: []
+              }
+            },
+            deliverable: {
+              sections: Object.entries(deliverable.content.sections).map(([id, section]) => ({
+                id,
+                label: id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+                type: (section as SectionData).type as DeliverableSection['type'],
+                description: ''
+              })),
+              availableFormats: ['pdf', 'markdown']
+            },
+            handler: async () => ({ success: true })
+          }}
           onRequestReview={handleRequestReview}
         />
       ) : (
