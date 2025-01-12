@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
-import { Agent, PackageTypeKey } from './agent';
+import { AgentConfig, PackageTypeKey } from './agent';
 
 export interface AgentCardProps {
     id: string;
@@ -13,7 +13,7 @@ export interface AgentCardProps {
 }
 
 export interface AgentServiceViewProps {
-    agent: Agent;
+    agent: AgentConfig;
 }
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

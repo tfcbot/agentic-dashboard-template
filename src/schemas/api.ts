@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { 
-    AgentSchema, 
+    AgentConfigSchema, 
     WebsiteReviewSchema,
 } from "@/schemas/agent";
 
@@ -25,9 +25,7 @@ export const ApiResponseSchema = z.object({
 });
 
 export const GetAgentResponseSchema = z.object({
-    success: z.boolean(),
-    data: AgentSchema,
-    error: z.string().optional(),
+    agent: AgentConfigSchema,
 });
 
 
@@ -55,10 +53,28 @@ export const GetWebsiteReviewsResponseBodySchema = z.object({
     }),
 });
 
+export const RequestResearchBodySchema = z.object({
+    topic: z.string(),
+});
 
+export const RequestVoiceRepurposeBodySchema = z.object({
+    audioTranscript: z.string(),
+});
+
+export const RequestResearchResponseBodySchema = z.object({
+    researchId: z.string(),
+});
+
+export const RequestVoiceRepurposeResponseBodySchema = z.object({
+    voiceRepurposeId: z.string(),
+});
 
 export type RequestWebsiteReviewBody = z.infer<typeof RequestWebsiteReviewBodySchema>;
 export type RequestWebsiteReviewResponseBody = z.infer<typeof RequestWebsiteReviewResponseBodySchema>;
+export type RequestResearchBody = z.infer<typeof RequestResearchBodySchema>;
+export type RequestResearchResponseBody = z.infer<typeof RequestResearchResponseBodySchema>;
+export type RequestVoiceRepurposeBody = z.infer<typeof RequestVoiceRepurposeBodySchema>;
+export type RequestVoiceRepurposeResponseBody = z.infer<typeof RequestVoiceRepurposeResponseBodySchema>;
 export type UserRemainingCreditsResponseBody = z.infer<typeof UserRemainingCreditsResponseBodySchema>;
 export type ApiResponse = z.infer<typeof ApiResponseSchema>;
 export type GetRemainingCreditsBody = z.infer<typeof GetRemainingCreditsBodySchema>;

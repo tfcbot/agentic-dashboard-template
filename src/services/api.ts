@@ -1,14 +1,18 @@
-import { mockAgents, getMockAgent, getAllMockAgents, getMockWebsiteReviews } from '@/lib/mockData';
+import { getMockWebsiteReviews } from '@/lib/mockData';
 import type {
   RequestWebsiteReviewBody,
   RequestWebsiteReviewResponseBody,
   GetAgentResponse,
   GetRemainingCreditsBody,
   GetWebsiteReviewsResponseBody,
+  RequestVoiceRepurposeBody,
+  RequestResearchResponseBody,
+  RequestResearchBody,
+  RequestVoiceRepurposeResponseBody,
 
 } from '@/schemas/api';
 
-import { Agent, GetAllAgentsResponse } from '@/schemas/agent';
+import { AgentConfig, GetAllAgentsResponse } from '@/schemas/agent';
 const API_CONFIG = {
   baseUrl: process.env.NEXT_API_URL,
   version: '/v1',
@@ -18,18 +22,19 @@ const API_CONFIG = {
 };
 
 import { getMockWebsiteReview } from '@/lib/mockData';
+import { AgentService } from './agentService';
 
 // Typed endpoints that take token as first paramete
 
 export interface IApiService {
   getAbsoluteUrl(path: string): string;
   getHeaders(token: string): HeadersInit;
-  getAgent(token: string, agentId: string): Promise<GetAgentResponse>;
-  getAllAgents(token: string): Promise<GetAllAgentsResponse>;
   requestWebsiteReview(token: string, body: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody>; 
   getUserWebsiteReviews(token: string): Promise<GetWebsiteReviewsResponseBody>;
   getCheckoutSessionId(token: string): Promise<string>;
   getUserCreditsRemaining(token: string): Promise<number>;
+  requestResearch(token: string, body: RequestResearchBody): Promise<RequestResearchResponseBody>;
+  requestVoiceRepurpose(token: string, body: RequestVoiceRepurposeBody): Promise<RequestVoiceRepurposeResponseBody>;
 }
 
 
@@ -49,32 +54,6 @@ export class ApiService implements IApiService {
     };
   };
   
-  
-  
-  
-  async getAgent(token: string, agentId: string): Promise<GetAgentResponse> {
-    const absoluteUrl = this.getAbsoluteUrl('/agent/' + agentId);
-    // const response = await fetch(absoluteUrl, {
-    //   method: 'GET',
-    //   headers: this.getHeaders(token),
-    // });
-   // const data = await response.json();
-    const agent = getMockAgent(agentId);
-    return { success: true, data: agent };
-  }
-
-  async getAllAgents(token: string): Promise<GetAllAgentsResponse> {
-    // const absoluteUrl = this.getAbsoluteUrl('/agents');
-    // const response = await fetch(absoluteUrl, {
-    //   method: 'GET',
-    //   headers: this.getHeaders(token),
-    // });
-  //  const data = await response.json();
-    const agents = getAllMockAgents();
-    console.log('Get ALl Agents Mock Data', agents);
-    return { success: true, agents: agents };
-  }
-
 
   async getCheckoutSessionId(token: string): Promise<string> {
 
@@ -129,6 +108,26 @@ export class ApiService implements IApiService {
    console.log('Requesting Website Review');
   
     return { success: true, data: { reviewId: 'mock-review-id' } };
+  }
+
+  async requestResearch(token: string, body: RequestResearchBody): Promise<RequestResearchResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/research');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    return { researchId: 'mock-research-id' };
+  }
+
+  async requestVoiceRepurpose(token: string, body: RequestVoiceRepurposeBody): Promise<RequestVoiceRepurposeResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/voice-repurpose');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    return { voiceRepurposeId: 'mock-voice-repurpose-id' };
   }
 }
 

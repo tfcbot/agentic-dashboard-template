@@ -1,9 +1,10 @@
 "use client"
 import { z } from 'zod';
 import { OrderFormBase } from '@/components/OrderFormBase';
-import { useAgent } from '@/hooks/useAgents';
-import type { Agent, PackageTypeKey } from '@/schemas/agent';
+import type { AgentConfig, PackageTypeKey } from '@/schemas/agent';
 import { FieldConfig } from '@/schemas/forms';
+import { useAuth } from '@clerk/nextjs';
+import { useAgent } from '@/hooks/useAgents';
 
 interface AgentOrderFormProps {
   agentId: string;
@@ -12,6 +13,7 @@ interface AgentOrderFormProps {
 
 export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
   const { agent, loading } = useAgent(agentId);
+  const { getToken } = useAuth();
   
   if (loading || !agent) {
     return <div>Loading...</div>;
@@ -25,7 +27,7 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
   const selectedPackage = agent.packages[packageType];
   
   // Dynamically generate Zod schema from metadata
-  const generateSchema = (metadata: Agent, packageType: PackageTypeKey) => {
+  const generateSchema = (metadata: AgentConfig, packageType: PackageTypeKey) => {
     console.log(metadata.packages[packageType].requiredFields);
     const fields = selectedPackage.requiredFields.reduce((acc: Record<string, z.ZodString>, fieldName: string) => {
       const field = metadata.fields[fieldName];
@@ -45,7 +47,7 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
   };
 
   // Generate field configs from metadata
-    const generateFieldConfigs = (metadata: Agent, packageType: PackageTypeKey) => {
+    const generateFieldConfigs = (metadata: AgentConfig, packageType: PackageTypeKey) => {
     const requiredFields = selectedPackage.requiredFields;
     const optionalFields = selectedPackage.optionalFields;
     
@@ -67,7 +69,24 @@ export function AgentOrderForm({ agentId, packageType }: AgentOrderFormProps) {
   const fieldConfigs = generateFieldConfigs(agent, packageType);
 
   const handleSubmit = async (data: z.infer<typeof schema>) => {
-    // Handle submission
+    console.log("Handling submission for agent:", agentId);
+    const token = await getToken();
+    if (!token) {
+      throw new Error('No token available');
+    }
+    const handler = agent.handler;
+    if (!handler) {
+      throw new Error('Invalid agent type');
+    }
+    console.log("Agent submission handler:", agentId);
+    const result = await handler(token, {
+      payload: {
+        formData: data
+      },
+      packageType,
+      agentId
+    });
+    return result.success
   };
 
   return (

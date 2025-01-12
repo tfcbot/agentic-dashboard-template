@@ -1,4 +1,4 @@
-import { Agent, OrderFormData, OrderFormStatus, IntakeSubmissionResponse } from './agent';
+import { AgentConfig, OrderFormData, OrderFormStatus, IntakeSubmissionResponse } from './agent';
 
 export interface SidebarContextType {
     isCollapsed: boolean;
@@ -6,7 +6,7 @@ export interface SidebarContextType {
 }
 
 export interface AgentContextType {
-    agent: Agent | null;
+    agent: AgentConfig | null;
     loading: boolean;
     error: Error | null;
     status: OrderFormStatus;

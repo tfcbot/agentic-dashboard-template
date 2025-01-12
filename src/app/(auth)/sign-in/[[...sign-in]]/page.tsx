@@ -8,7 +8,6 @@ export default function Page() {
         appearance={{ 
           baseTheme: dark 
         }}
-        redirectUrl="/"
       />
     </div>
   );

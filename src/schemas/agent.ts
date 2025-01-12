@@ -52,7 +52,7 @@ export const PackageTypeSchema = z.object({
 /**
  * Represents the complete agent data structure
  */
-export const AgentSchema = z.object({
+export const AgentConfigSchema = z.object({
   id: z.string(),
   name: z.string(),
   title: z.string(),
@@ -71,7 +71,10 @@ export const AgentSchema = z.object({
     basic: AgentPackageConfigSchema,
     standard: AgentPackageConfigSchema, 
     priority: AgentPackageConfigSchema
-  })
+  }),
+  handler: z.function()
+    .args(z.string(), z.custom<OrderFormData>())
+    .returns(z.promise(z.custom<IntakeSubmissionResponse>()))
 });
 
 
@@ -101,7 +104,7 @@ export const OrderFormStatusSchema = z.enum(['idle', 'submitting', 'success', 'e
  */
 export const AgentResponseSchema = z.object({
   success: z.boolean(),
-  data: AgentSchema,
+  data: AgentConfigSchema,
   error: z.string().optional()
 });
 
@@ -118,9 +121,7 @@ export const IntakeSubmissionResponseSchema = z.object({
  * Response structure for getting all agents
  */
 export const GetAllAgentsResponseSchema = z.object({
-  success: z.boolean(),
-  agents: z.array(AgentSchema).optional(),
-  error: z.string().optional()
+  agents: z.array(AgentConfigSchema).optional(),
 });
 
 
@@ -183,7 +184,7 @@ export const PayloadSchema = z.object({
 // Export types
 export type FAQ = z.infer<typeof FAQSchema>;
 export type PackageType = z.infer<typeof PackageTypeSchema>;
-export type Agent = z.infer<typeof AgentSchema>;
+export type AgentConfig = z.infer<typeof AgentConfigSchema>;
 export type PackageTypeKey = z.infer<typeof PackageTypeKeySchema>;
 export type OrderFormData = z.infer<typeof OrderFormDataSchema>;
 export type OrderFormStatus = z.infer<typeof OrderFormStatusSchema>;

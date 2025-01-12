@@ -3,11 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';
-import { StarRating } from '@/components/StarRating';
-import { Agent } from '@/schemas/agent';
+import { AgentConfig } from '@/schemas/agent';
 
 interface AgentCardProps {
-  agent: Agent;
+  agent: AgentConfig;
 }
 
 export function AgentCard({ agent }: AgentCardProps) {
