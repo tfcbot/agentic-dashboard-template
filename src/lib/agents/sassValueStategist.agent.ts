@@ -74,62 +74,74 @@ export const saasValueStrategistAgent: AgentConfig = {
             {
                 id: 'ideal-customer',
                 label: 'Ideal Customer/Client',
-                type: 'text'
+                type: 'text',
+                description: 'Description of your target customer profile'
             },
             {
                 id: 'problem',
                 label: 'Problem', 
-                type: 'text'
+                type: 'text',
+                description: 'The core problem being solved'
             },
             {
                 id: 'value-proposition',
                 label: 'Value Proposition',
-                type: 'text'
+                type: 'text',
+                description: 'Your core value proposition statement'
             },
             {
                 id: 'profit-proposition',
                 label: 'Profit Proposition Statement',
-                type: 'text'
+                type: 'text',
+                description: 'How your solution generates profit'
             },
             {
                 id: 'people-proposition',
                 label: 'People Proposition Statement',
-                type: 'text'
+                type: 'text',
+                description: 'How your solution benefits people'
             },
             {
                 id: 'core-benefit',
-                label: '1 Core Benefit',
-                type: 'text'
+                label: 'Core Benefit',
+                type: 'text',
+                description: 'The primary benefit users get'
             },
             {
                 id: 'core-feature',
-                label: '1 Core Feature',
-                type: 'text'
+                label: 'Core Feature',
+                type: 'text',
+                description: 'The main feature that delivers value'
             },
             {
                 id: 'solution-overview',
                 label: 'Solution Overview',
-                type: 'text'
+                type: 'text',
+                description: 'Overview of how your solution works'
             },
             {
                 id: 'benefit-breakdown',
                 label: 'Benefit Breakdown',
-                type: 'text'
+                type: 'list',
+                description: 'List of key benefits'
             },
             {
                 id: 'first-order',
                 label: 'First Order Consequence',
-                type: 'text'
+                type: 'text',
+                description: 'Immediate impact of using your solution'
             },
             {
                 id: 'second-order',
                 label: 'Second Order Consequence',
-                type: 'text'
+                type: 'text',
+                description: 'Long-term impact of using your solution'
             },
             {
                 id: 'pricing',
                 label: 'Pricing Structure/Offer',
-                type: 'text'
+                type: 'table',
+                description: 'Pricing tiers and details'
             }
         ],
         availableFormats: ['pdf', 'markdown']

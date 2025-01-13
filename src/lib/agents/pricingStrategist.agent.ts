@@ -56,27 +56,32 @@ export const pricingStrategistAgent: AgentConfig = {
             {
                 id: 'distribution-channels',
                 label: 'Distribution Channels',
-                type: 'text'
+                type: 'list',
+                description: 'Recommended channels for customer acquisition'
             },
             {
                 id: 'customer-journey',
                 label: 'Customer Journey',
-                type: 'text'
+                type: 'text',
+                description: 'Detailed customer journey optimization plan'
             },
             {
                 id: 'first-10-customers',
                 label: 'Your First 10 Customers',
-                type: 'text'
+                type: 'text',
+                description: 'Strategy for acquiring early customers'
             },
             {
                 id: 'first-100-customers',
                 label: 'Your First 100 Customers',
-                type: 'text'
+                type: 'text',
+                description: 'Scaling strategy for growth phase'
             },
             {
                 id: 'growth-routines',
                 label: 'Growth Routines',
-                type: 'text'
+                type: 'table',
+                description: 'Key metrics and tracking procedures'
             }
         ],
         availableFormats: ['pdf', 'markdown'],

@@ -38,6 +38,18 @@ export const mvpStrategistAgent: AgentConfig = {
             label: 'Technical Challenges',
             required: true,
             placeholder: 'What are your main technical challenges?'
+        }, 
+        useCases: {
+            type: 'textarea',
+            label: 'Use Cases',
+            required: true,
+            placeholder: 'List the key use cases for your MVP'
+        },
+        nonFunctional: {
+            type: 'textarea',
+            label: 'Non Functional Requirements',
+            required: true,
+            placeholder: 'What are your non-functional requirements?'
         }
     },
     faq: [
@@ -55,37 +67,44 @@ export const mvpStrategistAgent: AgentConfig = {
             {
                 id: 'use-cases',
                 label: 'Defining Use Cases',
-                type: 'text'
+                type: 'list',
+                description: 'Key use cases and user stories for the MVP'
             },
             {
                 id: 'non-functional',
                 label: 'Non Functional Requirements', 
-                type: 'text'
+                type: 'list',
+                description: 'Performance, security, and scalability requirements'
             },
             {
                 id: 'domain-model',
                 label: 'Domain Model',
-                type: 'text'
+                type: 'text',
+                description: 'Core domain entities and their relationships'
             },
             {
                 id: 'data-model',
                 label: 'Data Model',
-                type: 'text'
+                type: 'table',
+                description: 'Database schema and data relationships'
             },
             {
                 id: 'api-design',
                 label: 'API Design',
-                type: 'text'
+                type: 'text',
+                description: 'API endpoints and integration points'
             },
             {
                 id: 'services-design',
                 label: 'Services Design',
-                type: 'text'
+                type: 'text',
+                description: 'Microservices architecture and communication'
             },
             {
                 id: 'deployment',
                 label: 'Deployment Strategy',
-                type: 'text'
+                type: 'text',
+                description: 'Infrastructure and deployment recommendations'
             }
         ],
         availableFormats: ['pdf', 'markdown']

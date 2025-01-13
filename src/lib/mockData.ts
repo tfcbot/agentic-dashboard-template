@@ -222,77 +222,90 @@ export const getMockOrders = async () => {
     orders: [
       {
         id: 'order-1',
-        agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
-        agentName: 'Website Analysis Agent',
+        agentId: '9d3f7a1e-5b2c-4e8d-a6f9-2c4b8d3e1a5f',
+        agentName: 'Value Strategist',
         status: 'completed',
         createdAt: '2024-03-15T10:30:00Z',
         completedAt: '2024-03-15T11:30:00Z',
-        credits: 2500,
+        credits: 10,
         deliverable: {
-          agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
-          title: 'Website Review Analysis',
-          summary: 'Comprehensive analysis of your website performance and recommendations',
+          agentId: '9d3f7a1e-5b2c-4e8d-a6f9-2c4b8d3e1a5f',
+          title: 'Value Specification Document',
+          summary: 'Strategic analysis of your application idea and value propositions',
           createdAt: new Date('2024-03-15T11:30:00Z'),
           content: {
             sections: {
-              'headline-effectiveness': {
-                type: 'metrics',
-                data: {
-                  'Clarity Score': '8.5/10',
-                  'Benefit Focus': 'Strong',
-                  'Urgency Factor': 'Moderate',
-                  'Emotional Appeal': '8/10'
-                }
+              'ideal-customer': {
+                type: 'text',
+                data: 'Small to medium-sized businesses looking to optimize their development processes and improve productivity.'
+              },
+              'problem': {
+                type: 'text',
+                data: 'Development teams struggle with inefficient workflows and lack of standardization in their coding practices.'
               },
               'value-proposition': {
+                type: 'text',
+                data: 'An AI-powered development assistant that helps teams write better code faster and maintain consistent quality standards.'
+              },
+              'profit-proposition': {
+                type: 'text',
+                data: 'Reduced development time and costs through automated code review and standardization.'
+              },
+              'people-proposition': {
+                type: 'text',
+                data: 'Developers can focus on creative problem-solving while the AI handles routine tasks and quality checks.'
+              },
+              'core-benefit': {
+                type: 'text',
+                data: 'Increased developer productivity and code quality'
+              },
+              'core-feature': {
+                type: 'text',
+                data: 'Real-time AI code analysis and suggestions'
+              },
+              'solution-overview': {
+                type: 'text',
+                data: 'An intelligent IDE plugin that provides real-time code analysis, suggestions, and automated refactoring.'
+              },
+              'benefit-breakdown': {
                 type: 'list',
                 data: [
-                  'Clear and compelling unique selling points',
-                  'Strong benefit articulation',
-                  'Effective pain point addressing',
-                  'Professional presentation'
+                  'Faster development cycles',
+                  'Improved code quality',
+                  'Reduced technical debt',
+                  'Better developer experience',
+                  'Consistent coding standards'
                 ]
               },
-              'content-engagement': {
-                type: 'metrics',
-                data: {
-                  'Readability Score': '92%',
-                  'Avg. Time on Page': '2:45',
-                  'Bounce Rate': '35%',
-                  'Mobile Engagement': '78%'
-                }
+              'first-order': {
+                type: 'text',
+                data: 'Immediate improvement in code quality and development speed'
               },
-              'conversion-analysis': {
+              'second-order': {
+                type: 'text',
+                data: 'Long-term reduction in maintenance costs and technical debt'
+              },
+              'pricing': {
                 type: 'table',
                 data: [
                   {
-                    'Element': 'Call to Action',
-                    'Current Rate': '2.3%',
-                    'Benchmark': '2.8%',
-                    'Opportunity': 'Medium'
+                    'Plan': 'Basic',
+                    'Price': '$10/month',
+                    'Features': 'Core Analysis',
+                    'Target': 'Individual'
                   },
                   {
-                    'Element': 'Lead Form',
-                    'Current Rate': '4.5%',
-                    'Benchmark': '3.9%',
-                    'Opportunity': 'Low'
+                    'Plan': 'Pro',
+                    'Price': '$29/month',
+                    'Features': 'Advanced Features',
+                    'Target': 'Small Team'
                   },
                   {
-                    'Element': 'Product Pages',
-                    'Current Rate': '1.8%',
-                    'Benchmark': '2.5%',
-                    'Opportunity': 'High'
+                    'Plan': 'Enterprise',
+                    'Price': 'Custom',
+                    'Features': 'Full Suite',
+                    'Target': 'Large Team'
                   }
-                ]
-              },
-              'recommendations': {
-                type: 'recommendations',
-                data: [
-                  'Optimize image sizes and implement lazy loading',
-                  'Implement browser caching strategy',
-                  'Enhance mobile responsiveness with fluid layouts',
-                  'Add ARIA labels to interactive elements',
-                  'Implement progressive form validation'
                 ]
               }
             }
@@ -301,73 +314,74 @@ export const getMockOrders = async () => {
       },
       {
         id: 'order-2',
-        agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
-        agentName: 'AI Coding Strategist',
+        agentId: '7b9e4c1d-8f2a-4e8b-b3c5-9d6a2e1f8b4a',
+        agentName: 'MVP Strategist',
         status: 'completed',
         createdAt: '2024-03-16T09:15:00Z',
         completedAt: '2024-03-16T10:45:00Z',
-        credits: 199,
+        credits: 30,
         deliverable: {
-          agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
-          title: 'Code Architecture Analysis',
-          summary: 'Strategic analysis of your codebase architecture with modernization recommendations',
+          agentId: '7b9e4c1d-8f2a-4e8b-b3c5-9d6a2e1f8b4a',
+          title: 'MVP Technical Strategy',
+          summary: 'Technical architecture and implementation strategy for your MVP',
           createdAt: new Date('2024-03-16T10:45:00Z'),
           content: {
             sections: {
-              'architecture': {
+              'use-cases': {
+                type: 'list',
+                data: [
+                  'User authentication and profile management',
+                  'Real-time code analysis',
+                  'Automated refactoring suggestions',
+                  'Team collaboration features',
+                  'Integration with popular IDEs'
+                ]
+              },
+              'non-functional': {
+                type: 'list',
+                data: [
+                  'Response time under 100ms for analysis',
+                  'High availability (99.9% uptime)',
+                  'End-to-end encryption',
+                  'GDPR compliance',
+                  'Scalable to 10,000 concurrent users'
+                ]
+              },
+              'domain-model': {
                 type: 'text',
-                data: 'The codebase follows a monolithic architecture with clear separation of concerns. While this serves current needs, there are opportunities for modularization and service-oriented improvements. Key architectural patterns are well-implemented, but some components show tight coupling that could be addressed.'
+                data: 'Core entities include User, Project, CodeAnalysis, and Suggestion. Users can have multiple projects, each containing multiple code analyses and receiving suggestions.'
               },
-              'code-quality': {
-                type: 'metrics',
-                data: {
-                  'Test Coverage': '78%',
-                  'Code Duplication': '4.2%',
-                  'Technical Debt': 'Medium',
-                  'Documentation': '85%'
-                }
-              },
-              'performance': {
+              'data-model': {
                 type: 'table',
                 data: [
                   {
-                    'Component': 'Authentication',
-                    'Response Time': '250ms',
-                    'Issue': 'N+1 Query',
-                    'Impact': 'High'
+                    'Entity': 'User',
+                    'Fields': 'id, email, settings',
+                    'Relations': 'Projects, Teams'
                   },
                   {
-                    'Component': 'Data Processing',
-                    'Response Time': '1.2s',
-                    'Issue': 'Memory Leak',
-                    'Impact': 'Medium'
+                    'Entity': 'Project',
+                    'Fields': 'id, name, config',
+                    'Relations': 'User, CodeAnalyses'
                   },
                   {
-                    'Component': 'API Gateway',
-                    'Response Time': '150ms',
-                    'Issue': 'None',
-                    'Impact': 'Low'
+                    'Entity': 'CodeAnalysis',
+                    'Fields': 'id, content, results',
+                    'Relations': 'Project, Suggestions'
                   }
                 ]
               },
-              'security': {
-                type: 'list',
-                data: [
-                  'Input validation needs strengthening in user-facing APIs',
-                  'Session management follows best practices',
-                  'API rate limiting should be implemented',
-                  'Dependency scanning shows 3 medium vulnerabilities'
-                ]
+              'api-design': {
+                type: 'text',
+                data: 'RESTful API with GraphQL for complex queries. WebSocket connections for real-time analysis updates.'
               },
-              'recommendations': {
-                type: 'recommendations',
-                data: [
-                  'Implement domain-driven design patterns',
-                  'Add Redis caching layer for frequently accessed data',
-                  'Refactor authentication flow to use JWT tokens',
-                  'Set up automated security scanning',
-                  'Implement GraphQL for flexible data fetching'
-                ]
+              'services-design': {
+                type: 'text',
+                data: 'Microservices architecture with separate services for authentication, analysis, and real-time updates.'
+              },
+              'deployment': {
+                type: 'text',
+                data: 'Containerized deployment on Kubernetes with automatic scaling and blue-green deployments.'
               }
             }
           }
@@ -375,95 +389,67 @@ export const getMockOrders = async () => {
       },
       {
         id: 'order-3',
-        agentId: '3d813cbb-47fb-4d9d-9b7b-a5a04d8e6c9a',
-        agentName: 'Research Assistant',
+        agentId: 'pricing-strategist',
+        agentName: 'Pricing Strategist',
         status: 'completed',
         createdAt: '2024-03-16T14:45:00Z',
         completedAt: '2024-03-16T16:30:00Z',
-        credits: 6000,
+        credits: 20,
         deliverable: {
-          agentId: '3d813cbb-47fb-4d9d-9b7b-a5a04d8e6c9a',
-          title: 'Market Analysis Report',
-          summary: 'In-depth analysis of the SaaS market landscape and competitive positioning',
+          agentId: 'pricing-strategist',
+          title: 'Pricing and Revenue Strategy',
+          summary: 'Comprehensive pricing strategy and revenue optimization plan',
           createdAt: new Date('2024-03-16T16:30:00Z'),
           content: {
             sections: {
-              'market-overview': {
+              'distribution-channels': {
+                type: 'list',
+                data: [
+                  'Direct website sales',
+                  'IDE marketplace integrations',
+                  'Developer community partnerships',
+                  'Tech conference sponsorships',
+                  'Developer influencer collaborations'
+                ]
+              },
+              'customer-journey': {
                 type: 'text',
-                data: 'The SaaS market continues to show robust growth, driven by digital transformation initiatives and increasing demand for cloud-based solutions. The developer tools segment, in particular, demonstrates strong potential with emerging opportunities in AI-powered solutions.'
+                data: 'Start with a free trial focused on individual developers, then expand to team usage through viral adoption, ultimately targeting enterprise sales.'
               },
-              'market-size': {
-                type: 'metrics',
-                data: {
-                  'Total Market Size': '$9.5B',
-                  'CAGR': '23%',
-                  'Market Share': '12%',
-                  'Growth Potential': 'High'
-                }
+              'first-10-customers': {
+                type: 'text',
+                data: 'Focus on tech startups and small development teams. Offer extended trials and personalized onboarding support.'
               },
-              'competitor-analysis': {
+              'first-100-customers': {
+                type: 'text',
+                data: 'Leverage early adopter success stories for case studies. Implement referral program and focus on community building.'
+              },
+              'growth-routines': {
                 type: 'table',
                 data: [
                   {
-                    'Competitor': 'TechCo',
-                    'Market Share': '15%',
-                    'Strengths': 'Brand Recognition',
-                    'Weaknesses': 'High Pricing'
+                    'Metric': 'User Activation',
+                    'Target': '60%',
+                    'Frequency': 'Daily',
+                    'Owner': 'Product'
                   },
                   {
-                    'Competitor': 'DevTools Inc',
-                    'Market Share': '8%',
-                    'Strengths': 'Feature Rich',
-                    'Weaknesses': 'Poor UX'
+                    'Metric': 'Team Conversion',
+                    'Target': '30%',
+                    'Frequency': 'Weekly',
+                    'Owner': 'Sales'
                   },
                   {
-                    'Competitor': 'AICode',
-                    'Market Share': '5%',
-                    'Strengths': 'AI Innovation',
-                    'Weaknesses': 'Limited Integration'
+                    'Metric': 'Revenue Growth',
+                    'Target': '15%',
+                    'Frequency': 'Monthly',
+                    'Owner': 'Finance'
                   }
-                ]
-              },
-              'opportunities': {
-                type: 'list',
-                data: [
-                  'Growing demand for specialized AI development tools',
-                  'Underserved enterprise segment',
-                  'Integration opportunities with major CI/CD platforms',
-                  'Emerging markets in APAC region'
-                ]
-              },
-              'recommendations': {
-                type: 'recommendations',
-                data: [
-                  'Focus marketing on developer productivity gains',
-                  'Develop enterprise-specific features',
-                  'Create integration partnerships with major CI/CD platforms',
-                  'Introduce tiered pricing for different company sizes',
-                  'Invest in AI-powered security scanning features'
                 ]
               }
             }
           }
         }
-      },
-      {
-        id: 'order-4',
-        agentId: '7f9e4a2b-1d3c-5e8f-9b6a-8c7d2f1e3a4b',
-        agentName: 'AI Coding Strategist',
-        status: 'in_progress',
-        createdAt: '2024-03-17T09:00:00Z',
-        credits: 199,
-        deliverable: null
-      },
-      {
-        id: 'order-5',
-        agentId: '6f9619ff-8b86-d011-b42d-00c04fc964ff',
-        agentName: 'Website Analysis Agent',
-        status: 'pending',
-        createdAt: '2024-03-17T11:45:00Z',
-        credits: 2500,
-        deliverable: null
       }
     ]
   };
