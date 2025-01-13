@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 interface VideoRoastOption {
   id: string;
   title: string;
-  price: number;
+  credits: number;
   description: string;
   isPrivate: boolean;
 }
@@ -21,14 +21,14 @@ const roastOptions: VideoRoastOption[] = [
   {
     id: 'public',
     title: 'Public Video Roast',
-    price: 200,
+    credits: 200,
     description: '15-20 minute video roast, publicly visible in community',
     isPrivate: false,
   },
   {
     id: 'private',
     title: 'Private Video Roast',
-    price: 550,
+    credits: 550,
     description: '15-20 minute video roast, kept private and delivered via DM',
     isPrivate: true,
   }
@@ -67,7 +67,7 @@ export function VideoRoastModal({ isOpen, onClose, onSelect }: VideoRoastModalPr
             >
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-lg font-semibold text-white">{option.title}</h3>
-                <span className="text-xl font-bold text-purple-400">${option.price}</span>
+                <span className="text-xl font-bold text-purple-400">{option.credits} credits</span>
               </div>
               <p className="text-gray-400">{option.description}</p>
             </div>
