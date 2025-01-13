@@ -79,13 +79,13 @@ export const mvpStrategistAgent: AgentConfig = {
             {
                 id: 'domain-model',
                 label: 'Domain Model',
-                type: 'text',
+                type: 'diagram',
                 description: 'Core domain entities and their relationships'
             },
             {
                 id: 'data-model',
                 label: 'Data Model',
-                type: 'table',
+                type: 'diagram',
                 description: 'Database schema and data relationships'
             },
             {
@@ -97,7 +97,7 @@ export const mvpStrategistAgent: AgentConfig = {
             {
                 id: 'services-design',
                 label: 'Services Design',
-                type: 'text',
+                type: 'diagram',
                 description: 'Microservices architecture and communication'
             },
             {

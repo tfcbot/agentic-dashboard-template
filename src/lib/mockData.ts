@@ -348,36 +348,165 @@ export const getMockOrders = async () => {
                 ]
               },
               'domain-model': {
-                type: 'text',
-                data: 'Core entities include User, Project, CodeAnalysis, and Suggestion. Users can have multiple projects, each containing multiple code analyses and receiving suggestions.'
+                type: 'diagram',
+                data: `classDiagram
+direction LR
+class User {
+  +UUID id
+  +String email
+  +String name
+  +Settings settings
+  +List~Project~ projects
+  +List~Team~ teams
+  +createProject()
+  +joinTeam()
+}
+class Team {
+  +UUID id
+  +String name
+  +List~User~ members
+  +addMember()
+  +removeMember()
+}
+class Project {
+  +UUID id
+  +String name
+  +ProjectConfig config
+  +User owner
+  +List~Analysis~ analyses
+  +addAnalysis()
+  +updateConfig()
+}
+class Analysis {
+  +UUID id
+  +String content
+  +AnalysisResult results
+  +DateTime createdAt
+  +analyze()
+  +generateSuggestions()
+}
+class Suggestion {
+  +UUID id
+  +String type
+  +String content
+  +Boolean applied
+  +apply()
+  +dismiss()
+}
+User "1" --> "*" Project : owns
+User "*" --> "*" Team : belongs to
+Project "1" --> "*" Analysis : contains
+Analysis "1" --> "*" Suggestion : generates`
               },
               'data-model': {
-                type: 'table',
-                data: [
-                  {
-                    'Entity': 'User',
-                    'Fields': 'id, email, settings',
-                    'Relations': 'Projects, Teams'
-                  },
-                  {
-                    'Entity': 'Project',
-                    'Fields': 'id, name, config',
-                    'Relations': 'User, CodeAnalyses'
-                  },
-                  {
-                    'Entity': 'CodeAnalysis',
-                    'Fields': 'id, content, results',
-                    'Relations': 'Project, Suggestions'
-                  }
-                ]
+                type: 'diagram',
+                data: `erDiagram
+USERS {
+  uuid id PK
+  string email UK
+  string name
+  jsonb settings
+  timestamp created_at
+  timestamp updated_at
+}
+TEAMS {
+  uuid id PK
+  string name
+  timestamp created_at
+  timestamp updated_at
+}
+TEAM_MEMBERS {
+  uuid team_id FK
+  uuid user_id FK
+  string role
+  timestamp joined_at
+}
+PROJECTS {
+  uuid id PK
+  uuid owner_id FK
+  string name
+  jsonb config
+  timestamp created_at
+  timestamp updated_at
+}
+ANALYSES {
+  uuid id PK
+  uuid project_id FK
+  text content
+  jsonb results
+  timestamp created_at
+}
+SUGGESTIONS {
+  uuid id PK
+  uuid analysis_id FK
+  string type
+  text content
+  boolean applied
+  timestamp created_at
+}
+USERS ||--o{ TEAM_MEMBERS : has
+TEAMS ||--o{ TEAM_MEMBERS : contains
+USERS ||--o{ PROJECTS : owns
+PROJECTS ||--o{ ANALYSES : contains
+ANALYSES ||--o{ SUGGESTIONS : generates`
               },
               'api-design': {
                 type: 'text',
                 data: 'RESTful API with GraphQL for complex queries. WebSocket connections for real-time analysis updates.'
               },
               'services-design': {
-                type: 'text',
-                data: 'Microservices architecture with separate services for authentication, analysis, and real-time updates.'
+                type: 'diagram',
+                data: `flowchart TB
+subgraph client[Client Layer]
+  direction LR
+  IDE[IDE Plugin]
+  WEB[Web Dashboard]
+  MOB[Mobile App]
+end
+subgraph gateway[API Layer]
+  direction LR
+  ALB[Load Balancer]
+  API[API Gateway]
+  CACHE[Redis Cache]
+end
+subgraph services[Services]
+  direction LR
+  AUTH[Auth Service]
+  ANALYSIS[Analysis Service]
+  RT[Realtime Service]
+  TEAM[Team Service]
+  NOTIFY[Notification Service]
+end
+subgraph data[Data Layer]
+  direction LR
+  DB[(Database)]
+  MQ[Message Queue]
+  S3[Object Store]
+end
+IDE --> ALB
+WEB --> ALB
+MOB --> ALB
+ALB --> API
+API <--> CACHE
+API --> AUTH
+API --> ANALYSIS
+API --> RT
+API --> TEAM
+API --> NOTIFY
+AUTH --> DB
+ANALYSIS --> DB
+ANALYSIS --> S3
+TEAM --> DB
+NOTIFY --> MQ
+RT --> MQ
+classDef client fill:#f9f,stroke:#333,stroke-width:2px
+classDef gateway fill:#bbf,stroke:#333,stroke-width:2px
+classDef service fill:#bfb,stroke:#333,stroke-width:2px
+classDef data fill:#fbb,stroke:#333,stroke-width:2px
+class IDE,WEB,MOB client
+class ALB,API,CACHE gateway
+class AUTH,ANALYSIS,RT,TEAM,NOTIFY service
+class DB,MQ,S3 data`
               },
               'deployment': {
                 type: 'text',

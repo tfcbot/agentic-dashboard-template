@@ -5,7 +5,8 @@ export const DeliverableSectionTypeSchema = z.enum([
   'list',
   'table',
   'metrics',
-  'recommendations'
+  'recommendations',
+  'diagram'
 ]);
 
 export const DeliverableSectionSchema = z.object({

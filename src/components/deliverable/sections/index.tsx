@@ -1,6 +1,8 @@
 'use client';
 
 import { DeliverableSection } from '@/schemas/deliverable';
+import dynamic from 'next/dynamic';
+import Mermaid from '@/components/Mermaid';
 
 interface SectionProps {
   data: any;
@@ -116,10 +118,25 @@ function RecommendationsSection({ data, config }: SectionProps) {
   );
 }
 
+function DiagramSection({ data, config }: SectionProps) {
+  return (
+    <div className="mb-8">
+      <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
+      <div className="bg-gray-800 p-4 rounded-lg">
+        <Mermaid chart={data} id={config.id} />
+      </div>
+      {config.description && (
+        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
+      )}
+    </div>
+  );
+}
+
 export const DeliverableSections = {
   text: TextSection,
   list: ListSection,
   table: TableSection,
   metrics: MetricsSection,
   recommendations: RecommendationsSection,
+  diagram: DiagramSection,
 }; 
