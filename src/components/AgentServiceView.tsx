@@ -75,22 +75,16 @@ export function AgentServiceView({ agentId }: AgentServiceViewProps) {
 
           {/* Key Deliverables */}
           <div className="bg-gray-800 rounded-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Key Deliverables</h2>
+            <h2 className="text-xl font-semibold text-white mb-4">What you get</h2>
             <ul className="space-y-3">
               {agent.keyDeliverables.map((deliverable, index) => (
                 <li key={index} className="flex items-start text-gray-300">
                   <svg
                     className="w-5 h-5 text-purple-500 mr-3 mt-1 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
+                    fill="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
+                    <circle cx="12" cy="12" r="4" />
                   </svg>
                   {deliverable}
                 </li>

@@ -39,6 +39,8 @@ export const AgentConfigSchema = z.object({
   longDescription: z.string().optional(),
   additionalInfo: z.string().optional(),
   fields: z.record(z.string(), AgentFieldConfig),
+  packageDescription: z.array(z.string()),
+  estimatedDelivery: z.string(),
   faq: z.array(FAQSchema),
   deliverable: DeliverableConfigSchema,
   handler: z.function()

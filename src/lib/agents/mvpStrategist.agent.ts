@@ -7,7 +7,7 @@ export const mvpStrategistAgent: AgentConfig = {
     description: 'Expert guidance on technical strategy, architecture and engineering decisions',
     category: 'technology',
     imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format',
-    credits: 15,
+    credits: 30,
     available: true,
     keyDeliverables: [
         'Technical architecture review',
@@ -16,6 +16,10 @@ export const mvpStrategistAgent: AgentConfig = {
         'Development process optimization',
         'Technical debt assessment'
     ],
+    packageDescription: [
+        'One Page MVP Strategy'
+    ],
+    estimatedDelivery: 'Less than 10 min',
     fields: {
         currentStack: {
             type: 'textarea',

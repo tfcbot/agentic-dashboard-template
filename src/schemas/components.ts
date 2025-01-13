@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
-import { AgentConfig, PackageTypeKey } from './agent';
+import { AgentConfig } from './agent';
 
 export interface AgentCardProps {
     id: string;
@@ -22,7 +22,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export interface OrderFormProps {
     agentId: string;
-    initialPackage: PackageTypeKey;
+    initialPackage: string;
 }
 
 export interface StarRatingProps {

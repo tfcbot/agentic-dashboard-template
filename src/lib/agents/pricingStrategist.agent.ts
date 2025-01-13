@@ -7,7 +7,7 @@ export const pricingStrategistAgent: AgentConfig = {
     description: 'An expert in SaaS pricing strategy and revenue optimization',
     category: 'strategy',
     imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format',
-    credits: 10,
+    credits: 20,
     available: true,
     keyDeliverables: [
         'Distribution channel strategy recommendations',
@@ -16,6 +16,10 @@ export const pricingStrategistAgent: AgentConfig = {
         'Growth scaling strategy (10-100 customers)',
         'Revenue metrics and tracking routines'
     ],
+    packageDescription: [
+        'One Page Pricing Strategy'
+    ],
+    estimatedDelivery: 'Less than 1 min',
     fields: {
         businessModel: {
             type: 'select',
