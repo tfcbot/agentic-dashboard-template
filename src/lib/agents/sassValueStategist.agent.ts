@@ -43,7 +43,7 @@ export const saasValueStrategistAgent: AgentConfig = {
         }
     ],
     fields: {
-        url: {
+        applicationIdea: {
             label: 'Application Idea',
             type: 'textarea',
             placeholder: 'Enter in your application idea',

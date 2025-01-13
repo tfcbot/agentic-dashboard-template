@@ -129,3 +129,4 @@ dist
 .pnp.*
 .sst/
 .env.sst
+.specstory/

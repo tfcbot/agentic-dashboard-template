@@ -21,24 +21,6 @@ export const mvpStrategistAgent: AgentConfig = {
     ],
     estimatedDelivery: 'Less than 10 min',
     fields: {
-        currentStack: {
-            type: 'textarea',
-            label: 'Current Technology Stack',
-            required: true,
-            placeholder: 'Describe your current technology stack and architecture'
-        },
-        teamSize: {
-            type: 'number',
-            label: 'Engineering Team Size',
-            required: true,
-            placeholder: 'How many engineers are on your team?'
-        },
-        challenges: {
-            type: 'textarea',
-            label: 'Technical Challenges',
-            required: true,
-            placeholder: 'What are your main technical challenges?'
-        }, 
         useCases: {
             type: 'textarea',
             label: 'Use Cases',

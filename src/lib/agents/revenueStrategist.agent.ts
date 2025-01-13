@@ -1,10 +1,10 @@
 import type { AgentConfig } from '@/schemas';
 
-export const pricingStrategistAgent: AgentConfig = {
-    id: 'pricing-strategist',
-    name: 'Pricing Strategist',
-    title: 'SaaS Pricing & Revenue Expert',
-    description: 'An expert in SaaS pricing strategy and revenue optimization',
+export const revenueStrategistAgent: AgentConfig = {
+    id: 'revenue-strategist',
+    name: 'Revenue Strategist',
+    title: 'SaaS Revenue Growth Expert',
+    description: 'An expert in SaaS revenue growth strategy and optimization',
     category: 'strategy',
     imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format',
     credits: 20,
@@ -17,32 +17,27 @@ export const pricingStrategistAgent: AgentConfig = {
         'Revenue metrics and tracking routines'
     ],
     packageDescription: [
-        'One Page Pricing Strategy'
+        'One Page Revenue Growth Strategy'
     ],
     estimatedDelivery: 'Less than 1 min',
     fields: {
-        businessModel: {
-            type: 'select',
-            label: 'Business Model',
+        applicationIdea: {
+            type: 'textarea',
+            label: 'Application Idea',
             required: true,
-            options: [
-                { value: 'b2b', label: 'B2B' },
-                { value: 'b2c', label: 'B2C' },
-                { value: 'b2b2c', label: 'B2B2C' }
-            ],
-            placeholder: 'Select your business model'
+            placeholder: 'Enter in your application idea'
         },
-        currentCustomers: {
-            type: 'number',
-            label: 'Current Customer Count',
+        idealCustomer: {
+            type: 'text',
+            label: 'Ideal Customer',
             required: true,
-            placeholder: 'How many customers do you currently have?'
+            placeholder: 'Enter in your ideal customer'
         },
-        targetPrice: {
+        targetAnnualRevenue: {
             type: 'number',
-            label: 'Target Price Point ($)',
+            label: 'Target Annual Revenue ($)',
             required: true,
-            placeholder: 'What is your target price point?'
+            placeholder: 'What is your target annual revenue?'
         }
     },
     faq: [
