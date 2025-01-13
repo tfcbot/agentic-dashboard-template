@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { generateMarkdown, generatePDF, downloadFile } from '@/lib/fileGenerators';
+import { generateMarkdown, downloadFile } from '@/lib/fileGenerators';
 import { DeliverableSections } from './deliverable/sections';
+import { VideoRoastModal } from './VideoRoastModal';
 import type { AgentConfig } from '@/schemas/agent';
 import type { DeliverableData } from '@/schemas/deliverable';
 
@@ -15,26 +16,16 @@ interface DeliverableProps {
 }
 
 export function Deliverable({ agentId, data, agent, onRequestReview }: DeliverableProps) {
-  const [selectedFormat, setSelectedFormat] = useState(agent.deliverable.availableFormats[0]);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isRoastModalOpen, setIsRoastModalOpen] = useState(false);
 
   const handleDownload = async () => {
     try {
       setIsDownloading(true);
       const timestamp = new Date().toISOString().split('T')[0];
       const sanitizedTitle = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      
-      if (selectedFormat === 'pdf') {
-        const pdfBlob = generatePDF(data, agent);
-        downloadFile(pdfBlob, `${sanitizedTitle}-${timestamp}.pdf`);
-      } else if (selectedFormat === 'markdown') {
-        const markdown = generateMarkdown(data, agent);
-        downloadFile(markdown, `${sanitizedTitle}-${timestamp}.md`);
-      } else if (selectedFormat === 'presentation') {
-        // For now, we'll just download as markdown
-        const markdown = generateMarkdown(data, agent);
-        downloadFile(markdown, `${sanitizedTitle}-${timestamp}-presentation.md`);
-      }
+      const markdown = generateMarkdown(data, agent);
+      downloadFile(markdown, `${sanitizedTitle}-${timestamp}.md`);
     } catch (error) {
       console.error('Error generating file:', error);
       alert('Failed to generate file. Please try again.');
@@ -43,60 +34,76 @@ export function Deliverable({ agentId, data, agent, onRequestReview }: Deliverab
     }
   };
 
+  const handleRoastOptionSelect = (option: any) => {
+    setIsRoastModalOpen(false);
+    if (onRequestReview) {
+      onRequestReview();
+    }
+  };
+
   return (
-    <div className="bg-gray-900 rounded-lg border border-gray-800 p-6">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-white mb-2">{data.title}</h2>
-        <p className="text-gray-400">{data.summary}</p>
-      </div>
-
-      {agent.deliverable.sections.map((sectionConfig) => {
-        const SectionComponent = DeliverableSections[sectionConfig.type];
-        const sectionData = data.content.sections[sectionConfig.id]?.data;
-
-        if (!sectionData || !SectionComponent) return null;
-
-        return (
-          <SectionComponent
-            key={sectionConfig.id}
-            data={sectionData}
-            config={sectionConfig}
-          />
-        );
-      })}
-
-      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-6 border-t border-gray-800">
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <select
-            value={selectedFormat}
-            onChange={(e) => setSelectedFormat(e.target.value as any)}
-            className="bg-gray-800 text-white rounded-md px-3 py-2 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+    <div className="max-w-4xl mx-auto py-8 px-4">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-2xl font-bold text-white">{data.title}</h2>
+        <div className="flex gap-4">
+          <Button
+            variant="outline"
+            onClick={() => setIsRoastModalOpen(true)}
           >
-            {agent.deliverable.availableFormats.map((format) => (
-              <option key={format} value={format}>
-                {format.toUpperCase()}
-              </option>
-            ))}
-          </select>
+            Request Video Roast
+          </Button>
           <Button
             onClick={handleDownload}
             disabled={isDownloading}
-            className="bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isDownloading ? 'Generating...' : 'Download'}
+            {isDownloading ? 'Downloading...' : 'Download as Markdown'}
           </Button>
         </div>
-        
-        {onRequestReview && (
-          <Button
-            onClick={onRequestReview}
-            variant="outline"
-            className="border-purple-500 text-purple-500 hover:bg-purple-500/10 w-full sm:w-auto"
-          >
-            Request Additional Review
-          </Button>
+      </div>
+
+      <div className="prose prose-invert max-w-none">
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold text-white mb-4">Summary</h3>
+          <p className="text-gray-300">{data.summary}</p>
+        </div>
+
+        {agent.deliverable.sections.map((section) => {
+          const SectionComponent = DeliverableSections[section.type];
+          const sectionData = data.content.sections[section.id]?.data;
+
+          if (!SectionComponent || !sectionData) return null;
+
+          return (
+            <SectionComponent
+              key={section.id}
+              data={sectionData}
+              config={section}
+            />
+          );
+        })}
+
+        {data.content.metadata && (
+          <div className="mt-8 pt-8 border-t border-gray-800">
+            <h3 className="text-lg font-semibold text-white mb-4">
+              Additional Information
+            </h3>
+            <dl className="space-y-2">
+              {Object.entries(data.content.metadata).map(([key, value]) => (
+                <div key={key}>
+                  <dt className="text-gray-400">{key}</dt>
+                  <dd className="text-gray-300 ml-4">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         )}
       </div>
+
+      <VideoRoastModal
+        isOpen={isRoastModalOpen}
+        onClose={() => setIsRoastModalOpen(false)}
+        onSelect={handleRoastOptionSelect}
+      />
     </div>
   );
 } 

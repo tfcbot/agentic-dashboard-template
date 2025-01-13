@@ -13,10 +13,10 @@ function TextSection({ data, config }: SectionProps) {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
-      <p className="text-gray-300">{data}</p>
       {config.description && (
-        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
+        <p className="text-gray-400 text-sm mb-4">{config.description}</p>
       )}
+      <p className="text-gray-300">{data}</p>
     </div>
   );
 }
@@ -25,14 +25,14 @@ function ListSection({ data, config }: SectionProps) {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
+      {config.description && (
+        <p className="text-gray-400 text-sm mb-4">{config.description}</p>
+      )}
       <ul className="list-disc list-inside space-y-2">
         {Array.isArray(data) && data.map((item, index) => (
           <li key={index} className="text-gray-300">{item}</li>
         ))}
       </ul>
-      {config.description && (
-        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
-      )}
     </div>
   );
 }
@@ -45,6 +45,9 @@ function TableSection({ data, config }: SectionProps) {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
+      {config.description && (
+        <p className="text-gray-400 text-sm mb-4">{config.description}</p>
+      )}
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
@@ -69,9 +72,6 @@ function TableSection({ data, config }: SectionProps) {
           </tbody>
         </table>
       </div>
-      {config.description && (
-        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
-      )}
     </div>
   );
 }
@@ -80,6 +80,9 @@ function MetricsSection({ data, config }: SectionProps) {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
+      {config.description && (
+        <p className="text-gray-400 text-sm mb-4">{config.description}</p>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Object.entries(data).map(([key, value]) => (
           <div key={key} className="bg-gray-800 p-4 rounded-lg">
@@ -90,9 +93,6 @@ function MetricsSection({ data, config }: SectionProps) {
           </div>
         ))}
       </div>
-      {config.description && (
-        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
-      )}
     </div>
   );
 }
@@ -101,6 +101,9 @@ function RecommendationsSection({ data, config }: SectionProps) {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
+      {config.description && (
+        <p className="text-gray-400 text-sm mb-4">{config.description}</p>
+      )}
       <div className="space-y-4">
         {Array.isArray(data) && data.map((rec, index) => (
           <div key={index} className="flex gap-3 items-start">
@@ -111,9 +114,6 @@ function RecommendationsSection({ data, config }: SectionProps) {
           </div>
         ))}
       </div>
-      {config.description && (
-        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
-      )}
     </div>
   );
 }
@@ -122,12 +122,12 @@ function DiagramSection({ data, config }: SectionProps) {
   return (
     <div className="mb-8">
       <h3 className="text-lg font-semibold text-white mb-4">{config.label}</h3>
+      {config.description && (
+        <p className="text-gray-400 text-sm mb-4">{config.description}</p>
+      )}
       <div className="bg-gray-800 p-4 rounded-lg">
         <Mermaid chart={data} id={config.id} />
       </div>
-      {config.description && (
-        <p className="text-gray-400 text-sm mt-2">{config.description}</p>
-      )}
     </div>
   );
 }
