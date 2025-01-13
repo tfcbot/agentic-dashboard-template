@@ -78,10 +78,10 @@ export const pricingStrategistAgent: AgentConfig = {
                 description: 'Scaling strategy for growth phase'
             },
             {
-                id: 'growth-routines',
-                label: 'Growth Routines',
-                type: 'table',
-                description: 'Key metrics and tracking procedures'
+                id: 'growth-strategies',
+                label: 'Growth Strategies',
+                type: 'text',
+                description: 'Key strategies for growth'
             }
         ],
         availableFormats: ['pdf', 'markdown'],

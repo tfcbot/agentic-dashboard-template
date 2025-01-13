@@ -553,28 +553,9 @@ class DB,MQ,S3 data`
                 type: 'text',
                 data: 'Leverage early adopter success stories for case studies. Implement referral program and focus on community building.'
               },
-              'growth-routines': {
-                type: 'table',
-                data: [
-                  {
-                    'Metric': 'User Activation',
-                    'Target': '60%',
-                    'Frequency': 'Daily',
-                    'Owner': 'Product'
-                  },
-                  {
-                    'Metric': 'Team Conversion',
-                    'Target': '30%',
-                    'Frequency': 'Weekly',
-                    'Owner': 'Sales'
-                  },
-                  {
-                    'Metric': 'Revenue Growth',
-                    'Target': '15%',
-                    'Frequency': 'Monthly',
-                    'Owner': 'Finance'
-                  }
-                ]
+              'growth-strategies': {
+                type: 'text',
+                data: 'Implement a freemium tier to attract early adopters and gather feedback. Focus on product-led growth through self-service onboarding and community engagement.'
               }
             }
           }
