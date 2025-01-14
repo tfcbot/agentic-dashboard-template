@@ -1,7 +1,7 @@
 import type { AgentConfig } from '@/schemas';
-import { saasValueStrategistAgent } from './sassValueStategist.agent';
+import { saasValueStrategistAgent } from './valueStategist.agent';
 import { mvpStrategistAgent } from './mvpStrategist.agent';
-import { revenueStrategistAgent } from './revenueStrategist.agent';
+import { revenueStrategistAgent } from './growthStrategist.agent';
 // Combine all agents into a single array
 export const allAgents: AgentConfig[] = [
   saasValueStrategistAgent,

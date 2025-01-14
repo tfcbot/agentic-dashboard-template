@@ -137,12 +137,6 @@ export const saasValueStrategistAgent: AgentConfig = {
                 type: 'text',
                 description: 'Long-term impact of using your solution'
             },
-            {
-                id: 'pricing',
-                label: 'Pricing Structure/Offer',
-                type: 'table',
-                description: 'Pricing tiers and details'
-            }
         ],
         availableFormats: ['pdf', 'markdown']
     },
