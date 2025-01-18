@@ -73,3 +73,18 @@ export function useGetOrders() {
     },
   });
 }
+
+
+export function useGetDeliverable(orderId: string) {
+  const { getToken } = useAuth();
+  return useQuery({
+    queryKey: ['deliverable', orderId],
+    queryFn: async () => {
+      const token = await getToken();
+      if (!token) {
+        throw new Error('No token found');
+      }
+      return apiService.getDeliverable(token, orderId);
+    },
+  });
+}

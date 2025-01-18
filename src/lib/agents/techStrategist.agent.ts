@@ -1,4 +1,5 @@
-import type { AgentConfig, OrderFormData } from '@/schemas';
+import type { AgentConfig, OrderFormData, RequestTechStrategyInput } from '@/schemas';
+import { agentService } from '@/services/agentService';
 
 export const techStrategistAgent: AgentConfig = {
     id: '7b9e4c1d-8f2a-4e8b-b3c5-9d6a2e1f8b4a',
@@ -92,6 +93,10 @@ export const techStrategistAgent: AgentConfig = {
         availableFormats: ['pdf', 'markdown']
     },
     handler: async (token: string, data: OrderFormData) => {
-        throw new Error('Handler not implemented');
+        const response = await agentService.handleTechStrategyRequest(
+            token,
+            data.payload.formData as RequestTechStrategyInput
+        );
+        return response;
     }
 };

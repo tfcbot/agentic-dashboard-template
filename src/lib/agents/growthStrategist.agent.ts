@@ -1,4 +1,5 @@
-import type { AgentConfig } from '@/schemas';
+import type { AgentConfig, OrderFormData, RequestGrowthStrategyInput } from '@/schemas';
+import { agentService } from '@/services/agentService';
 
 export const growthStrategistAgent: AgentConfig = {
     id: 'growth-strategist',
@@ -81,8 +82,12 @@ export const growthStrategistAgent: AgentConfig = {
         ],
         availableFormats: ['pdf', 'markdown'],
     },
-    handler: function (args_0: string, args_1: { payload: { formData: {}; }; agentId: string; }, ...args_2: unknown[]): Promise<{ success: boolean; orderId: string; }> {
-        throw new Error('Function not implemented.');
+    handler: async (token: string, data: OrderFormData) => {
+        const response = await agentService.handleGrowthStrategyRequest(
+            token,
+            data.payload.formData as RequestGrowthStrategyInput
+        );
+        return response;
     }
 }
 

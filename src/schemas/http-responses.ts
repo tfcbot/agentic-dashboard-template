@@ -3,6 +3,7 @@ import { HttpResponseParams, HttpStatusCode, createHttpResponse, HttpResponses }
 import {  WebsiteReviewSchema } from '@schemas/agent';
 import { GetRemainingCreditsOutput } from '@schemas/billing';
 import { GetWebsiteReviewsResponseBody } from '@schemas/api';
+import { DeliverableContentSchema } from './deliverable';
 
 
 export const WebsiteReviewRequestReceivedResponseBodySchema = z.object({
@@ -26,7 +27,8 @@ export const OrderResponseBodySchema = z.object({
 
 export const DeliverableResponseBodySchema = z.object({
   deliverableId: z.string(),
-  deliverableContent: z.string(), 
+  deliverableTitle: z.string(),
+  deliverableContent: DeliverableContentSchema, 
 });
 
 export const GetOrdersResponseBodySchema = z.object({

@@ -1,7 +1,7 @@
 import {
     AgentConfig, 
     OrderFormData, 
-    ValueStrategistRequest
+    RequestValueStrategyInput, 
 } from '@/schemas/agent';
 import { agentService } from '@/services/agentService';
 
@@ -141,9 +141,9 @@ export const valueStrategistAgent: AgentConfig = {
         availableFormats: ['pdf', 'markdown']
     },
     handler: async (token: string, data: OrderFormData) => {
-        const response = await agentService.handleValueStrategistRequest(
+        const response = await agentService.handleValueStrategyRequest(
             token,
-            data.payload.formData as ValueStrategistRequest
+            data.payload.formData as RequestValueStrategyInput
         );
         return response;
     }

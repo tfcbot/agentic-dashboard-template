@@ -1,14 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Deliverable } from '@/components/Deliverable';
-import { getMockDeliverable } from '@/lib/mockData';
+import { useGetDeliverable } from '@/hooks/useApi';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import type { DeliverableSection } from '@/schemas/deliverable';
 import type { AgentConfig } from '@/schemas/agent';
-import { getAgent } from '@/lib/agents';
 
 interface DeliverablePageProps {
   params: {
@@ -16,42 +14,10 @@ interface DeliverablePageProps {
   };
 }
 
-interface SectionData {
-  type: string;
-  data: any;
-}
-
 export default function DeliverablePage({ params }: DeliverablePageProps) {
-  const router = useRouter();
-  const [deliverable, setDeliverable] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [agent, setAgent] = useState<AgentConfig | null>(null);
-
-  useEffect(() => {
-    const fetchDeliverable = async () => {
-      try {
-        const data = await getMockDeliverable(params.id);
-        setDeliverable(data);
-        // Find the corresponding agent configuration
-        const matchingAgent = getAgent(data.agentId);
-        if (!matchingAgent) {
-          throw new Error('Agent configuration not found');
-        }
-        setAgent(matchingAgent);
-      } catch (err) {
-        setError('Failed to load deliverable');
-        console.error('Error fetching deliverable:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDeliverable();
-  }, [params.id]);
+  const { data: deliverable, isLoading, error } = useGetDeliverable(params.id);
 
   const handleRequestReview = () => {
-    // Mock functionality
     alert('Expert review requested! We will contact you shortly.');
   };
 
@@ -75,19 +41,17 @@ export default function DeliverablePage({ params }: DeliverablePageProps) {
         Back to Orders
       </Link>
 
-      {loading ? (
+      {isLoading ? (
         <div className="flex justify-center items-center min-h-[200px]">
           <LoadingSpinner />
         </div>
       ) : error ? (
         <div className="text-red-500 text-center p-8 bg-red-900/20 rounded-lg">
-          {error}
+          {error.message}
         </div>
-      ) : deliverable && agent ? (
+      ) : deliverable ? (
         <Deliverable
-          agentId={deliverable.agentId}
-          data={deliverable}
-          agent={agent}
+          deliverable={deliverable.data}
           onRequestReview={handleRequestReview}
         />
       ) : (

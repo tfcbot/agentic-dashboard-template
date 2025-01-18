@@ -13,7 +13,8 @@ export const DeliverableSectionSchema = z.object({
   id: z.string(),
   label: z.string(),
   type: DeliverableSectionTypeSchema,
-  description: z.string().optional()
+  description: z.string().optional(),
+  data: z.any()
 });
 
 export const DeliverableConfigSchema = z.object({
@@ -22,19 +23,13 @@ export const DeliverableConfigSchema = z.object({
 });
 
 export const DeliverableContentSchema = z.object({
-  sections: z.record(z.object({
-    type: z.string(),
-    data: z.any()
-  })),
-  metadata: z.record(z.any()).optional()
+  sections: z.record(z.string(), DeliverableSectionSchema)
 });
 
 export const DeliverableDataSchema = z.object({
-  agentId: z.string(),
-  title: z.string(),
-  summary: z.string(),
-  content: DeliverableContentSchema,
-  createdAt: z.date()
+  deliverableTitle: z.string(),
+  deliverableId: z.string(),
+  deliverableContent: DeliverableContentSchema,
 });
 
 // Export types
