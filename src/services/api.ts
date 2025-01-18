@@ -9,10 +9,9 @@ import type {
   RequestResearchResponseBody,
   RequestResearchBody,
   RequestVoiceRepurposeResponseBody,
-
 } from '@/schemas/api';
 
-import { AgentConfig, GetAllAgentsResponse, ValueStrategistRequest } from '@/schemas/agent';
+import { AgentConfig, GetAllAgentsResponse, RequestValueStrategyInput, RequestGrowthStrategyInput, RequestTechStrategyInput } from '@/schemas/agent';
 const API_CONFIG = {
   baseUrl: process.env.NEXT_API_URL,
   version: '/v1',
@@ -23,7 +22,7 @@ const API_CONFIG = {
 
 import { getMockWebsiteReview } from '@/lib/mockData';
 import { AgentService } from './agentService';
-import { OrderResponseBody } from '@/schemas/http-responses';
+import { GetDeliverableResponseBody, GetOrdersResponseBody, OrderResponseBody } from '@/schemas/http-responses';
 
 // Typed endpoints that take token as first paramete
 
@@ -36,6 +35,11 @@ export interface IApiService {
   getUserCreditsRemaining(token: string): Promise<number>;
   requestResearch(token: string, body: RequestResearchBody): Promise<RequestResearchResponseBody>;
   requestVoiceRepurpose(token: string, body: RequestVoiceRepurposeBody): Promise<RequestVoiceRepurposeResponseBody>;
+  getOrders(token: string): Promise<GetOrdersResponseBody>;
+  getDeliverable(token: string, orderId: string): Promise<GetDeliverableResponseBody>;
+  requestGrowthStrategy(token: string, body: RequestGrowthStrategyInput): Promise<OrderResponseBody>;
+  requestTechStrategy(token: string, body: RequestTechStrategyInput): Promise<OrderResponseBody>;
+  requestValueStrategy(token: string, body: RequestValueStrategyInput): Promise<OrderResponseBody>;
 }
 
 
@@ -131,15 +135,55 @@ export class ApiService implements IApiService {
     return { voiceRepurposeId: 'mock-voice-repurpose-id' };
   }
 
-  async requestValueStrategist(token: string, body: ValueStrategistRequest): Promise<OrderResponseBody> {
-    const absoluteUrl = this.getAbsoluteUrl('/value-strategist');
+  async requestValueStrategy(token: string, body: RequestValueStrategyInput): Promise<OrderResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/value-strategy');
     const response = await fetch(absoluteUrl, {
       method: 'POST',
       headers: this.getHeaders(token),
       body: JSON.stringify(body),
     });
     const data = await response.json() as OrderResponseBody;
-    return data 
+    return data;
+  }
+
+  async getOrders(token: string): Promise<GetOrdersResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/orders');
+    const response = await fetch(absoluteUrl, {
+      method: 'GET',
+      headers: this.getHeaders(token),
+    });
+    const data = await response.json() as GetOrdersResponseBody;
+    console.log('Getting Orders', data);
+    return data;
+  }
+
+  async getDeliverable(token: string, orderId: string): Promise<GetDeliverableResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl(`/orders/deliverables/${orderId}`);
+    const response = await fetch(absoluteUrl, {
+      method: 'GET',
+      headers: this.getHeaders(token),
+    });
+    return response.json() as Promise<GetDeliverableResponseBody>;
+  }
+
+  async requestGrowthStrategy(token: string, body: RequestGrowthStrategyInput): Promise<OrderResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/growth-strategy');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    return response.json() as Promise<OrderResponseBody>;
+  }
+
+  async requestTechStrategy(token: string, body: RequestTechStrategyInput): Promise<OrderResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/tech-strategy');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    return response.json() as Promise<OrderResponseBody>;
   }
 }
 

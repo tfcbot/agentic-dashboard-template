@@ -5,7 +5,7 @@ import {
 } from '@/schemas/agent';
 import { agentService } from '@/services/agentService';
 
-export const saasValueStrategistAgent: AgentConfig = {
+export const valueStrategistAgent: AgentConfig = {
     id: '9d3f7a1e-5b2c-4e8d-a6f9-2c4b8d3e1a5f',
     name: 'Value Strategist',
     title: 'Value Strategist',

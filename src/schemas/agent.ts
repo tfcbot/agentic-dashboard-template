@@ -135,9 +135,27 @@ export const PayloadSchema = z.object({
   formData: z.object({})
 });
 
-export const ValueStrategistRequestSchema = z.object({
-  applicationIdea: z.string()
-}); 
+
+export const RequestTechStrategyInputSchema = z.object({
+  useCases: z.string(),
+  nonFunctional: z.string(),
+});
+
+
+export const RequestValueStrategyInputSchema = z.object({
+  applicationIdea: z.string(),
+  idealCustomer: z.string(),
+  problem: z.string(),
+  solution: z.string()
+});
+
+export const RequestGrowthStrategyInputSchema = z.object({
+  applicationIdea: z.string(),
+  idealCustomer: z.string(),
+  targetAnnualRevenue: z.number()
+});
+
+
 
 // Export types
 export type FAQ = z.infer<typeof FAQSchema>;
@@ -148,4 +166,6 @@ export type AgentResponse = z.infer<typeof AgentResponseSchema>;
 export type IntakeSubmissionResponse = z.infer<typeof IntakeSubmissionResponseSchema>;
 export type GetAllAgentsResponse = z.infer<typeof GetAllAgentsResponseSchema>;
 export type Payload = z.infer<typeof PayloadSchema>;
-export type ValueStrategistRequest = z.infer<typeof ValueStrategistRequestSchema>;
+export type RequestGrowthStrategyInput = z.infer<typeof RequestGrowthStrategyInputSchema>;
+export type RequestTechStrategyInput = z.infer<typeof RequestTechStrategyInputSchema>;
+export type RequestValueStrategyInput = z.infer<typeof RequestValueStrategyInputSchema>;

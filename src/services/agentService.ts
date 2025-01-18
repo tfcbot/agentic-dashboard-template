@@ -1,21 +1,21 @@
 import type {
   GetAgentResponse,
-  RequestWebsiteReviewBody,
   GetAllAgentsResponse,
-  RequestResearchBody,
-  RequestWebsiteReviewResponseBody,
-  RequestResearchResponseBody,
-  ValueStrategistRequest
+  RequestGrowthStrategyInput,
+  RequestTechStrategyInput,
+  RequestValueStrategyInput
 } from '@/schemas';
 import { apiService } from './api';
 import { getAgent, getAllAgents } from '@/lib/agents';
 import { OrderResponseBody } from '@/schemas/http-responses';
+
+
 export interface IAgentService {
   getAgent(id: string): Promise<GetAgentResponse>;
   getAllAgents(): Promise<GetAllAgentsResponse>;
-  handleWebsiteReviewSubmission(token: string, data: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody>;
-  handleResearchSubmission(token: string, data: RequestResearchBody): Promise<RequestResearchResponseBody>;
-  handleValueStrategistRequest(token: string, data: ValueStrategistRequest): Promise<OrderResponseBody>;
+  handleValueStrategyRequest(token: string, data: RequestValueStrategyInput): Promise<OrderResponseBody>;
+  handleGrowthStrategyRequest(token: string, data: RequestGrowthStrategyInput): Promise<OrderResponseBody>;
+  handleTechStrategyRequest(token: string, data: RequestTechStrategyInput): Promise<OrderResponseBody>;
 }
 
 export class AgentService implements IAgentService {
@@ -32,14 +32,14 @@ export class AgentService implements IAgentService {
     return { agents: agents };
   }
 
-  async handleWebsiteReviewSubmission(token: string, data: RequestWebsiteReviewBody): Promise<RequestWebsiteReviewResponseBody> {
-    return apiService.requestWebsiteReview(token, data);
+  async handleValueStrategyRequest(token: string, data: RequestValueStrategyInput): Promise<OrderResponseBody> {
+    return apiService.requestValueStrategy(token, data);
   }
-  async handleResearchSubmission(token: string, data: RequestResearchBody): Promise<RequestResearchResponseBody> {
-    return apiService.requestResearch(token, data);
+  async handleGrowthStrategyRequest(token: string, data: RequestGrowthStrategyInput): Promise<OrderResponseBody> {
+    return apiService.requestGrowthStrategy(token, data);
   }
-  async handleValueStrategistRequest(token: string, data: ValueStrategistRequest): Promise<OrderResponseBody> {
-    return apiService.requestValueStrategist(token, data);
+  async handleTechStrategyRequest(token: string, data: RequestTechStrategyInput): Promise<OrderResponseBody> {
+    return apiService.requestTechStrategy(token, data);
   }
 };
 

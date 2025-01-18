@@ -1,6 +1,6 @@
 import type { AgentConfig, OrderFormData } from '@/schemas';
 
-export const mvpStrategistAgent: AgentConfig = {
+export const techStrategistAgent: AgentConfig = {
     id: '7b9e4c1d-8f2a-4e8b-b3c5-9d6a2e1f8b4a',
     name: 'MVP Strategist',
     title: 'MVP Strategy & Architecture Expert',

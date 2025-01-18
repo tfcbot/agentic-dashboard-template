@@ -4,9 +4,9 @@ import React from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth } from '@clerk/nextjs';
 import { billingService } from '@/services/billingService';
+import { apiService } from '@/services/api';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-const USE_MOCK_DATA = true; // Toggle this to switch between mock and real data
 
 
 // Add more API hooks here as needed
@@ -59,3 +59,17 @@ export function usePurchaseCredits() {
   }
   
 
+export function useGetOrders() {
+  const { getToken } = useAuth();
+
+  return useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const token = await getToken();
+      if (!token) {
+        throw new Error('No token found');
+      }
+      return apiService.getOrders(token);
+    },
+  });
+}

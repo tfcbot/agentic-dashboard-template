@@ -1,10 +1,10 @@
 import type { AgentConfig } from '@/schemas';
 
-export const revenueStrategistAgent: AgentConfig = {
-    id: 'revenue-strategist',
-    name: 'Revenue Strategist',
-    title: 'SaaS Revenue Growth Expert',
-    description: 'An expert in SaaS revenue growth strategy and optimization',
+export const growthStrategistAgent: AgentConfig = {
+    id: 'growth-strategist',
+    name: 'Growth Strategist',
+    title: 'SaaS Growth Expert',
+    description: 'An expert in SaaS growth strategy and optimization',
     category: 'strategy',
     imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format',
     credits: 20,
@@ -14,7 +14,7 @@ export const revenueStrategistAgent: AgentConfig = {
         'Customer journey optimization plan',
         'Early customer acquisition roadmap (0-10 customers)',
         'Growth scaling strategy (10-100 customers)',
-        'Revenue metrics and tracking routines'
+        'Growth strategies'
     ],
     packageDescription: [
         'One Page Revenue Growth Strategy'
