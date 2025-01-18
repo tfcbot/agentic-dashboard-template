@@ -34,22 +34,14 @@ const renderMarkdownSection = (section: DeliverableSection, data: any): string =
 };
 
 export const generateMarkdown = (data: DeliverableData, agent: AgentConfig): string => {
-  let markdown = `# ${data.title}\n\n`;
-  markdown += `## Summary\n${data.summary}\n\n`;
+  let markdown = `# ${data.deliverableTitle}\n\n`;
 
   agent.deliverable.sections.forEach(section => {
-    const sectionData = data.content.sections[section.id]?.data;
+    const sectionData = data.deliverableContent.sections[section.id]?.data;
     if (sectionData) {
       markdown += renderMarkdownSection(section, sectionData);
     }
   });
-
-  if (data.content.metadata) {
-    markdown += '\n## Additional Information\n\n';
-    Object.entries(data.content.metadata).forEach(([key, value]) => {
-      markdown += `**${key}**: ${value}\n`;
-    });
-  }
 
   return markdown;
 };
