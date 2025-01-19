@@ -33,14 +33,11 @@ const renderMarkdownSection = (section: DeliverableSection, data: any): string =
   }
 };
 
-export const generateMarkdown = (data: DeliverableData, agent: AgentConfig): string => {
+export const generateMarkdown = (data: DeliverableData): string => {
   let markdown = `# ${data.deliverableTitle}\n\n`;
 
-  agent.deliverable.sections.forEach(section => {
-    const sectionData = data.deliverableContent.sections[section.id]?.data;
-    if (sectionData) {
-      markdown += renderMarkdownSection(section, sectionData);
-    }
+  Object.values(data.deliverableContent.sections).forEach(section => {
+    markdown += renderMarkdownSection(section, section.data);
   });
 
   return markdown;

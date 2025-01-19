@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { z } from 'zod';
 import { Button } from './ui/button';
 import { RetroLoadingOverlay } from './RetroLoadingOverlay';
 import { FieldConfig } from '@/schemas/forms';
+import { debounce } from 'lodash';
 
 interface DynamicFormProps<T extends z.ZodType> {
   schema: T;
@@ -29,35 +30,45 @@ export function DynamicForm<T extends z.ZodType>({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-
-  const handleInputChange = (name: string, value: any) => {
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
-    
-    if (touched[name]) {
+  const debouncedValidation = useCallback(
+    debounce((name: string, value: any) => {
       const result = schema.safeParse({ ...formData, [name]: value });
       if (!result.success) {
         const fieldError = result.error.errors.find(err => err.path[0] === name);
-        setErrors(prev => ({ 
-          ...prev, 
+        setErrors(prev => ({
+          ...prev,
           [name]: fieldError?.message || 'Invalid input'
         }));
       } else {
         setErrors(prev => ({ ...prev, [name]: '' }));
       }
+    }, 500),
+    [formData, schema]
+  );
+
+  const handleInputChange = (name: string, value: any) => {
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    
+    if (touched[name]) {
+      debouncedValidation(name, value);
     }
   };
 
   const handleBlur = (name: string) => {
     setTouched(prev => ({ ...prev, [name]: true }));
-    const result = schema.safeParse({ ...formData, [name]: formData[name] });
-    if (!result.success) {
-      const fieldError = result.error.errors.find(err => err.path[0] === name);
-      setErrors(prev => ({ 
-        ...prev, 
-        [name]: fieldError?.message || 'Invalid input' 
-      }));
-    } else {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+    
+    if (formData[name]) {
+      const result = schema.safeParse({ ...formData, [name]: formData[name] });
+      if (!result.success) {
+        const fieldError = result.error.errors.find(err => err.path[0] === name);
+        const errorMessage = getFieldErrorMessage(fieldError as any as z.ZodError, fieldConfigs.find(f => f.label === name));
+        setErrors(prev => ({ 
+          ...prev, 
+          [name]: errorMessage
+        }));
+      } else {
+        setErrors(prev => ({ ...prev, [name]: '' }));
+      }
     }
   };
 
@@ -151,3 +162,11 @@ export function DynamicForm<T extends z.ZodType>({
     </form>
   );
 }
+
+const getFieldErrorMessage = (error: z.ZodError | undefined, fieldConfig: any) => {
+  if (!error) return '';
+  
+  const defaultMessage = `Please enter a valid ${fieldConfig?.label.toLowerCase() || 'value'}`;
+  
+  return defaultMessage;
+};

@@ -20,9 +20,8 @@ export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) 
     try {
       setIsDownloading(true);
       const timestamp = new Date().toISOString().split('T')[0];
-      const sanitizedTitle = deliverable.deliverableTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const markdown = generateMarkdown(deliverable);
-      downloadFile(markdown, `${sanitizedTitle}-${timestamp}.md`);
+      downloadFile(markdown, `${deliverable.deliverableTitle}-${timestamp}.md`);
     } catch (error) {
       console.error('Error generating file:', error);
       alert('Failed to generate file. Please try again.');

@@ -17,8 +17,8 @@ export function useUserCreditsRemaining() {
       queryFn: async () => {
             const token = await getToken();
             if (!token) throw new Error('No token available');
-            const response = await billingService.getUserCreditsRemaining(token);
-        return response.credits;
+            const credits = await billingService.getUserCreditsRemaining(token);
+        return credits;
       },
     });
   }

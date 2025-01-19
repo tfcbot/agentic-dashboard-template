@@ -68,7 +68,7 @@ export class ApiService implements IApiService {
       headers: this.getHeaders(token),
       body: JSON.stringify({
         quantity: 1,
-        amount: 10
+        amount: 1
       }),
     });
     const data = await response.json();
@@ -83,8 +83,8 @@ export class ApiService implements IApiService {
         method: 'GET',
         headers: this.getHeaders(token),
       });
-      // const data = await response.json();
-      return 10000; // Return the responses value or 0 if undefined
+      const data = await response.json();
+      return data.credits;
     } catch (error) {
       console.error('Error fetching responses:', error);
       return 0; // Return 0 if there's an error
