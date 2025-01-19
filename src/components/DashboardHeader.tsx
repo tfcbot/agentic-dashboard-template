@@ -1,7 +1,6 @@
 'use client';
 
 import { useUserCreditsRemaining } from '@/hooks/useBilling';
-import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface DashboardHeaderProps {
   title: string;
@@ -16,8 +15,7 @@ export function DashboardHeader({ title }: DashboardHeaderProps) {
       <div className="text-gray-300">
         {isLoading ? (
           <div className="flex items-center gap-2">
-            <LoadingSpinner />
-            <span>Loading credits...</span>
+            <div className="h-6 bg-gray-800 rounded animate-pulse w-24" />
           </div>
         ) : (
           <span>Credits: {data?.toLocaleString() ?? 0}</span>
