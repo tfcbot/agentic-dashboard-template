@@ -57,43 +57,50 @@ export const techStrategistAgent: AgentConfig = {
                 id: 'use-cases',
                 label: 'Defining Use Cases',
                 type: 'list',
-                description: 'Key use cases and user stories for the MVP'
+                description: 'Key use cases and user stories for the MVP',
+                order: 1
             },
             {
                 id: 'non-functional',
                 label: 'Non Functional Requirements', 
                 type: 'list',
-                description: 'Performance, security, and scalability requirements'
+                description: 'Performance, security, and scalability requirements',
+                order: 2
             },
             {
                 id: 'domain-model',
                 label: 'Domain Model',
                 type: 'diagram',
-                description: 'Core domain entities and their relationships'
+                description: 'Core domain entities and their relationships',
+                order: 3
             },
             {
                 id: 'data-model',
                 label: 'Data Model',
                 type: 'diagram',
-                description: 'Database schema and data relationships'
+                description: 'Database schema and data relationships',
+                order: 4
             },
             {
                 id: 'api-design',
                 label: 'API Design',
                 type: 'text',
-                description: 'API endpoints and integration points'
+                description: 'API endpoints and integration points',
+                order: 5
             },
             {
                 id: 'services-design',
                 label: 'Services Design',
                 type: 'diagram',
-                description: 'Microservices architecture and communication'
+                description: 'Microservices architecture and communication',
+                order: 6
             },
             {
                 id: 'deployment',
                 label: 'Deployment Strategy',
                 type: 'text',
-                description: 'Infrastructure and deployment recommendations'
+                description: 'Infrastructure and deployment recommendations',
+                order: 7
             }
         ],
         availableFormats: ['pdf', 'markdown']

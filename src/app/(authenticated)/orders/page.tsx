@@ -52,16 +52,7 @@ export default function OrdersPage() {
   return (
     <div className="transition-all duration-300">
       <div className="p-4 lg:p-8">
-        <div className="flex justify-between items-center">
-          <DashboardHeader title="Orders" />
-          <div className="w-72">
-            <SearchInput
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Search orders..."
-            />
-          </div>
-        </div>
+        <DashboardHeader title="Orders" />
         <div className="mt-8">
           {isLoading ? (
             <div className="flex justify-center items-center min-h-[200px]">
@@ -72,7 +63,16 @@ export default function OrdersPage() {
               {error.message}
             </div>
           ) : orders.data.length > 0 ? (
-            <div className="overflow-x-auto flex justify-center">
+            <div className="overflow-x-auto flex flex-col items-center">
+              <div className="min-w-[800px] mb-4 flex justify-end">
+                <div className="w-72">
+                  <SearchInput
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                    placeholder="Search orders..."
+                  />
+                </div>
+              </div>
               <table className="min-w-[800px] text-left border-collapse">
                 <thead>
                   <tr className="border-b border-gray-700">

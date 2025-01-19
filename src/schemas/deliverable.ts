@@ -14,7 +14,8 @@ export const DeliverableSectionSchema = z.object({
   label: z.string(),
   type: DeliverableSectionTypeSchema,
   description: z.string().optional(),
-  data: z.any()
+  data: z.any(),
+  order: z.number(),
 });
 
 export const DeliverableConfigSchema = z.object({
@@ -23,11 +24,11 @@ export const DeliverableConfigSchema = z.object({
 });
 
 export const DeliverableContentSchema = z.object({
-  deliverableName: z.string(),
   sections: z.record(z.string(), DeliverableSectionSchema)
 });
 
 export const DeliverableDataSchema = z.object({
+  deliverableName: z.string(),
   deliverableId: z.string(),
   deliverableContent: DeliverableContentSchema,
 });

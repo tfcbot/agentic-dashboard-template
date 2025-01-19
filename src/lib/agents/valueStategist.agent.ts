@@ -81,67 +81,78 @@ export const valueStrategistAgent: AgentConfig = {
                 id: 'ideal-customer',
                 label: 'Ideal Customer/Client',
                 type: 'text',
-                description: 'Description of your target customer profile'
+                description: 'Description of your target customer profile',
+                order: 1
             },
             {
                 id: 'problem',
                 label: 'Problem', 
                 type: 'text',
-                description: 'The core problem being solved'
+                description: 'The core problem being solved',
+                order: 2
             },
             {
                 id: 'value-proposition',
                 label: 'Value Proposition',
                 type: 'text',
-                description: 'Your core value proposition statement'
+                description: 'Your core value proposition statement',
+                order: 3
             },
             {
                 id: 'profit-proposition',
                 label: 'Profit Proposition Statement',
                 type: 'text',
-                description: 'How your solution generates profit'
+                description: 'How your solution generates profit',
+                order: 4
             },
             {
                 id: 'people-proposition',
                 label: 'People Proposition Statement',
                 type: 'text',
-                description: 'How your solution benefits people'
+                description: 'How your solution benefits people',
+                order: 5
             },
             {
                 id: 'core-benefit',
                 label: 'Core Benefit',
                 type: 'text',
-                description: 'The primary benefit users get'
+                description: 'The primary benefit users get',
+                order: 6
             },
             {
                 id: 'core-feature',
                 label: 'Core Feature',
                 type: 'text',
-                description: 'The main feature that delivers value'
+                description: 'The main feature that delivers value',
+                order: 7
             },
             {
                 id: 'solution-overview',
                 label: 'Solution Overview',
                 type: 'text',
-                description: 'Overview of how your solution works'
+                description: 'Overview of how your solution works',
+                order: 8
             },
             {
                 id: 'benefit-breakdown',
                 label: 'Benefit Breakdown',
                 type: 'list',
-                description: 'List of key benefits'
+                description: 'List of key benefits',
+                order: 9
             },
             {
                 id: 'first-order',
                 label: 'First Order Consequence',
                 type: 'text',
-                description: 'Immediate impact of using your solution'
+                description: 'Immediate impact of using your solution',
+                order: 10
             },
             {
                 id: 'second-order',
                 label: 'Second Order Consequence',
                 type: 'text',
-                description: 'Long-term impact of using your solution'
+                description: 'Long-term impact of using your solution',
+                order: 11
             },
         ],
         availableFormats: ['pdf', 'markdown']

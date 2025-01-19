@@ -60,31 +60,36 @@ export const growthStrategistAgent: AgentConfig = {
                 id: 'distribution-channels',
                 label: 'Distribution Channels',
                 type: 'list',
-                description: 'Recommended channels for customer acquisition'
+                description: 'Recommended channels for customer acquisition',
+                order: 1
             },
             {
                 id: 'customer-journey',
                 label: 'Customer Journey',
                 type: 'text',
-                description: 'Detailed customer journey optimization plan'
+                description: 'Detailed customer journey optimization plan',
+                order: 2
             },
             {
                 id: 'first-10-customers',
                 label: 'Your First 10 Customers',
                 type: 'text',
-                description: 'Strategy for acquiring early customers'
+                description: 'Strategy for acquiring early customers',
+                order: 3
             },
             {
                 id: 'first-100-customers',
                 label: 'Your First 100 Customers',
                 type: 'text',
-                description: 'Scaling strategy for growth phase'
+                description: 'Scaling strategy for growth phase',
+                order: 4
             },
             {
                 id: 'growth-strategies',
                 label: 'Growth Strategies',
                 type: 'text',
-                description: 'Key strategies for growth'
+                description: 'Key strategies for growth',
+                order: 5
             }
         ],
         availableFormats: ['pdf', 'markdown'],
