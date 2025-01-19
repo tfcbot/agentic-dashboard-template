@@ -23,11 +23,11 @@ export const DeliverableConfigSchema = z.object({
 });
 
 export const DeliverableContentSchema = z.object({
+  deliverableName: z.string(),
   sections: z.record(z.string(), DeliverableSectionSchema)
 });
 
 export const DeliverableDataSchema = z.object({
-  deliverableTitle: z.string(),
   deliverableId: z.string(),
   deliverableContent: DeliverableContentSchema,
 });

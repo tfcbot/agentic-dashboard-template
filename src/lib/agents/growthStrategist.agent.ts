@@ -22,6 +22,12 @@ export const growthStrategistAgent: AgentConfig = {
     ],
     estimatedDelivery: 'Less than 1 min',
     fields: {
+        deliverableName: {
+            type: 'text',
+            label: 'Deliverable Name',
+            required: true,
+            placeholder: 'Enter in your deliverable name'
+        },
         applicationIdea: {
             type: 'textarea',
             label: 'Application Idea',
@@ -49,6 +55,7 @@ export const growthStrategistAgent: AgentConfig = {
     ],
     deliverable: {
         sections: [
+            
             {
                 id: 'distribution-channels',
                 label: 'Distribution Channels',

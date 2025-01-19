@@ -153,7 +153,6 @@ export class ApiService implements IApiService {
       headers: this.getHeaders(token),
     });
     const data = await response.json() as GetOrdersResponseBody;
-    console.log('Getting Orders', data);
     return data;
   }
 

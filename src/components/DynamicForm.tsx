@@ -61,7 +61,10 @@ export function DynamicForm<T extends z.ZodType>({
       const result = schema.safeParse({ ...formData, [name]: formData[name] });
       if (!result.success) {
         const fieldError = result.error.errors.find(err => err.path[0] === name);
-        const errorMessage = getFieldErrorMessage(fieldError as any as z.ZodError, fieldConfigs.find(f => f.label === name));
+        const errorMessage = getFieldErrorMessage(
+          fieldError as any as z.ZodError, 
+          Array.isArray(fieldConfigs) ? fieldConfigs.find(f => f.label === name) : undefined
+        );
         setErrors(prev => ({ 
           ...prev, 
           [name]: errorMessage

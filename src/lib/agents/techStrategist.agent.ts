@@ -22,6 +22,12 @@ export const techStrategistAgent: AgentConfig = {
     ],
     estimatedDelivery: 'Less than 10 min',
     fields: {
+        deliverableName: {
+            type: 'text',
+            label: 'Deliverable Name',
+            required: true,
+            placeholder: 'Enter in your deliverable name'
+        },
         useCases: {
             type: 'textarea',
             label: 'Use Cases',

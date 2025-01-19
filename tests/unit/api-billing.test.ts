@@ -17,9 +17,13 @@ describe('Billing Service Tests', () => {
 
   describe('getUserCreditsRemaining', () => {
     test('should return credit balance', async () => {
+      const mockCredits = 100;
+      (apiService.getUserCreditsRemaining as jest.Mock).mockResolvedValueOnce(mockCredits);
+
       const result = await billingService.getUserCreditsRemaining(mockToken);
-      
-      expect(result).toEqual({ credits: 100 });
+
+      expect(apiService.getUserCreditsRemaining).toHaveBeenCalledWith(mockToken);
+      expect(result).toBe(mockCredits);
     });
   });
 

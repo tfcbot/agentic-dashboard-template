@@ -1,8 +1,6 @@
 import { ApiService } from '@/services/api';
-import { ValueStrategistRequest } from '@/schemas/agent';
 import { GetDeliverableResponseBody, GetOrdersResponseBody, OrderResponseBody } from '@/schemas/http-responses';
-import { GrowthStrategyRequest, TechStrategyRequest } from '@/schemas/api';
-
+import { RequestValueStrategyInput, RequestGrowthStrategyInput, RequestTechStrategyInput } from '@/schemas/agent';
 /** @jest-environment jsdom */
 
 describe('API Service Tests', () => {
@@ -44,7 +42,9 @@ describe('API Service Tests', () => {
         data: [{
           orderId: 'order-1',
           orderStatus: 'completed',
-          orderCreatedAt: new Date().toISOString()
+          orderCreatedAt: new Date().toISOString(),
+          deliverableName: 'Deliverable 1',
+          success: true
         }]
       };
       
@@ -69,7 +69,17 @@ describe('API Service Tests', () => {
       const mockDeliverable: GetDeliverableResponseBody = { 
         data: { 
           deliverableId: 'deliverable-1',
-          deliverableContent: 'Test deliverable content'
+          deliverableName: 'Deliverable 1',
+          deliverableContent: {
+            sections: {
+              section1: {
+                type: 'text',
+                id: 'section-1',
+                label: 'Section 1',
+                data: 'Test deliverable content'
+              }
+            }
+          }
         } 
       };
       
@@ -90,20 +100,26 @@ describe('API Service Tests', () => {
     });
 
     test('requestValueStrategist should make correct API call', async () => {
-      const mockBody: ValueStrategistRequest = {
-        applicationIdea: 'test application idea'
+      const mockBody: RequestValueStrategyInput = {
+        deliverableName: 'Deliverable 1',
+        applicationIdea: 'test application idea',
+        idealCustomer: 'test customer',
+        problem: 'test problem',
+        solution: 'test solution'
       };
-      const mockResponse: OrderResponseBody = { 
+      const mockResponse: OrderResponseBody = {   
         orderId: 'order-1',
         orderStatus: 'pending',
-        orderCreatedAt: new Date().toISOString()
+        orderCreatedAt: new Date().toISOString(),
+        deliverableName: 'Deliverable 1',
+        success: true
       };
       
       (global.fetch as jest.Mock).mockResolvedValueOnce({
         json: () => Promise.resolve(mockResponse)
       });
 
-      const result = await apiService.requestValueStrategist(mockToken, mockBody);
+      const result = await apiService.requestValueStrategy(mockToken, mockBody);
       
       expect(global.fetch).toHaveBeenCalledWith(
         `${BASE_URL}/value-strategy`,
@@ -117,7 +133,8 @@ describe('API Service Tests', () => {
     });
 
     test('requestGrowthStrategy should make correct API call', async () => {
-      const mockBody: GrowthStrategyRequest = {
+      const mockBody: RequestGrowthStrategyInput = {
+        deliverableName: 'Deliverable 1',
         applicationIdea: 'test application idea',
         idealCustomer: 'test customer',
         targetAnnualRevenue: 1000000
@@ -125,7 +142,9 @@ describe('API Service Tests', () => {
       const mockResponse: OrderResponseBody = { 
         orderId: 'order-1',
         orderStatus: 'pending',
-        orderCreatedAt: new Date().toISOString()
+        orderCreatedAt: new Date().toISOString(),
+        deliverableName: 'Deliverable 1',
+        success: true
       };
       
       (global.fetch as jest.Mock).mockResolvedValueOnce({
@@ -146,14 +165,17 @@ describe('API Service Tests', () => {
     });
 
     test('requestTechStrategy should make correct API call', async () => {
-      const mockBody: TechStrategyRequest = {
+      const mockBody: RequestTechStrategyInput = {
+        deliverableName: 'Deliverable 1',
         useCases: 'test use cases',
         nonFunctional: 'test non functional requirements'
       };
       const mockResponse: OrderResponseBody = { 
         orderId: 'order-1',
         orderStatus: 'pending',
-        orderCreatedAt: new Date().toISOString()
+        orderCreatedAt: new Date().toISOString(),
+        deliverableName: 'Deliverable 1',
+        success: true
       };
       
       (global.fetch as jest.Mock).mockResolvedValueOnce({

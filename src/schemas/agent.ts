@@ -137,12 +137,14 @@ export const PayloadSchema = z.object({
 
 
 export const RequestTechStrategyInputSchema = z.object({
+  deliverableName: z.string(),
   useCases: z.string(),
   nonFunctional: z.string(),
 });
 
 
 export const RequestValueStrategyInputSchema = z.object({
+  deliverableName: z.string(),
   applicationIdea: z.string(),
   idealCustomer: z.string(),
   problem: z.string(),
@@ -150,6 +152,7 @@ export const RequestValueStrategyInputSchema = z.object({
 });
 
 export const RequestGrowthStrategyInputSchema = z.object({
+  deliverableName: z.string(),
   applicationIdea: z.string(),
   idealCustomer: z.string(),
   targetAnnualRevenue: z.number()

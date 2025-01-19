@@ -21,7 +21,7 @@ export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) 
       setIsDownloading(true);
       const timestamp = new Date().toISOString().split('T')[0];
       const markdown = generateMarkdown(deliverable);
-      downloadFile(markdown, `${deliverable.deliverableTitle}-${timestamp}.md`);
+      downloadFile(markdown, `${deliverable.deliverableContent.deliverableName}-${timestamp}.md`);
     } catch (error) {
       console.error('Error generating file:', error);
       alert('Failed to generate file. Please try again.');
@@ -40,7 +40,7 @@ export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl font-bold text-white">{deliverable.deliverableTitle}</h2>
+        <h2 className="text-2xl font-bold text-white">{deliverable.deliverableContent.deliverableName}</h2>
         <div className="flex gap-4">
           <Button
             variant="outline"
@@ -60,7 +60,7 @@ export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) 
       <div className="prose prose-invert max-w-none">
         <div className="mb-8">
           <h3 className="text-lg font-semibold text-white mb-4">Title</h3>
-          <p className="text-gray-300">{deliverable.deliverableTitle}</p>
+          <p className="text-gray-300">{deliverable.deliverableContent.deliverableName}</p>
         </div>
 
         {Object.values(deliverable.deliverableContent.sections).map((section: DeliverableSection & { type: keyof typeof DeliverableSections }) => {

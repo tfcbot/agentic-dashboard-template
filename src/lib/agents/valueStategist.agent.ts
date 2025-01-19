@@ -43,6 +43,12 @@ export const valueStrategistAgent: AgentConfig = {
         }
     ],
     fields: {
+        deliverableName: {
+            type: 'text',
+            label: 'Deliverable Name',
+            required: true,
+            placeholder: 'Enter in your deliverable name'
+        },
         applicationIdea: {
             label: 'Application Idea',
             type: 'textarea',

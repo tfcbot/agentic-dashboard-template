@@ -71,7 +71,7 @@ export function AgentOrderForm({ agentId }: AgentOrderFormProps) {
       payload: {
         formData: data
       },
-      agentId
+      agentId,
     });
     return result.success
   };

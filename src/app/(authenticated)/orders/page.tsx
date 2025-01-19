@@ -14,6 +14,11 @@ export default function OrdersPage() {
   const router = useRouter();
   const { data: orders = { data: [] } , isLoading, error } = useGetOrders();
 
+  // Sort orders by timestamp in descending order
+  const sortedOrders = [...orders.data].sort((a, b) => 
+    new Date(b.orderCreatedAt).getTime() - new Date(a.orderCreatedAt).getTime()
+  );
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
@@ -45,31 +50,29 @@ export default function OrdersPage() {
               {error.message}
             </div>
           ) : orders.data.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+            <div className="overflow-x-auto flex justify-center">
+              <table className="min-w-[800px] text-left border-collapse">
                 <thead>
                   <tr className="border-b border-gray-700">
-                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Deliverable Name</th>
-                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Agent</th>
-                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Status</th>
-                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Created</th>
-                    <th className="py-3 px-4 text-right text-sm font-medium text-gray-400">Deliverable</th>
+                    <th className="w-1/3 py-3 px-2 text-left text-sm font-medium text-gray-400">Deliverable Name</th>
+                    <th className="w-[120px] py-3 px-2 text-left text-sm font-medium text-gray-400">Status</th>
+                    <th className="w-[180px] py-3 px-2 text-left text-sm font-medium text-gray-400">Created</th>
+                    <th className="w-[100px] py-3 px-2 text-right text-sm font-medium text-gray-400">Deliverable</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.data.map((order: OrderResponseBody) => (
+                  {sortedOrders.map((order: OrderResponseBody) => (
                     <tr key={order.orderId} className="border-t border-gray-800">
-                      <td className="py-3 px-4 text-gray-300">{order.deliverableName}</td>
-                      <td className="py-3 px-4 text-gray-300">{order.agentName}</td>
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-2 text-gray-300">{order.deliverableName}</td>
+                      <td className="py-3 px-2">
                         <span className={`inline-block px-2 py-1 rounded text-xs font-medium capitalize ${getStatusColor(order.orderStatus)}`}>
                           {order.orderStatus.replace('_', ' ')}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-gray-300">
+                      <td className="py-3 px-2 text-gray-300">
                         {format(new Date(order.orderCreatedAt), 'MMM d, yyyy HH:mm')}
                       </td>
-                      <td className="py-3 px-4 text-right">
+                      <td className="py-3 px-2 text-right">
                         <Button
                           onClick={() => handleViewDeliverable(order.orderId)}
                           className="bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"

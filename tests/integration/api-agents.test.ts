@@ -48,6 +48,7 @@ describe('Agent API Integration Tests', () => {
   describe('Strategy Services', () => {
     test('should request value strategy', async () => {
       const request: RequestValueStrategyInput = {
+        deliverableName: 'Deliverable 1',
         applicationIdea: 'A new SaaS platform for integration testing',
         idealCustomer: 'Software development teams',
         problem: 'Manual testing is time-consuming and error-prone',
@@ -64,6 +65,7 @@ describe('Agent API Integration Tests', () => {
 
     test('should request growth strategy', async () => {
       const request: RequestGrowthStrategyInput = {
+        deliverableName: 'Deliverable 1',
         applicationIdea: 'A new SaaS platform for integration testing',
         idealCustomer: 'Software development teams',
         targetAnnualRevenue: 1000000
@@ -79,6 +81,7 @@ describe('Agent API Integration Tests', () => {
 
     test('should request tech strategy', async () => {
       const request: RequestTechStrategyInput = {
+        deliverableName: 'Deliverable 1',
         useCases: 'User authentication, data storage, real-time updates',
         nonFunctional: 'High availability, scalability, security'
       };

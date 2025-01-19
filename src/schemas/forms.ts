@@ -47,7 +47,8 @@ export const FieldConfigSchema = z.object({
       value: z.any()
     })).optional(),
     placeholder: z.string().optional(),
-    required: z.boolean().optional()
+    required: z.boolean().optional(),
+    errorMessage: z.string().optional()
 });
 
 export const OrderFormConfigSchema = z.object({
