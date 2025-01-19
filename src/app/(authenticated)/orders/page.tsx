@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -8,16 +8,29 @@ import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { useGetOrders } from '@/hooks/useApi';
 import { OrderResponseBody } from '@/schemas/http-responses';
-
+import { SearchInput } from '@/components/ui/SearchInput';
 
 export default function OrdersPage() {
   const router = useRouter();
   const { data: orders = { data: [] } , isLoading, error } = useGetOrders();
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Sort orders by timestamp in descending order
-  const sortedOrders = [...orders.data].sort((a, b) => 
-    new Date(b.orderCreatedAt).getTime() - new Date(a.orderCreatedAt).getTime()
-  );
+  const sortedOrders = useMemo(() => {
+    return [...orders.data].sort((a, b) => 
+      new Date(b.orderCreatedAt).getTime() - new Date(a.orderCreatedAt).getTime()
+    );
+  }, [orders.data]);
+
+  // Filter orders based on search query
+  const filteredOrders = useMemo(() => {
+    if (!searchQuery) return sortedOrders;
+    
+    const query = searchQuery.toLowerCase();
+    return sortedOrders.filter(order => 
+      order.deliverableName?.toLowerCase().includes(query) ?? false
+    );
+  }, [sortedOrders, searchQuery]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -39,7 +52,16 @@ export default function OrdersPage() {
   return (
     <div className="transition-all duration-300">
       <div className="p-4 lg:p-8">
-        <DashboardHeader title="Orders" />
+        <div className="flex justify-between items-center">
+          <DashboardHeader title="Orders" />
+          <div className="w-72">
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="Search orders..."
+            />
+          </div>
+        </div>
         <div className="mt-8">
           {isLoading ? (
             <div className="flex justify-center items-center min-h-[200px]">
@@ -61,7 +83,7 @@ export default function OrdersPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortedOrders.map((order: OrderResponseBody) => (
+                  {filteredOrders.map((order: OrderResponseBody) => (
                     <tr key={order.orderId} className="border-t border-gray-800">
                       <td className="py-3 px-2 text-gray-300">{order.deliverableName}</td>
                       <td className="py-3 px-2">
