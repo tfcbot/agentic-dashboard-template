@@ -11,7 +11,7 @@ export const valueStrategistAgent: AgentConfig = {
     title: 'Value Strategist',
     description: 'Helps you turn your idea into a value spec document you can use with AI Tools',
     imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80&auto=format',
-    credits: 10,
+    credits: 20,
     available: true,
     rating: 4.8,
     category: 'Business',

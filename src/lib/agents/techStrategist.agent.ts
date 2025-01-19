@@ -8,7 +8,7 @@ export const techStrategistAgent: AgentConfig = {
     description: 'Expert guidance on technical strategy, architecture and engineering decisions',
     category: 'technology',
     imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format',
-    credits: 30,
+    credits: 20,
     available: true,
     keyDeliverables: [
         'Technical architecture review',
