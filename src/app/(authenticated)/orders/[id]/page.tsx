@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Deliverable } from '@/components/Deliverable';
 import { useGetDeliverable } from '@/hooks/useApi';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import type { AgentConfig } from '@/schemas/agent';
 
 interface DeliverablePageProps {
   params: {
@@ -37,8 +35,43 @@ export default function DeliverablePage({ params }: DeliverablePageProps) {
       </Link>
 
       {isLoading ? (
-        <div className="flex justify-center items-center min-h-[200px]">
-          <LoadingSpinner />
+        <div className="max-w-4xl mx-auto">
+          {/* Header Skeleton */}
+          <div className="flex justify-between items-center mb-8">
+            <div className="h-8 bg-gray-800 rounded animate-pulse w-1/3" />
+            <div className="h-10 bg-gray-800 rounded animate-pulse w-40" />
+          </div>
+
+          {/* Content Skeleton */}
+          <div className="space-y-8">
+            {/* Title Section */}
+            <div className="h-6 bg-gray-800 rounded animate-pulse w-1/2 mb-4" />
+
+            {/* Content Sections */}
+            {[...Array(3)].map((_, index) => (
+              <div key={index} className="space-y-4">
+                <div className="h-6 bg-gray-800 rounded animate-pulse w-1/4" />
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-800 rounded animate-pulse w-full" />
+                  <div className="h-4 bg-gray-800 rounded animate-pulse w-5/6" />
+                  <div className="h-4 bg-gray-800 rounded animate-pulse w-4/6" />
+                </div>
+              </div>
+            ))}
+
+            {/* List Items */}
+            <div className="space-y-4">
+              <div className="h-6 bg-gray-800 rounded animate-pulse w-1/4" />
+              <div className="space-y-2">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
+                    <div className="h-4 bg-gray-800 rounded animate-pulse w-3/4" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       ) : error ? (
         <div className="text-red-500 text-center p-8 bg-red-900/20 rounded-lg">
