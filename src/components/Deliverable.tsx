@@ -30,9 +30,7 @@ export function Deliverable({ deliverable }: DeliverableProps) {
 
   // Get the agent configuration to determine section order
   const agent = getAgent(deliverable.agentId);
-  console.log('Agent ID:', deliverable.agentId);
-  console.log('Agent:', agent);
-  console.log('Deliverable:', deliverable);
+
   
   if (!agent) {
     console.error('Agent configuration not found for ID:', deliverable.agentId);
@@ -41,8 +39,7 @@ export function Deliverable({ deliverable }: DeliverableProps) {
 
   // Create a map of sections for easier lookup
   const sectionsMap = deliverable.deliverableContent.sections;
-  console.log('Sections Map:', sectionsMap);
-  console.log('Agent Sections Config:', agent.deliverable.sections);
+
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
@@ -59,15 +56,11 @@ export function Deliverable({ deliverable }: DeliverableProps) {
         </div>
 
         {agent.deliverable.sections.map((sectionConfig) => {
-          console.log('Processing section config:', sectionConfig);
           const section = sectionsMap[sectionConfig.id];
-          console.log('Found section:', section);
           if (!section) return null;
 
           const SectionComponent = DeliverableSections[section.type as keyof typeof DeliverableSections];
-          console.log('Section Component:', SectionComponent);
           const sectionData = section.data;
-          console.log('Section Data:', sectionData);
 
           if (!SectionComponent || !sectionData) return null;
 

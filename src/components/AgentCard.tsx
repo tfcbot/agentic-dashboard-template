@@ -15,12 +15,6 @@ export function AgentCard({ agent }: AgentCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   
-  console.log('AgentCard rendering with:', {
-    agent,
-    hasAgent: !!agent,
-    type: typeof agent,
-    keys: agent ? Object.keys(agent) : []
-  });
 
   if (!agent || typeof agent !== 'object') {
     console.error('Invalid agent data received:', agent);

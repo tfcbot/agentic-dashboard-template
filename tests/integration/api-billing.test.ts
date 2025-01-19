@@ -19,7 +19,6 @@ describe('Billing API Integration Tests', () => {
   describe('Credit Management', () => {
     test('should get user credits remaining', async () => {
       const response = await billingService.getUserCreditsRemaining(TOKEN);
-      console.log(response);
       expect(typeof response).toBe('number');
       expect(response).toBeGreaterThanOrEqual(0);
     });

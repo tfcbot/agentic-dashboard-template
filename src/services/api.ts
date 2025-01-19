@@ -110,7 +110,7 @@ export class ApiService implements IApiService {
       body: JSON.stringify(body),
     });
    const data = await response.json();
-   console.log('Requesting Website Review', data);
+ 
   
     return { success: true, data: data };
   }

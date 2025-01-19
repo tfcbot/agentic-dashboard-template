@@ -65,7 +65,7 @@ export function AgentOrderForm({ agentId }: AgentOrderFormProps) {
     if (!handler) {
       throw new Error('Invalid agent type');
     }
-    console.log("Agent submission handler:", agentId);
+    
     const result = await handler(token, {
       payload: {
         formData:{

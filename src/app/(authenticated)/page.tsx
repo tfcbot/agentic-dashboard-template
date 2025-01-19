@@ -25,7 +25,7 @@ export default function HomePage() {
           ) : agents && agents.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {agents.map((agent: AgentConfig) => {
-                console.log('Rendering agent:', agent.id);
+              
                 return (
                   <AgentCard
                     key={agent.id}
