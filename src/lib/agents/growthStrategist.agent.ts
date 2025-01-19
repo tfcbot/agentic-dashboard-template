@@ -2,7 +2,7 @@ import type { AgentConfig, OrderFormData, RequestGrowthStrategyInput } from '@/s
 import { agentService } from '@/services/agentService';
 
 export const growthStrategistAgent: AgentConfig = {
-    id: 'growth-strategist',
+    id: '3f8e2b9a-6d1c-4f5e-9c7d-8b2a4e3d1f0c',
     name: 'Growth Strategist',
     title: 'SaaS Growth Expert',
     description: 'An expert in SaaS growth strategy and optimization',
@@ -57,39 +57,53 @@ export const growthStrategistAgent: AgentConfig = {
         sections: [
             
             {
-                id: 'distribution-channels',
-                label: 'Distribution Channels',
-                type: 'list',
-                description: 'Recommended channels for customer acquisition',
+                id: 'applicationIdea',
+                label: 'Application Idea',
+                type: 'text',
+                description: 'Description of the application idea',
                 order: 1
             },
             {
-                id: 'customer-journey',
-                label: 'Customer Journey',
+                id: 'idealCustomer',
+                label: 'Ideal Customer', 
                 type: 'text',
-                description: 'Detailed customer journey optimization plan',
+                description: 'Description of the ideal customer',
                 order: 2
             },
             {
-                id: 'first-10-customers',
-                label: 'Your First 10 Customers',
-                type: 'text',
-                description: 'Strategy for acquiring early customers',
+                id: 'distributionChannels',
+                label: 'Distribution Channels',
+                type: 'list',
+                description: 'Recommended channels for customer acquisition',
                 order: 3
             },
             {
-                id: 'first-100-customers',
-                label: 'Your First 100 Customers',
-                type: 'text',
-                description: 'Scaling strategy for growth phase',
+                id: 'customerJourney',
+                label: 'Customer Journey',
+                type: 'text', 
+                description: 'Detailed customer journey optimization plan',
                 order: 4
             },
             {
-                id: 'growth-strategies',
+                id: 'firstTenCustomers',
+                label: 'First Ten Customers',
+                type: 'text',
+                description: 'Strategy for acquiring early customers',
+                order: 5
+            },
+            {
+                id: 'firstHundredCustomers', 
+                label: 'First Hundred Customers',
+                type: 'text',
+                description: 'Scaling strategy for growth phase',
+                order: 6
+            },
+            {
+                id: 'growthStrategies',
                 label: 'Growth Strategies',
                 type: 'text',
                 description: 'Key strategies for growth',
-                order: 5
+                order: 7
             }
         ],
         availableFormats: ['pdf', 'markdown'],

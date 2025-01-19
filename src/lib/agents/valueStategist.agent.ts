@@ -78,82 +78,89 @@ export const valueStrategistAgent: AgentConfig = {
     deliverable: {
         sections: [
             {
-                id: 'ideal-customer',
-                label: 'Ideal Customer/Client',
+                id: 'applicationIdea',
+                label: 'Application Idea',
                 type: 'text',
-                description: 'Description of your target customer profile',
+                description: 'Description of the application idea',
                 order: 1
             },
             {
-                id: 'problem',
-                label: 'Problem', 
-                type: 'text',
-                description: 'The core problem being solved',
+                id: 'idealCustomer',
+                label: 'Ideal Customer',
+                type: 'text', 
+                description: 'Description of the ideal customer',
                 order: 2
             },
             {
-                id: 'value-proposition',
-                label: 'Value Proposition',
+                id: 'problem',
+                label: 'Problem',
                 type: 'text',
-                description: 'Your core value proposition statement',
+                description: 'The core problem being solved',
                 order: 3
             },
             {
-                id: 'profit-proposition',
-                label: 'Profit Proposition Statement',
+                id: 'valueProposition',
+                label: 'Value Proposition',
                 type: 'text',
-                description: 'How your solution generates profit',
+                description: 'Your core value proposition statement',
                 order: 4
             },
             {
-                id: 'people-proposition',
-                label: 'People Proposition Statement',
+                id: 'profitProposition',
+                label: 'Profit Proposition',
                 type: 'text',
-                description: 'How your solution benefits people',
+                description: 'How your solution generates profit',
                 order: 5
             },
             {
-                id: 'core-benefit',
-                label: 'Core Benefit',
+                id: 'peopleProposition',
+                label: 'People Proposition',
                 type: 'text',
-                description: 'The primary benefit users get',
+                description: 'How your solution benefits people',
                 order: 6
             },
             {
-                id: 'core-feature',
-                label: 'Core Feature',
+                id: 'coreBenefit',
+                label: 'Core Benefit',
                 type: 'text',
-                description: 'The main feature that delivers value',
+                description: 'The primary benefit users get',
                 order: 7
             },
             {
-                id: 'solution-overview',
-                label: 'Solution Overview',
+                id: 'coreFeature',
+                label: 'Core Feature',
                 type: 'text',
-                description: 'Overview of how your solution works',
+                description: 'The main feature that delivers value',
                 order: 8
             },
             {
-                id: 'benefit-breakdown',
-                label: 'Benefit Breakdown',
-                type: 'list',
-                description: 'List of key benefits',
+                id: 'solutionOverview',
+                label: 'Solution Overview',
+                type: 'text',
+                description: 'Overview of how your solution works',
                 order: 9
             },
             {
-                id: 'first-order',
-                label: 'First Order Consequence',
-                type: 'text',
-                description: 'Immediate impact of using your solution',
+                id: 'benefitBreakdown',
+                label: 'Benefit Breakdown',
+                type: 'list',
+                description: 'List of key benefits',
                 order: 10
             },
             {
-                id: 'second-order',
+                id: 'firstOrderConsequence',
+                label: 'First Order Consequence',
+                type: 'text',
+                description: 'Immediate impact of using your solution',
+                order: 11
+            },
+            {
+                id: 'secondOrderConsequence',
                 label: 'Second Order Consequence',
                 type: 'text',
                 description: 'Long-term impact of using your solution',
-                order: 11
-            },
+                order: 12
+            }
         ],
         availableFormats: ['pdf', 'markdown']
     },

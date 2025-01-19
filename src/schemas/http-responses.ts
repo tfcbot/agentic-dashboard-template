@@ -31,6 +31,7 @@ export const DeliverableResponseBodySchema = z.object({
   deliverableId: z.string(),
   deliverableName: z.string(),
   deliverableContent: DeliverableContentSchema, 
+  agentId: z.string(),
 });
 
 export const GetOrdersResponseBodySchema = z.object({

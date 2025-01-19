@@ -52,7 +52,6 @@ export const OrderFormDataSchema = z.object({
   payload: z.object({
     formData: z.object({})
   }),
-  agentId: z.string()
 });
 
 export const OrderFormStatusSchema = z.enum(['idle', 'submitting', 'success', 'error']);
@@ -138,6 +137,7 @@ export const PayloadSchema = z.object({
 
 export const RequestTechStrategyInputSchema = z.object({
   deliverableName: z.string(),
+  agentId: z.string(),
   useCases: z.string(),
   nonFunctional: z.string(),
 });
@@ -145,6 +145,7 @@ export const RequestTechStrategyInputSchema = z.object({
 
 export const RequestValueStrategyInputSchema = z.object({
   deliverableName: z.string(),
+  agentId: z.string(),
   applicationIdea: z.string(),
   idealCustomer: z.string(),
   problem: z.string(),
@@ -153,6 +154,7 @@ export const RequestValueStrategyInputSchema = z.object({
 
 export const RequestGrowthStrategyInputSchema = z.object({
   deliverableName: z.string(),
+  agentId: z.string(),
   applicationIdea: z.string(),
   idealCustomer: z.string(),
   targetAnnualRevenue: z.number()

@@ -54,51 +54,51 @@ export const techStrategistAgent: AgentConfig = {
     deliverable: {
         sections: [
             {
-                id: 'use-cases',
-                label: 'Defining Use Cases',
+                id: 'useCases',
+                label: 'Use Cases',
                 type: 'list',
                 description: 'Key use cases and user stories for the MVP',
                 order: 1
             },
             {
-                id: 'non-functional',
-                label: 'Non Functional Requirements', 
-                type: 'list',
+                id: 'nonFunctional',
+                label: 'Non Functional Requirements',
+                type: 'list', 
                 description: 'Performance, security, and scalability requirements',
                 order: 2
             },
             {
-                id: 'domain-model',
-                label: 'Domain Model',
-                type: 'diagram',
-                description: 'Core domain entities and their relationships',
-                order: 3
-            },
-            {
-                id: 'data-model',
+                id: 'dataModel',
                 label: 'Data Model',
                 type: 'diagram',
                 description: 'Database schema and data relationships',
+                order: 3
+            },
+            {
+                id: 'domainModel',
+                label: 'Domain Model',
+                type: 'diagram',
+                description: 'Core domain entities and their relationships',
                 order: 4
             },
             {
-                id: 'api-design',
-                label: 'API Design',
-                type: 'text',
-                description: 'API endpoints and integration points',
-                order: 5
-            },
-            {
-                id: 'services-design',
+                id: 'servicesDesign',
                 label: 'Services Design',
                 type: 'diagram',
                 description: 'Microservices architecture and communication',
+                order: 5
+            },
+            {
+                id: 'apiDesign',
+                label: 'API Design',
+                type: 'list',
+                description: 'API endpoints and integration points',
                 order: 6
             },
             {
                 id: 'deployment',
                 label: 'Deployment Strategy',
-                type: 'text',
+                type: 'list',
                 description: 'Infrastructure and deployment recommendations',
                 order: 7
             }

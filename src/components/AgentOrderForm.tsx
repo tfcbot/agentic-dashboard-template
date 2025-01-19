@@ -57,7 +57,6 @@ export function AgentOrderForm({ agentId }: AgentOrderFormProps) {
   const fieldConfigs = generateFieldConfigs(agent);
 
   const handleSubmit = async (data: z.infer<typeof schema>) => {
-    console.log("Handling submission for agent:", agentId);
     const token = await getToken();
     if (!token) {
       throw new Error('No token available');
@@ -69,9 +68,11 @@ export function AgentOrderForm({ agentId }: AgentOrderFormProps) {
     console.log("Agent submission handler:", agentId);
     const result = await handler(token, {
       payload: {
-        formData: data
+        formData:{
+          ...data,
+          agentId: agentId
+        }
       },
-      agentId,
     });
     return result.success
   };

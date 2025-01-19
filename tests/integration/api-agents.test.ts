@@ -1,6 +1,7 @@
 import { ApiService } from '@/services/api';
 import { RequestValueStrategyInput, RequestGrowthStrategyInput, RequestTechStrategyInput } from '@/schemas/agent';
 import { GetDeliverableResponseBody, GetOrdersResponseBody, OrderResponseBody } from '@/schemas/http-responses';
+import { randomUUID } from 'crypto';
 
 describe('Agent API Integration Tests', () => {
   let apiService: ApiService;
@@ -48,7 +49,8 @@ describe('Agent API Integration Tests', () => {
   describe('Strategy Services', () => {
     test('should request value strategy', async () => {
       const request: RequestValueStrategyInput = {
-        deliverableName: 'Deliverable 1',
+        deliverableName: `Value Strategy ${randomUUID()}`,
+        agentId: '9d3f7a1e-5b2c-4e8d-a6f9-2c4b8d3e1a5f',
         applicationIdea: 'A new SaaS platform for integration testing',
         idealCustomer: 'Software development teams',
         problem: 'Manual testing is time-consuming and error-prone',
@@ -65,7 +67,8 @@ describe('Agent API Integration Tests', () => {
 
     test('should request growth strategy', async () => {
       const request: RequestGrowthStrategyInput = {
-        deliverableName: 'Deliverable 1',
+        deliverableName: `Growth Strategy ${randomUUID()}`,
+        agentId: '3f8e2b9a-6d1c-4f5e-9c7d-8b2a4e3d1f0c',
         applicationIdea: 'A new SaaS platform for integration testing',
         idealCustomer: 'Software development teams',
         targetAnnualRevenue: 1000000
@@ -81,7 +84,8 @@ describe('Agent API Integration Tests', () => {
 
     test('should request tech strategy', async () => {
       const request: RequestTechStrategyInput = {
-        deliverableName: 'Deliverable 1',
+        deliverableName: `Tech Strategy ${randomUUID()}`,
+        agentId: '7b9e4c1d-8f2a-4e8b-b3c5-9d6a2e1f8b4a',
         useCases: 'User authentication, data storage, real-time updates',
         nonFunctional: 'High availability, scalability, security'
       };

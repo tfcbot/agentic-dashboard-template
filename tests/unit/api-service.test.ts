@@ -69,6 +69,7 @@ describe('API Service Tests', () => {
       const mockDeliverable: GetDeliverableResponseBody = { 
         data: { 
           deliverableId: 'deliverable-1',
+          agentId: 'agent-1',
           deliverableName: 'Deliverable 1',
           deliverableContent: {
             sections: {
@@ -76,6 +77,7 @@ describe('API Service Tests', () => {
                 type: 'text',
                 id: 'section-1',
                 label: 'Section 1',
+                order: 1,
                 data: 'Test deliverable content'
               }
             }
@@ -102,6 +104,7 @@ describe('API Service Tests', () => {
     test('requestValueStrategist should make correct API call', async () => {
       const mockBody: RequestValueStrategyInput = {
         deliverableName: 'Deliverable 1',
+        agentId: 'agent-1',
         applicationIdea: 'test application idea',
         idealCustomer: 'test customer',
         problem: 'test problem',
@@ -135,6 +138,7 @@ describe('API Service Tests', () => {
     test('requestGrowthStrategy should make correct API call', async () => {
       const mockBody: RequestGrowthStrategyInput = {
         deliverableName: 'Deliverable 1',
+        agentId: 'agent-1',
         applicationIdea: 'test application idea',
         idealCustomer: 'test customer',
         targetAnnualRevenue: 1000000
@@ -167,6 +171,7 @@ describe('API Service Tests', () => {
     test('requestTechStrategy should make correct API call', async () => {
       const mockBody: RequestTechStrategyInput = {
         deliverableName: 'Deliverable 1',
+        agentId: 'agent-1',
         useCases: 'test use cases',
         nonFunctional: 'test non functional requirements'
       };

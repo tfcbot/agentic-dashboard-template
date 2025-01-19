@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { generateMarkdown, downloadFile } from '@/lib/fileGenerators';
 import { DeliverableSections } from './deliverable/sections';
+import { getAgent } from '@/lib/agents';
 import type { DeliverableData, DeliverableSection } from '@/schemas/deliverable';
 
 interface DeliverableProps {
@@ -26,14 +27,28 @@ export function Deliverable({ deliverable }: DeliverableProps) {
       setIsDownloading(false);
     }
   };
+
+  // Get the agent configuration to determine section order
+  const agent = getAgent(deliverable.agentId);
+  console.log('Agent ID:', deliverable.agentId);
+  console.log('Agent:', agent);
+  console.log('Deliverable:', deliverable);
+  
+  if (!agent) {
+    console.error('Agent configuration not found for ID:', deliverable.agentId);
+    return null;
+  }
+
+  // Create a map of sections for easier lookup
+  const sectionsMap = deliverable.deliverableContent.sections;
+  console.log('Sections Map:', sectionsMap);
+  console.log('Agent Sections Config:', agent.deliverable.sections);
+
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold text-white">{deliverable.deliverableName}</h2>
-        <Button
-          onClick={handleDownload}
-          disabled={isDownloading}
-        >
+        <Button onClick={handleDownload} disabled={isDownloading}>
           {isDownloading ? 'Downloading...' : 'Download as Markdown'}
         </Button>
       </div>
@@ -43,15 +58,22 @@ export function Deliverable({ deliverable }: DeliverableProps) {
           <p className="text-gray-300">{deliverable.deliverableName}</p>
         </div>
 
-        {Object.values(deliverable.deliverableContent.sections).map((section: DeliverableSection & { type: keyof typeof DeliverableSections }) => {
-          const SectionComponent = DeliverableSections[section.type];
+        {agent.deliverable.sections.map((sectionConfig) => {
+          console.log('Processing section config:', sectionConfig);
+          const section = sectionsMap[sectionConfig.id];
+          console.log('Found section:', section);
+          if (!section) return null;
+
+          const SectionComponent = DeliverableSections[section.type as keyof typeof DeliverableSections];
+          console.log('Section Component:', SectionComponent);
           const sectionData = section.data;
+          console.log('Section Data:', sectionData);
 
           if (!SectionComponent || !sectionData) return null;
 
           return (
             <SectionComponent
-              key={section.id}
+              key={sectionConfig.id}
               data={sectionData}
               config={section}
             />

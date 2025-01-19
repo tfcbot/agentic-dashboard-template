@@ -30,6 +30,7 @@ export const DeliverableContentSchema = z.object({
 export const DeliverableDataSchema = z.object({
   deliverableName: z.string(),
   deliverableId: z.string(),
+  agentId: z.string(),
   deliverableContent: DeliverableContentSchema,
 });
 
