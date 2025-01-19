@@ -4,17 +4,14 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { generateMarkdown, downloadFile } from '@/lib/fileGenerators';
 import { DeliverableSections } from './deliverable/sections';
-import { VideoRoastModal } from './VideoRoastModal';
 import type { DeliverableData, DeliverableSection } from '@/schemas/deliverable';
 
 interface DeliverableProps {
   deliverable: DeliverableData;
-  onRequestReview?: () => void;
 }
 
-export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) {
+export function Deliverable({ deliverable }: DeliverableProps) {
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isRoastModalOpen, setIsRoastModalOpen] = useState(false);
 
   const handleDownload = async () => {
     try {
@@ -30,31 +27,16 @@ export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) 
     }
   };
 
-  const handleRoastOptionSelect = (option: any) => {
-    setIsRoastModalOpen(false);
-    if (onRequestReview) {
-      onRequestReview();
-    }
-  };
-
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold text-white">{deliverable.deliverableContent.deliverableName}</h2>
-        <div className="flex gap-4">
-          <Button
-            variant="outline"
-            onClick={() => setIsRoastModalOpen(true)}
-          >
-            Request Video Roast
-          </Button>
-          <Button
-            onClick={handleDownload}
-            disabled={isDownloading}
-          >
-            {isDownloading ? 'Downloading...' : 'Download as Markdown'}
-          </Button>
-        </div>
+        <Button
+          onClick={handleDownload}
+          disabled={isDownloading}
+        >
+          {isDownloading ? 'Downloading...' : 'Download as Markdown'}
+        </Button>
       </div>
 
       <div className="prose prose-invert max-w-none">
@@ -78,12 +60,6 @@ export function Deliverable({ deliverable, onRequestReview }: DeliverableProps) 
           );
         })}
       </div>
-
-      <VideoRoastModal
-        isOpen={isRoastModalOpen}
-        onClose={() => setIsRoastModalOpen(false)}
-        onSelect={handleRoastOptionSelect}
-      />
     </div>
   );
 } 

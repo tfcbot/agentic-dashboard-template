@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Deliverable } from '@/components/Deliverable';
@@ -16,10 +15,6 @@ interface DeliverablePageProps {
 
 export default function DeliverablePage({ params }: DeliverablePageProps) {
   const { data: deliverable, isLoading, error } = useGetDeliverable(params.id);
-
-  const handleRequestReview = () => {
-    alert('Expert review requested! We will contact you shortly.');
-  };
 
   return (
     <div className="p-4 lg:p-8">
@@ -52,7 +47,6 @@ export default function DeliverablePage({ params }: DeliverablePageProps) {
       ) : deliverable ? (
         <Deliverable
           deliverable={deliverable.data}
-          onRequestReview={handleRequestReview}
         />
       ) : (
         <div className="text-center text-gray-500">
