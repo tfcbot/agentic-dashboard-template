@@ -23,6 +23,8 @@ export const OrderResponseBodySchema = z.object({
   orderId: z.string(),
   orderStatus: z.string(),
   orderCreatedAt: z.string(),
+  agentName: z.string(),
+  deliverableName: z.string(),
 });
 
 export const DeliverableResponseBodySchema = z.object({

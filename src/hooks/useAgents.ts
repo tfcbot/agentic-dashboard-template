@@ -1,7 +1,5 @@
-
 import { useQuery } from '@tanstack/react-query';
-import { agentService, AgentService } from '@/services/agentService';
-import { useAuth } from '@clerk/nextjs';
+import { agentService } from '@/services/agentService';
 
 
 export function useAgents() {

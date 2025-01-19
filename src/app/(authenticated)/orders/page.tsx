@@ -7,13 +7,8 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { useGetOrders } from '@/hooks/useApi';
+import { OrderResponseBody } from '@/schemas/http-responses';
 
-interface Order {
-  orderId: string;
-  orderStatus: string;
-  orderCreatedAt: string;
-  // Add other fields if they exist in your API response
-}
 
 export default function OrdersPage() {
   const router = useRouter();
@@ -54,16 +49,18 @@ export default function OrdersPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-gray-700">
-                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">ID</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Deliverable Name</th>
+                    <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Agent</th>
                     <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Status</th>
                     <th className="py-3 px-4 text-left text-sm font-medium text-gray-400">Created</th>
                     <th className="py-3 px-4 text-right text-sm font-medium text-gray-400">Deliverable</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.data.map((order: Order) => (
+                  {orders.data.map((order: OrderResponseBody) => (
                     <tr key={order.orderId} className="border-t border-gray-800">
-                      <td className="py-3 px-4 text-gray-300">{order.orderId}</td>
+                      <td className="py-3 px-4 text-gray-300">{order.deliverableName}</td>
+                      <td className="py-3 px-4 text-gray-300">{order.agentName}</td>
                       <td className="py-3 px-4">
                         <span className={`inline-block px-2 py-1 rounded text-xs font-medium capitalize ${getStatusColor(order.orderStatus)}`}>
                           {order.orderStatus.replace('_', ' ')}
