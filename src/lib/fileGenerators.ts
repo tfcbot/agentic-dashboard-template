@@ -34,7 +34,7 @@ const renderMarkdownSection = (section: DeliverableSection, data: any): string =
 };
 
 export const generateMarkdown = (data: DeliverableData): string => {
-  let markdown = `# ${data.deliverableTitle}\n\n`;
+  let markdown = `# ${data.deliverableName}\n\n`;
 
   Object.values(data.deliverableContent.sections).forEach(section => {
     markdown += renderMarkdownSection(section, section.data);
