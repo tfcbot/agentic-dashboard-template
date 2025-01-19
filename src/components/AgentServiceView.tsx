@@ -15,18 +15,82 @@ export function AgentServiceView({ agentId }: AgentServiceViewProps) {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-700 rounded w-1/4 mb-8"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
-              <div className="h-8 bg-gray-700 rounded w-3/4 mb-4"></div>
-              <div className="h-4 bg-gray-700 rounded w-1/4 mb-6"></div>
-              <div className="space-y-4">
-                <div className="h-20 bg-gray-700 rounded"></div>
-                <div className="h-20 bg-gray-700 rounded"></div>
+        {/* Back Button Skeleton */}
+        <div className="flex items-center text-gray-400 mb-8">
+          <div className="w-5 h-5 bg-gray-700 rounded mr-2 animate-pulse"></div>
+          <div className="w-24 h-4 bg-gray-700 rounded animate-pulse"></div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column */}
+          <div className="space-y-8">
+            {/* Title and Rating */}
+            <div className="flex items-center gap-4">
+              <div className="h-8 bg-gray-700 rounded w-3/4 animate-pulse"></div>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="w-4 h-4 bg-gray-700 rounded animate-pulse"></div>
+                ))}
               </div>
             </div>
-            <div className="h-96 bg-gray-700 rounded"></div>
+
+            {/* Description */}
+            <div className="space-y-3">
+              <div className="h-4 bg-gray-700 rounded w-full animate-pulse"></div>
+              <div className="h-4 bg-gray-700 rounded w-5/6 animate-pulse"></div>
+              <div className="h-4 bg-gray-700 rounded w-4/6 animate-pulse"></div>
+            </div>
+
+            {/* Key Deliverables */}
+            <div className="bg-gray-800 rounded-lg p-6">
+              <div className="h-6 bg-gray-700 rounded w-1/4 mb-4 animate-pulse"></div>
+              <div className="space-y-3">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                    <div className="h-4 bg-gray-700 rounded w-5/6 animate-pulse"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* FAQ Section */}
+            <div className="space-y-6">
+              <div className="h-6 bg-gray-700 rounded w-2/5 mb-4 animate-pulse"></div>
+              {[...Array(2)].map((_, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="h-5 bg-gray-700 rounded w-3/4 animate-pulse"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-700 rounded w-full animate-pulse"></div>
+                    <div className="h-4 bg-gray-700 rounded w-5/6 animate-pulse"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Package Details */}
+          <div>
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+              {/* Price */}
+              <div className="flex justify-end items-baseline gap-2 mb-6">
+                <div className="h-8 bg-gray-700 rounded w-16 animate-pulse"></div>
+                <div className="h-4 bg-gray-700 rounded w-12 animate-pulse"></div>
+              </div>
+
+              {/* Estimated Delivery */}
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-5 h-5 bg-gray-700 rounded animate-pulse"></div>
+                <div className="h-4 bg-gray-700 rounded w-48 animate-pulse"></div>
+              </div>
+
+              {/* Package Features */}
+              <div className="space-y-4">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="h-4 bg-gray-700 rounded w-full animate-pulse"></div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
