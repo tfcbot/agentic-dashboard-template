@@ -97,6 +97,7 @@ export default function OrdersPage() {
                       <td className="py-3 px-2 text-right">
                         <Button
                           onClick={() => handleViewDeliverable(order.orderId)}
+                          disabled={order.orderStatus === 'pending'}
                           className="bg-purple-600 hover:bg-purple-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           View
