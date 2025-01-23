@@ -113,7 +113,7 @@ const Sidebar = () => {
             {(
               <>
                 <button
-                  className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700
+                  className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700
                            transition-colors disabled:opacity-50"
                   onClick={handleUpgrade}
                   disabled={isPurchasing}
