@@ -20,8 +20,6 @@ const API_CONFIG = {
   }
 };
 
-import { getMockWebsiteReview } from '@/lib/mockData';
-import { AgentService } from './agentService';
 import { GetDeliverableResponseBody, GetOrdersResponseBody, OrderResponseBody } from '@/schemas/http-responses';
 
 // Typed endpoints that take token as first paramete
