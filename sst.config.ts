@@ -77,7 +77,7 @@ export default $config({
               };
             case "main":
               return {
-                stage: "production",
+                stage: "prod",
                 runner: { engine: "codebuild", compute: "large" }
               };
             default:
