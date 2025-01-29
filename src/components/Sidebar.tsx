@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { dark } from '@clerk/themes';
 import React, { Suspense } from 'react';
 import { usePathname } from 'next/navigation';
-import { usePurchaseCredits } from '@/app/hooks/useApi';
+import { usePurchaseCredits } from '@/hooks/useBilling';
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { useAuth, UserButton, useUser } from '@clerk/nextjs';
 import { loadStripe } from '@stripe/stripe-js';
-import { useSidebarContext } from '@/app/context/SidebarContext'
+import { useSidebarContext } from '@/context/SidebarContext';
 
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
@@ -25,9 +25,11 @@ const Sidebar = () => {
       if (!token) {
         throw new Error('No token available');
       }
+    
       const sessionId = await getSessionId(token);
 
       if (!stripeKey) {
+        
         throw new Error('No Stripe key available');
       }
       const stripe = await loadStripe(stripeKey);
@@ -90,12 +92,12 @@ const Sidebar = () => {
           {isCollapsed ? '🤖' : 'Agents'}
         </Link>
         <Link
-          href="/settings"
+          href="/orders"
           className={`block py-2 px-4 mx-2 rounded transition-colors ${
-            pathname === '/settings' ? 'bg-gray-700' : 'hover:bg-gray-700'
+            pathname === '/orders' ? 'bg-gray-700' : 'hover:bg-gray-700'
           }`}
         >
-          {isCollapsed ? '⚙️' : 'Settings'}
+          {isCollapsed ? '📋' : 'Orders'}
         </Link>
       </nav>
 
@@ -108,10 +110,10 @@ const Sidebar = () => {
 
         {!isCollapsed && user && (
           <div className="p-4 border-t border-gray-700">
-            {!user.publicMetadata.keyId && (
+            {(
               <>
                 <button
-                  className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700
+                  className="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700
                            transition-colors disabled:opacity-50"
                   onClick={handleUpgrade}
                   disabled={isPurchasing}

@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "@/components/Sidebar";
-import { SidebarProvider } from "@/app/context/SidebarContext";
+import { SidebarProvider } from "@/context/SidebarContext";
 
 export default function AuthenticatedLayout({
   children,

@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ClerkProvider>
+      <ClerkProvider waitlistUrl="/waitlist">
         <body className={`${inter.className} bg-gray-900`}>
           <Providers>
             {children}

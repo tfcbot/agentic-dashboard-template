@@ -3,37 +3,11 @@
 import React from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth } from '@clerk/nextjs';
-import { getCheckoutSessionId } from '@/lib/api';
-import { mockApiResponses } from '@/lib/mockData';
+import { billingService } from '@/services/billingService';
+import { apiService } from '@/services/api';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
-const USE_MOCK_DATA = true; // Toggle this to switch between mock and real data
 
-export function useUserCreditsRemaining() {
-  const { getToken } = useAuth();
-
-  return useQuery({
-    queryKey: ['userCreditsRemaining'],
-    queryFn: async () => {
-      if (USE_MOCK_DATA) {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        return mockApiResponses.userCreditsRemaining;
-      }
-
-      const token = await getToken();
-      const response = await fetch(`${API_URL}/credits/remaining`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    },
-  });
-}
 
 // Add more API hooks here as needed
 export function useUpdateUser() {
@@ -66,7 +40,7 @@ export function usePurchaseCredits() {
       setIsLoading(true);
       setError(null);
       try {
-        const sessionId = await getCheckoutSessionId(token);
+        const sessionId = await billingService.getCheckoutSessionId(token);
   
         if (!sessionId) {
           throw new Error('Failed to create checkout session');
@@ -85,3 +59,32 @@ export function usePurchaseCredits() {
   }
   
 
+export function useGetOrders() {
+  const { getToken } = useAuth();
+
+  return useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const token = await getToken();
+      if (!token) {
+        throw new Error('No token found');
+      }
+      return apiService.getOrders(token);
+    },
+  });
+}
+
+
+export function useGetDeliverable(orderId: string) {
+  const { getToken } = useAuth();
+  return useQuery({
+    queryKey: ['deliverable', orderId],
+    queryFn: async () => {
+      const token = await getToken();
+      if (!token) {
+        throw new Error('No token found');
+      }
+      return apiService.getDeliverable(token, orderId);
+    },
+  });
+}

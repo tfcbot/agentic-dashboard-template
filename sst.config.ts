@@ -22,7 +22,7 @@ export default $config({
     const clerkSecretKey = new sst.Secret("clerkSecretKey");
     const stripePublishableKey = new sst.Secret("stripePublishableKey");
     const subscriptionManagementUrl = new sst.Secret("subscriptionManagementUrl");
-
+    
     const baseDomain = process.env.BASE_DOMAIN;
     if (!baseDomain) {
       throw new Error("BASE_DOMAIN environment variable is required");
