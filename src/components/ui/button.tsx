@@ -1,3 +1,5 @@
+'use client';
+
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -20,4 +22,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       />
     );
   }
-); 
+);
+
+Button.displayName = 'Button'; 
