@@ -27,11 +27,11 @@ export default $config({
     if (!baseDomain) {
       throw new Error("BASE_DOMAIN environment variable is required");
     }
-    const domainName = $app.stage === "production"
+    const domainName = $app.stage === "prod"
       ? `app.${baseDomain}`
       : `${$app.stage}-app.${baseDomain}`;
    
-    const apiDomainName = $app.stage === "production"
+    const apiDomainName = $app.stage === "prod"
       ? `api.${baseDomain}`
       : `${$app.stage}-api.${baseDomain}`;
 
