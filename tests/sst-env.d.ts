@@ -2,37 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /* deno-fmt-ignore-file */
+
+/// <reference path="../sst-env.d.ts" />
+
 import "sst"
 export {}
-declare module "sst" {
-  export interface Resource {
-    "MyWeb": {
-      "type": "sst.aws.Nextjs"
-      "url": string
-    }
-    "clerkPublishableKey": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "clerkSecretKey": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "clerkSignInUrl": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "clerkSignUpUrl": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "stripePublishableKey": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-    "subscriptionManagementUrl": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
-  }
-}
