@@ -59,6 +59,9 @@ export default $config({
         NEXT_SUBSCRIPTION_MANAGEMENT_URL: subscriptionManagementUrl.value,
       },
     });
+    return {
+      webUrl: web.url
+    }
   },
   console: {
     autodeploy: {
