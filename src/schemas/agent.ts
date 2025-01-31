@@ -160,7 +160,12 @@ export const RequestGrowthStrategyInputSchema = z.object({
   targetAnnualRevenue: z.number()
 });
 
-
+export const RequestEmailSequenceInputSchema = z.object({
+  deliverableName: z.string(),
+  agentId: z.string(),
+  idealCustomerProfile: z.string(),
+  emailSequenceType: z.enum(['Welcome Sequence', 'Sales Sequence', 'Onboarding Sequence', 'Engagement Sequence']),
+});
 
 // Export types
 export type FAQ = z.infer<typeof FAQSchema>;
@@ -174,3 +179,4 @@ export type Payload = z.infer<typeof PayloadSchema>;
 export type RequestGrowthStrategyInput = z.infer<typeof RequestGrowthStrategyInputSchema>;
 export type RequestTechStrategyInput = z.infer<typeof RequestTechStrategyInputSchema>;
 export type RequestValueStrategyInput = z.infer<typeof RequestValueStrategyInputSchema>;
+export type RequestEmailSequenceInput = z.infer<typeof RequestEmailSequenceInputSchema>;

@@ -3,7 +3,8 @@ import type {
   GetAllAgentsResponse,
   RequestGrowthStrategyInput,
   RequestTechStrategyInput,
-  RequestValueStrategyInput
+  RequestValueStrategyInput,
+  RequestEmailSequenceInput
 } from '@/schemas';
 import { apiService } from './api';
 import { getAgent, getAllAgents } from '@/lib/agents';
@@ -16,6 +17,7 @@ export interface IAgentService {
   handleValueStrategyRequest(token: string, data: RequestValueStrategyInput): Promise<OrderResponseBody>;
   handleGrowthStrategyRequest(token: string, data: RequestGrowthStrategyInput): Promise<OrderResponseBody>;
   handleTechStrategyRequest(token: string, data: RequestTechStrategyInput): Promise<OrderResponseBody>;
+  handleEmailSequenceRequest(token: string, data: RequestEmailSequenceInput): Promise<OrderResponseBody>;
 }
 
 export class AgentService implements IAgentService {
@@ -40,6 +42,9 @@ export class AgentService implements IAgentService {
   }
   async handleTechStrategyRequest(token: string, data: RequestTechStrategyInput): Promise<OrderResponseBody> {
     return apiService.requestTechStrategy(token, data);
+  }
+  async handleEmailSequenceRequest(token: string, data: RequestEmailSequenceInput): Promise<OrderResponseBody> {
+    return apiService.requestEmailSequence(token, data);
   }
 };
 

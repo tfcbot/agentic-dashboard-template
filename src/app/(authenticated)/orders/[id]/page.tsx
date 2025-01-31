@@ -13,7 +13,7 @@ interface DeliverablePageProps {
 
 export default function DeliverablePage({ params }: DeliverablePageProps) {
   const { data: deliverable, isLoading, error } = useGetDeliverable(params.id);
-
+  console.log(deliverable);
   return (
     <div className="p-4 lg:p-8">
       {/* Back Button */}
