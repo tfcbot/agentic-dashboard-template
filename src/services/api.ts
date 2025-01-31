@@ -11,7 +11,7 @@ import type {
   RequestVoiceRepurposeResponseBody,
 } from '@/schemas/api';
 
-import { AgentConfig, GetAllAgentsResponse, RequestValueStrategyInput, RequestGrowthStrategyInput, RequestTechStrategyInput } from '@/schemas/agent';
+import { AgentConfig, GetAllAgentsResponse, RequestValueStrategyInput, RequestGrowthStrategyInput, RequestTechStrategyInput, RequestEmailSequenceInput } from '@/schemas/agent';
 const API_CONFIG = {
   baseUrl: process.env.NEXT_API_URL,
   version: '/v1',
@@ -38,6 +38,7 @@ export interface IApiService {
   requestGrowthStrategy(token: string, body: RequestGrowthStrategyInput): Promise<OrderResponseBody>;
   requestTechStrategy(token: string, body: RequestTechStrategyInput): Promise<OrderResponseBody>;
   requestValueStrategy(token: string, body: RequestValueStrategyInput): Promise<OrderResponseBody>;
+  requestEmailSequence(token: string, body: RequestEmailSequenceInput): Promise<OrderResponseBody>;
 }
 
 
@@ -175,6 +176,16 @@ export class ApiService implements IApiService {
 
   async requestTechStrategy(token: string, body: RequestTechStrategyInput): Promise<OrderResponseBody> {
     const absoluteUrl = this.getAbsoluteUrl('/tech-strategy');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    return response.json() as Promise<OrderResponseBody>;
+  }
+
+  async requestEmailSequence(token: string, body: RequestEmailSequenceInput): Promise<OrderResponseBody> {
+    const absoluteUrl = this.getAbsoluteUrl('/email-sequence');
     const response = await fetch(absoluteUrl, {
       method: 'POST',
       headers: this.getHeaders(token),

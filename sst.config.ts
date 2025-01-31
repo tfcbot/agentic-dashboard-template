@@ -54,8 +54,6 @@ export default $config({
         NEXT_PUBLIC_CLERK_SIGN_UP_URL: clerkSignUpUrl.value,
         NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: clerkPublishableKey.value,
         NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: stripePublishableKey.value,
-        NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL: domainName,
-        NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL: domainName,
         CLERK_SECRET_KEY: clerkSecretKey.value,
         NEXT_API_URL: `https://${apiDomainName}/v1`,
         NEXT_SUBSCRIPTION_MANAGEMENT_URL: subscriptionManagementUrl.value,

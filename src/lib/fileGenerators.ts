@@ -28,6 +28,9 @@ const renderMarkdownSection = (section: DeliverableSection, data: any): string =
     case 'diagram':
       return `## ${section.label}\n\n\`\`\`mermaid\n${data}\n\`\`\`\n\n`;
     
+    case 'markdown':
+      return `## ${section.label}\n\n${data}\n\n`;
+    
     default:
       return '';
   }

@@ -3,6 +3,7 @@
 import { DeliverableSection } from '@/schemas/deliverable';
 import dynamic from 'next/dynamic';
 import Mermaid from '@/components/Mermaid';
+import Markdown from '@/components/Markdown';
 
 interface SectionProps {
   data: any;
@@ -125,6 +126,14 @@ function DiagramSection({ data, config }: SectionProps) {
   );
 }
 
+function MarkdownSection({ data, config }: SectionProps) {
+  return (
+    <SectionWrapper label={config.label} description={config.description}>
+      <Markdown content={data} />
+    </SectionWrapper>
+  );
+}
+
 export const DeliverableSections = {
   text: TextSection,
   list: ListSection,
@@ -132,4 +141,5 @@ export const DeliverableSections = {
   metrics: MetricsSection,
   recommendations: RecommendationsSection,
   diagram: DiagramSection,
+  markdown: MarkdownSection,
 }; 
