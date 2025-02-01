@@ -5,7 +5,6 @@ export default $config({
     return {
       name: "agentic-dashboard",
       removal: input?.stage === "prod" ? "retain" : "remove",
-      protect: ["prod"].includes(input?.stage),
       home: "aws",
       providers: {
         cloudflare: {
