@@ -5,6 +5,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { useAuth } from '@clerk/nextjs';
 import { billingService } from '@/services/billingService';
 import { apiService } from '@/services/api';
+import { OnboardingDTO } from '@/schemas/api';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
@@ -85,6 +86,17 @@ export function useGetDeliverable(orderId: string) {
         throw new Error('No token found');
       }
       return apiService.getDeliverable(token, orderId);
+    },
+  });
+}
+
+export function useUpdateUserOnboardingStatus() {
+  const { getToken } = useAuth();
+  return useMutation({
+    mutationFn: async (onboardingData: OnboardingDTO) => {
+      const token = await getToken();
+      if (!token) throw new Error('No token available');
+      return apiService.updateUserOnboardingStatus(token, onboardingData);
     },
   });
 }
