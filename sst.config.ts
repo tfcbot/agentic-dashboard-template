@@ -3,7 +3,7 @@
 export default $config({
   app(input) {
     return {
-      name: "mytubeteam-dashboard",
+      name: "agentic-dashboard-template",
       removal: input?.stage === "prod" ? "retain" : "remove",
       home: "aws",
       providers: {
