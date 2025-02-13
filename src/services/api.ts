@@ -9,6 +9,7 @@ import type {
   RequestResearchResponseBody,
   RequestResearchBody,
   RequestVoiceRepurposeResponseBody,
+  OnboardingDTO,
 } from '@/schemas/api';
 
 import { AgentConfig, GetAllAgentsResponse, RequestValueStrategyInput, RequestGrowthStrategyInput, RequestTechStrategyInput, RequestEmailSequenceInput } from '@/schemas/agent';
@@ -192,6 +193,16 @@ export class ApiService implements IApiService {
       body: JSON.stringify(body),
     });
     return response.json() as Promise<OrderResponseBody>;
+  }
+
+  async updateUserOnboardingStatus(token: string, body: OnboardingDTO): Promise<void> {
+    const absoluteUrl = this.getAbsoluteUrl('/onboard-user');
+    const response = await fetch(absoluteUrl, {
+      method: 'POST',
+      headers: this.getHeaders(token),
+      body: JSON.stringify(body),
+    });
+    return response.json()
   }
 }
 

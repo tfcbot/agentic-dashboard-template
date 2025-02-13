@@ -69,6 +69,11 @@ export const RequestVoiceRepurposeResponseBodySchema = z.object({
     voiceRepurposeId: z.string(),
 });
 
+export const OnboardingDTO = z.object({
+    onboardingComplete: z.boolean(),
+    onboardingDetails: z.any(),
+});
+
 export type RequestWebsiteReviewBody = z.infer<typeof RequestWebsiteReviewBodySchema>;
 export type RequestWebsiteReviewResponseBody = z.infer<typeof RequestWebsiteReviewResponseBodySchema>;
 export type RequestResearchBody = z.infer<typeof RequestResearchBodySchema>;
@@ -82,7 +87,7 @@ export type StripeCheckoutSession = z.infer<typeof StripeCheckoutSessionSchema>;
 export type StripeBillingPortalSession = z.infer<typeof StripeBillingPortalSessionSchema>;
 export type GetAgentResponse = z.infer<typeof GetAgentResponseSchema>;
 export type GetWebsiteReviewsResponseBody = z.infer<typeof GetWebsiteReviewsResponseBodySchema>;
-
+export type OnboardingDTO = z.infer<typeof OnboardingDTO>;
 
 
 
