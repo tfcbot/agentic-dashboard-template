@@ -129,4 +129,5 @@ dist
 .pnp.*
 .sst/
 .env.sst
-.specstory/
+!.env.template
+!.env.test.template
